@@ -1,2 +1,0 @@
-/*! gruntTest 2014-08-05 */
-define("pages/config/1.0.0/config-debug",[],function(){var a={};return a.regExp={idCard:/^\d{15}(\d{2}[A-Za-z0-9])?$/,email:/^([a-zA-Z0-9_.-]+)@([a-zA-Z0-9.-]+)\.([a-zA-Z.]{2,6})$/,zipcode:/^[0-9][0-9]{0,5}$/,mobile:/^(1[3,4,5,7,8][0-9]{9})$/,telephone:/^\d{3,4}-\d{7,8}$/},a}),define("pages/config/1.0.0/config",[],function(){var a={};return a.regExp={idCard:/^\d{15}(\d{2}[A-Za-z0-9])?$/,email:/^([a-zA-Z0-9_.-]+)@([a-zA-Z0-9.-]+)\.([a-zA-Z.]{2,6})$/,zipcode:/^[0-9][0-9]{0,5}$/,mobile:/^(1[3,4,5,7,8][0-9]{9})$/,telephone:/^\d{3,4}-\d{7,8}$/},a});

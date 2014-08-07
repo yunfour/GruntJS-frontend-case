@@ -1,2 +1,0 @@
-/*! gruntTest 2014-08-05 */
-!function(){var a=!0,b=seajs.resolve("../"),c=b+"js/",d=b+"src/js/";a&&(c=d),seajs.config({paths:{gallery:b+"gallery",css:b+"css",base:c+"base",components:c+"components",common:c+"common",pages:c+"pages"},alias:{"$-debug":"gallery/jquery/1.7.2/jquery.js",$:"gallery/jquery/1.7.2/jquery.js",jqery:"gallery/jquery/1.7.2/jquery.js","jqery-debug":"gallery/jquery/1.7.2/jquery.js"},plugins:["nocache","style"],preload:[],debuger:{}})}();
