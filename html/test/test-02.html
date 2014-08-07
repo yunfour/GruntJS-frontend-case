@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title></title>
+</head>
+<body>
+    
+<script type="text/javascript" charset="utf-8">
+var a = 1;
+
+(function() {
+    var a = 2;
+    
+    var f = new Function('alert(a)');
+    
+    window.setTimeout(function() {
+        f();
+    }, 3000);
+})();
+</script>
+</body>
+</html>

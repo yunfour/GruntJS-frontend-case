@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<title>应用管理-开发者—流量交换运营平台</title>
+<script type="text/javascript" src="../gallery/seajs/2.0.0/sea.js"></script>
+<script type="text/javascript" src="../js/config/seajsConfig/1.0.0/seajsConfig.js"></script>
+
+<!--
+<script type="text/javascript" src="../js/common/concat/allVersion.js"></script>
+<script type="text/javascript" src="../js/components/concat/allVersion.js"></script>
+-->
+
+
+<!--<link rel="stylesheet" type="text/css" href="../gallery/bootstrap/3.0.3/css/bootstrap.min.css"/>-->
+<!--<link rel="stylesheet" type="text/css" href="../gallery/bootstrap/3.0.3/css/bootstrap-theme.min.css"/>-->
+<link rel="stylesheet" type="text/css" href="../css/1.0.0/reset.min.css"/>
+<link rel="stylesheet" type="text/css" href="../css/1.0.0/common.min.css"/>
+<link rel="stylesheet" type="text/css" href="../css/1.0.0/page.min.css"/>
+</head>
+
+<body class="com-body">
+<!--页眉-->
+<div class="com-head com-inside-head">
+    <div class="com-head-bd com-inside-head-bd">
+        <!--LOGO-->
+        <div class="com-logo com-inside-logo">
+            <a href="#">流量交换运营平台</a>
+        </div>
+        
+        <!--切换-->
+        <ul class="com-head-tab com-inside-head-tab">
+            <li class="active"><a href="#">我是开发者</a></li>
+            <li><a href="#">我是推广者</a></li>
+        </ul>
+        
+        <div class="com-inside-head-tool">
+            <a href="#">常见问题</a>&nbsp;&nbsp;
+            <a href="#">yunfour</a>&nbsp;&nbsp;
+            <a href="#">系统通知(12)</a>&nbsp;&nbsp;
+            <a href="#">退出</a>
+        </div>
+    </div>
+</div>
+
+<div class="inside-content clearfix">
+    <div class="inside-slide float-l">
+        <ul class="inside-slide-menu" style="padding: 27px 0 0;">
+            <li>
+                <a href="#">使用帮助<i class="com-ico help"></i></a>
+            </li>
+            <li>
+                <a class="active" href="#">应用管理<i class="com-ico app"></i></a>
+            </li>
+            <li>
+                <a href="#">数据统计<i class="com-ico statistics"></i></a>
+            </li>
+            <li class="sub">
+                <a href="#">推广分布统计</a>
+            </li>
+            <li class="sub">
+                <a href="#">推广趋势统计</a>
+            </li>
+            <li>
+                <a href="#">费用结算<i class="com-ico compute"></i></a>
+            </li>
+            <li>
+                <a href="#">我的账户<i class="com-ico account"></i></a>
+            </li>
+        </ul>
+    </div>
+    
+    <div class="inside-content-bd">
+        <div class="inside-operate">
+            <a class="com-btn com-btn-blue com-btn-large inside-operate-btn" href="#">新应用提交<i class="com-ico add"></i></a>
+        
+            <div class="inside-operate-filter clearfix">
+                
+                <div class="inside-operate-field" style="width: 65px;">
+                    <label class="inside-operate-label"></label>
+                    <a class="com-btn com-btn-white inside-operate-search-btn" href="#">查询</a>
+                </div>
+                
+                <div class="inside-operate-field" style="width: 285px;">
+                    <label class="inside-operate-label">申请时间</label>
+                    <input class="com-input com-input-small" type="text" name="beginDate" placeholder="年-月-日" style="width: 110px;" />
+                    <span class="inline-block" style="padding: 7px 0 0;"> — </span>
+                    <input class="com-input com-input-small" type="text" name="endDate" placeholder="年-月-日" style="width: 109px;" />
+                </div>
+                
+                <div class="inside-operate-field" style="width: 115px;">
+                    <label class="inside-operate-label">应用名称</label>
+                    <input class="com-input com-input-small" type="text" name="appName" style="width: 93px;" />
+                </div>
+                
+                <div class="inside-operate-field" style="width: 75px;">
+                    <label class="inside-operate-label">状态</label>
+                    <select class="com-select inside-operate-select" name="status">
+                        <option value="all">全部</option>
+                        <option value="1">状态1</option>
+                        <option value="2">状态2</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    
+        <h2 class="inside-content-title">
+            <span style="position: absolute; left: 22px;">应用名称</span>
+            <span style="position: absolute; left: 645px;">操作</span>
+        </h2>
+        
+        <ul id="J-appLst" class="app-lst">
+            <li class="app-lst-itm">
+                <div class="app-info">
+                    <div class="app-pic"><a href="#"><img src="http://tp4.sinaimg.cn/1645903643/50/5690783591/1" alt="游戏名称" height="48" width="48" /></a></div>
+                    <div class="app-name"><a href="#">植物大战僵尸</a></div>
+                    
+                    <p class="app-params">
+                        <span>类型：策略塔防</span>
+                        <span>版本：1.100.1</span>
+                    </p>
+                </div>
+                
+                <div class="app-rate">
+                    <ul class="com-step com-step-6" style="height: 115px;">
+                        <li class="com-step-start com-step-done">
+                            <div class="com-step-line"></div>
+                            <div class="com-step-text">应用提交</div>
+                            <div class="com-step-ico">
+                                <i>●</i>
+                                <span class="com-ico com-step-ico-right"></span>
+                            </div>
+                        </li>
+                        <li class="com-step-active">
+                            <div class="com-step-line"></div>
+                            <div class="com-step-text">
+                                <span>初步审核</span>
+                                <p style="line-height: 15px;color: #999;">通过后获得<br />APPID</p>
+                            </div>
+                            <div class="com-step-ico">
+                                <i>●</i>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="com-step-line"></div>
+                            <div class="com-step-text">配置推广信息<br /><a href="#">填写</a></div>
+                            <div class="com-step-ico">
+                                <i>●</i>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="com-step-line"></div>
+                            <div class="com-step-text">上传APK</div>
+                            <div class="com-step-ico">
+                                <i>●</i>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="com-step-line"></div>
+                            <div class="com-step-text">等待测试</div>
+                            <div class="com-step-ico">
+                                <i>●</i>
+                            </div>
+                        </li>
+                        <li class="com-step-end">
+                            <div class="com-step-line"></div>
+                            <div class="com-step-text">上线推广</div>
+                            <div class="com-step-ico">
+                                <i>●</i>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                
+                <div class="app-operate">
+                    <a href="#">删除</a>
+                    <a href="#">催促审核</a>
+                </div>
+            </li>
+            
+            <li class="app-lst-itm">
+                <div class="app-info">
+                    <div class="app-pic"><a href="#"><img src="http://tp4.sinaimg.cn/1645903643/50/5690783591/1" alt="游戏名称" height="48" width="48" /></a></div>
+                    <div class="app-name"><a href="#">植物大战僵尸</a></div>
+                    
+                    <p class="app-params">
+                        <span>类型：策略塔防</span>
+                        <span>版本：1.100.1</span>
+                    </p>
+                </div>
+                
+                <div class="app-rate">
+                    <ul class="com-step com-step-6" style="height: 115px;">
+                        <li class="com-step-start com-step-done">
+                            <div class="com-step-line"></div>
+                            <div class="com-step-text">应用提交</div>
+                            <div class="com-step-ico">
+                                <i>●</i>
+                                <span class="com-ico com-step-ico-right"></span>
+                            </div>
+                        </li>
+                        <li class="com-step-done">
+                            <div class="com-step-line"></div>
+                            <div class="com-step-text">
+                                <span>初步审核</span>
+                                <p style="line-height: 15px;color: #4bc577;">APPID:<br />123123123</p>
+                            </div>
+                            <div class="com-step-ico">
+                                <i>●</i>
+                                <span class="com-ico com-step-ico-right"></span>
+                            </div>
+                        </li>
+                        <li class="com-step-active">
+                            <div class="com-step-line"></div>
+                            <div class="com-step-text">配置推广信息<br /><a href="#">填写</a></div>
+                            <div class="com-step-ico">
+                                <i>●</i>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="com-step-line"></div>
+                            <div class="com-step-text">上传APK</div>
+                            <div class="com-step-ico">
+                                <i>●</i>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="com-step-line"></div>
+                            <div class="com-step-text">等待测试</div>
+                            <div class="com-step-ico">
+                                <i>●</i>
+                            </div>
+                        </li>
+                        <li class="com-step-end">
+                            <div class="com-step-line"></div>
+                            <div class="com-step-text">上线推广</div>
+                            <div class="com-step-ico">
+                                <i>●</i>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                
+                <div class="app-operate">
+                    <a class="com-btn com-btn-white app-operate-btn" href="#">配置推广信息<i class="com-ico tools"></i></a>
+                </div>
+            </li>
+            
+            <li class="app-lst-itm">
+                <div class="app-info">
+                    <div class="app-pic"><a href="#"><img src="http://tp4.sinaimg.cn/1645903643/50/5690783591/1" alt="游戏名称" height="48" width="48" /></a></div>
+                    <div class="app-name"><a href="#">植物大战僵尸</a></div>
+                    
+                    <p class="app-params">
+                        <span>类型：策略塔防</span>
+                        <span>版本：1.100.1</span>
+                    </p>
+                </div>
+                
+                <div class="app-rate">
+                    <ul class="com-step com-step-6" style="height: 115px;">
+                        <li class="com-step-start com-step-done">
+                            <div class="com-step-line"></div>
+                            <div class="com-step-text">应用提交</div>
+                            <div class="com-step-ico">
+                                <i>●</i>
+                                <span class="com-ico com-step-ico-right"></span>
+                            </div>
+                        </li>
+                        <li class="com-step-done com-step-warn">
+                            <div class="com-step-line"></div>
+                            <div class="com-step-text">
+                                <span>审核未通过</span>
+                            </div>
+                            <div class="com-step-ico">
+                                <i>●</i>
+                                <span class="com-ico com-step-ico-wrong"></span>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="com-step-line"></div>
+                            <div class="com-step-text">配置推广信息<br /><a href="#">填写</a></div>
+                            <div class="com-step-ico">
+                                <i>●</i>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="com-step-line"></div>
+                            <div class="com-step-text">上传APK</div>
+                            <div class="com-step-ico">
+                                <i>●</i>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="com-step-line"></div>
+                            <div class="com-step-text">等待测试</div>
+                            <div class="com-step-ico">
+                                <i>●</i>
+                            </div>
+                        </li>
+                        <li class="com-step-end">
+                            <div class="com-step-line"></div>
+                            <div class="com-step-text">上线推广</div>
+                            <div class="com-step-ico">
+                                <i>●</i>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                
+                <div class="app-operate">
+                    <a href="#">删除</a>
+                    <a href="#">催促审核</a>
+                    <a class="com-btn com-btn-white app-operate-btn" href="#">配置推广信息<i class="com-ico tools"></i></a>
+                </div>
+                
+                <div class="com-tip app-rate-tip" style="left: 165px;">
+                    <p><span style="color: #f75929;">错误原因为某些原因某些原因，请</span> <a href="#">重新提交</a></p>
+                    <i class="com-tip-arrow com-tip-arrow-top">
+                        <span>◆</span>
+                    </i>
+                </div>
+            </li>
+            
+            <li class="app-lst-itm">
+                <div class="app-info">
+                    <div class="app-pic"><a href="#"><img src="http://tp4.sinaimg.cn/1645903643/50/5690783591/1" alt="游戏名称" height="48" width="48" /></a></div>
+                    <div class="app-name"><a href="#">植物大战僵尸</a></div>
+                    
+                    <p class="app-params">
+                        <span>类型：策略塔防</span>
+                        <span>版本：1.100.1</span>
+                    </p>
+                </div>
+                
+                <div class="app-rate">
+                    <ul class="com-step com-step-6" style="height: 115px;">
+                        <li class="com-step-start com-step-done">
+                            <div class="com-step-line"></div>
+                            <div class="com-step-text">应用提交</div>
+                            <div class="com-step-ico">
+                                <i>●</i>
+                                <span class="com-ico com-step-ico-right"></span>
+                            </div>
+                        </li>
+                        <li class="com-step-done">
+                            <div class="com-step-line"></div>
+                            <div class="com-step-text">
+                                <span>初步审核</span>
+                                <p style="line-height: 15px;color: #4bc577;">APPID:<br />123123123</p>
+                            </div>
+                            <div class="com-step-ico">
+                                <i>●</i>
+                                <span class="com-ico com-step-ico-right"></span>
+                            </div>
+                        </li>
+                        <li class="com-step-done">
+                            <div class="com-step-line"></div>
+                            <div class="com-step-text">配置推广信息<br /><a href="#">填写</a></div>
+                            <div class="com-step-ico">
+                                <i>●</i>
+                                <span class="com-ico com-step-ico-right"></span>
+                            </div>
+                        </li>
+                        <li class="com-step-active">
+                            <div class="com-step-line"></div>
+                            <div class="com-step-text">上传APK</div>
+                            <div class="com-step-ico">
+                                <i>●</i>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="com-step-line"></div>
+                            <div class="com-step-text">等待测试</div>
+                            <div class="com-step-ico">
+                                <i>●</i>
+                            </div>
+                        </li>
+                        <li class="com-step-end">
+                            <div class="com-step-line"></div>
+                            <div class="com-step-text">上线推广</div>
+                            <div class="com-step-ico">
+                                <i>●</i>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                
+                <div class="app-operate">
+                    <a href="#">删除</a>
+                    <a href="#">催促审核</a>
+                    <a class="com-btn com-btn-white app-operate-btn" href="#">数据统计<i class="com-ico tools"></i></a>
+                </div>
+            </li>
+        
+            <li class="app-lst-itm">
+                <div class="app-info">
+                    <div class="app-pic"><a href="#"><img src="http://tp4.sinaimg.cn/1645903643/50/5690783591/1" alt="游戏名称" height="48" width="48" /></a></div>
+                    <div class="app-name"><a href="#">植物大战僵尸</a></div>
+                    
+                    <p class="app-params">
+                        <span>类型：策略塔防</span>
+                        <span>版本：1.100.1</span>
+                        <span><a href="#">+ 提交新版本</a></span>
+                    </p>
+                    <p class="app-params app-spread-params">
+                        <span>推广价格：2222元</span>
+                        <span>推广截至点：2014-12-23</span>
+                        <span>用户激活指标：下载成功</span>
+                    </p>
+                    <div class="app-spread-info">正在推广 剩下133天<i class="com-ico up-ico"></i></div>
+                </div>
+                
+                <div class="app-rate">
+                    <ul class="com-step com-step-6" style="height: 115px;">
+                        <li class="com-step-start com-step-done">
+                            <div class="com-step-line"></div>
+                            <div class="com-step-text">应用提交</div>
+                            <div class="com-step-ico">
+                                <i>●</i>
+                                <span class="com-ico com-step-ico-right"></span>
+                            </div>
+                        </li>
+                        <li class="com-step-done">
+                            <div class="com-step-line"></div>
+                            <div class="com-step-text">
+                                <span>初步审核</span>
+                                <p style="line-height: 15px;color: #4bc577;">APPID:<br />123123123</p>
+                            </div>
+                            <div class="com-step-ico">
+                                <i>●</i>
+                                <span class="com-ico com-step-ico-right"></span>
+                            </div>
+                        </li>
+                        <li class="com-step-done">
+                            <div class="com-step-line"></div>
+                            <div class="com-step-text">配置推广信息<br /><a href="#">填写</a></div>
+                            <div class="com-step-ico">
+                                <i>●</i>
+                                <span class="com-ico com-step-ico-right"></span>
+                            </div>
+                        </li>
+                        <li class="com-step-done">
+                            <div class="com-step-line"></div>
+                            <div class="com-step-text">上传APK<p style="color: #999;line-height: 15px;">需上传已接入<br />SDK的APP</span></p>
+                            <div class="com-step-ico">
+                                <i>●</i>
+                                <span class="com-ico com-step-ico-right"></span>
+                            </div>
+                        </li>
+                        <li class="com-step-done">
+                            <div class="com-step-line"></div>
+                            <div class="com-step-text">等待测试</div>
+                            <div class="com-step-ico">
+                                <i>●</i>
+                                <span class="com-ico com-step-ico-right"></span>
+                            </div>
+                        </li>
+                        <li class="com-step-end com-step-done">
+                            <div class="com-step-line"></div>
+                            <div class="com-step-text">上线推广</div>
+                            <div class="com-step-ico">
+                                <i>●</i>
+                                <span class="com-ico com-step-ico-right"></span>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                
+                <div class="app-operate">
+                    <a href="#">修改推广信息</a>
+                    <a class="com-btn com-btn-white app-operate-btn" href="#">数据统计<i class="com-ico data"></i></a>
+                </div>
+            </li>
+        
+            <li class="app-lst-itm">
+                <div class="app-info">
+                    <div class="app-pic"><a href="#"><img src="http://tp4.sinaimg.cn/1645903643/50/5690783591/1" alt="游戏名称" height="48" width="48" /></a></div>
+                    <div class="app-name"><a href="#">植物大战僵尸</a></div>
+                    
+                    <p class="app-params">
+                        <span>类型：策略塔防</span>
+                        <span>版本：1.100.1</span>
+                        <span><a href="#">+ 提交新版本</a></span>
+                    </p>
+                    <p class="app-params app-spread-params">
+                        <span>推广价格：2222元</span>
+                        <span>推广截至点：2014-12-23</span>
+                        <span>用户激活指标：下载成功</span>
+                    </p>
+                    <div class="app-spread-info">正在推广 剩下133天<i class="com-ico down-ico"></i></div>
+                </div>
+                
+                <div class="app-rate fn-hide">
+                    <ul class="com-step com-step-6" style="height: 115px;">
+                        <li class="com-step-start com-step-done">
+                            <div class="com-step-line"></div>
+                            <div class="com-step-text">应用提交</div>
+                            <div class="com-step-ico">
+                                <i>●</i>
+                                <span class="com-ico com-step-ico-right"></span>
+                            </div>
+                        </li>
+                        <li class="com-step-done">
+                            <div class="com-step-line"></div>
+                            <div class="com-step-text">
+                                <span>初步审核</span>
+                                <p style="line-height: 15px;color: #4bc577;">APPID:<br />123123123</p>
+                            </div>
+                            <div class="com-step-ico">
+                                <i>●</i>
+                                <span class="com-ico com-step-ico-right"></span>
+                            </div>
+                        </li>
+                        <li class="com-step-done">
+                            <div class="com-step-line"></div>
+                            <div class="com-step-text">配置推广信息<br /><a href="#">填写</a></div>
+                            <div class="com-step-ico">
+                                <i>●</i>
+                                <span class="com-ico com-step-ico-right"></span>
+                            </div>
+                        </li>
+                        <li class="com-step-done">
+                            <div class="com-step-line"></div>
+                            <div class="com-step-text">上传APK<p style="color: #999;line-height: 15px;">需上传已接入<br />SDK的APP</span></p>
+                            <div class="com-step-ico">
+                                <i>●</i>
+                                <span class="com-ico com-step-ico-right"></span>
+                            </div>
+                        </li>
+                        <li class="com-step-done">
+                            <div class="com-step-line"></div>
+                            <div class="com-step-text">等待测试</div>
+                            <div class="com-step-ico">
+                                <i>●</i>
+                                <span class="com-ico com-step-ico-right"></span>
+                            </div>
+                        </li>
+                        <li class="com-step-end com-step-done">
+                            <div class="com-step-line"></div>
+                            <div class="com-step-text">上线推广</div>
+                            <div class="com-step-ico">
+                                <i>●</i>
+                                <span class="com-ico com-step-ico-right"></span>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                
+                <div class="app-operate">
+                    <a href="#">修改推广信息</a>
+                    <a class="com-btn com-btn-white app-operate-btn" href="#">数据统计<i class="com-ico data"></i></a>
+                </div>
+            </li>
+        
+            <li class="app-lst-itm">
+                <div class="app-info">
+                    <div class="app-pic"><a href="#"><img src="http://tp4.sinaimg.cn/1645903643/50/5690783591/1" alt="游戏名称" height="48" width="48" /></a></div>
+                    <div class="app-name"><a href="#">植物大战僵尸</a></div>
+                    
+                    <p class="app-params">
+                        <span>类型：策略塔防</span>
+                        <span>版本：1.100.1</span>
+                        <span><a href="#">+ 提交新版本</a></span>
+                    </p>
+                    <p class="app-params app-spread-params">
+                        <span>推广价格：2222元</span>
+                        <span>推广截至点：2014-12-23</span>
+                        <span>用户激活指标：下载成功</span>
+                    </p>
+                    <div class="app-spread-info app-spread-over">正在推广 剩下133天<i class="com-ico flag-ico"></i></div>
+                </div>
+            </li>
+        </ul>
+
+    </div>
+</div>
+
+<div class="com-footer">© Copyright © 2005-2013 SKY-MOBI Inc. All Rights Reserved.</div>
+
+<script type="text/javascript" charset="utf-8">
+seajs.use('pages/manageApp/1.0.0/manageApp');
+</script>
+</body>
+</html>

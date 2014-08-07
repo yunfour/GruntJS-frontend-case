@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<title>修改提交应用信息-应用管理-开发者—流量交换运营平台</title>
+<script type="text/javascript" src="../gallery/seajs/2.0.0/sea.js"></script>
+<script type="text/javascript" src="../js/config/seajsConfig/1.0.0/seajsConfig.js"></script>
+
+<!--
+<script type="text/javascript" src="../js/common/concat/allVersion.js"></script>
+<script type="text/javascript" src="../js/components/concat/allVersion.js"></script>
+-->
+
+
+<!--<link rel="stylesheet" type="text/css" href="../gallery/bootstrap/3.0.3/css/bootstrap.min.css"/>-->
+<!--<link rel="stylesheet" type="text/css" href="../gallery/bootstrap/3.0.3/css/bootstrap-theme.min.css"/>-->
+<link rel="stylesheet" type="text/css" href="../css/1.0.0/reset.min.css"/>
+<link rel="stylesheet" type="text/css" href="../css/1.0.0/common.min.css"/>
+<link rel="stylesheet" type="text/css" href="../css/1.0.0/page.min.css"/>
+</head>
+
+<body class="com-body">
+<!--页眉-->
+<div class="com-head com-inside-head">
+    <div class="com-head-bd com-inside-head-bd">
+        <!--LOGO-->
+        <div class="com-logo com-inside-logo">
+            <a href="#">流量交换运营平台</a>
+        </div>
+        
+        <!--切换-->
+        <ul class="com-head-tab com-inside-head-tab">
+            <li class="active"><a href="#">我是开发者</a></li>
+            <li><a href="#">我是推广者</a></li>
+        </ul>
+        
+        <div class="com-inside-head-tool">
+            <a href="#">常见问题</a>&nbsp;&nbsp;
+            <a href="#">yunfour</a>&nbsp;&nbsp;
+            <a href="#">系统通知(12)</a>&nbsp;&nbsp;
+            <a href="#">退出</a>
+        </div>
+    </div>
+</div>
+
+<div class="inside-content clearfix">
+    <div class="inside-slide float-l">
+        <ul class="inside-slide-menu" style="padding: 27px 0 0;">
+            <li>
+                <a href="#">使用帮助<i class="com-ico help"></i></a>
+            </li>
+            <li>
+                <a href="#" class="active">应用管理<i class="com-ico app"></i></a>
+            </li>
+            <li>
+                <a href="#">数据统计<i class="com-ico statistics"></i></a>
+            </li>
+            <li class="sub">
+                <a href="#">推广分布统计</a>
+            </li>
+            <li class="sub">
+                <a href="#">推广趋势统计</a>
+            </li>
+            <li>
+                <a href="#">费用结算<i class="com-ico compute"></i></a>
+            </li>
+            <li>
+                <a href="#">我的账户<i class="com-ico account"></i></a>
+            </li>
+        </ul>
+    </div>
+    
+    <div class="inside-content-bd">
+        <h2 class="inside-content-title">
+            <a href="#" class="com-btn inside-back-btn">返回<i class="com-ico"></i></a>
+            <span>应用管理 / 提交新应用</span>
+        </h2>
+        
+        <form id="J-submitAppFrm" class="com-form app-submit-form" action="#">
+                
+            <div id="J-roleCheckboxPanel" class="com-form-item">
+                <label class="com-label">图标：</label>
+                
+                <div class="app-submit-add">
+                    <div id="J-selectIcoBtn" class="app-submit-add-btn" style="border: 0;"><img src="http://ww3.sinaimg.cn/bmiddle/693974d4gw1ehaa6s6ovjj2050050mx0.jpg" width="125" height="125" style="border-radius: 20px;"></div>
+                    
+                    <p class="app-submit-add-explain">请上传至少 128*128像素的正方形图标，<br />支持JPG,PNG,GIF，<br />最大500k</p>
+                    
+                    <a id="J-uploadIcoBtn" class="com-btn com-btn-white" href="javascript:;">&nbsp;&nbsp;&nbsp;修改图标&nbsp;&nbsp; </a>
+                    <div id="J-uploadExplain" class="com-form-explain com-form-explain-hasIco" style="margin-top: -5px;margin-left: 29px;">
+                        <i class="com-ico com-form-ico"></i>
+                        <span></span>
+                    </div>
+                </div>
+                
+                <input class="fn-hide" type="text" name="imgUrl" id="imgUrl" value="http://ww3.sinaimg.cn/bmiddle/693974d4gw1ehaa6s6ovjj2050050mx0.jpg" />
+            </div>
+            
+            <div class="com-form-item">
+                <label for="appName" class="com-label">应用全称：</label>
+                <input class="com-input" type="text" name="appName" id="appName" value="欢乐斗地主" style="width: 245px;" />
+            </div>
+            
+            <div class="com-form-item">
+                <label for="kitName" class="com-label">包名：</label>
+                <input class="com-input" type="text" name="kitName" id="kitName" value="xxssw" style="width: 245px;" />
+                <p class="app-submit-add-tip">目前因避免不了游戏重复，请在游戏包名的填写时<br />加上cp公司名称的信息：com.sk.shoot<br />
+（sk：公司名，shoot：游戏名）</p>
+            </div>
+            
+            <div class="com-form-item">
+                <label for="appType" class="com-label">应用类型：</label>
+                <select id="appType" name="appType" class="com-select" style="width: 267px;">
+                    <option value="null">请选择应用类型</option>
+                    <option value="1">应用类型1</option>
+                    <option value="2" selected="selected">应用类型2</option>
+                    <option value="3">应用类型3</option>
+                </select>
+            </div>
+            
+            <div class="com-form-item">
+                <input class="com-btn com-btn-blue reg-btn" type="submit" value="提交" style="padding: 0 55px;" />
+            </div>
+        </form>
+        
+    </div>
+</div>
+
+<div class="com-footer">© Copyright © 2005-2013 SKY-MOBI Inc. All Rights Reserved.</div>
+
+<script type="text/javascript" charset="utf-8">
+seajs.use('pages/editApp/1.0.0/editApp');
+</script>
+</body>
+</html>
