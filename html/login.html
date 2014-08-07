@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<title>登录页面—流量交换运营平台</title>
+<script type="text/javascript" src="../gallery/seajs/2.0.0/sea.js"></script>
+<script type="text/javascript" src="../js/config/seajsConfig/1.0.0/seajsConfig.js"></script>
+
+<!--
+<script type="text/javascript" src="../js/common/concat/allVersion.js"></script>
+<script type="text/javascript" src="../js/components/concat/allVersion.js"></script>
+-->
+
+
+<!--<link rel="stylesheet" type="text/css" href="../gallery/bootstrap/3.0.3/css/bootstrap.min.css"/>-->
+<!--<link rel="stylesheet" type="text/css" href="../gallery/bootstrap/3.0.3/css/bootstrap-theme.min.css"/>-->
+<link rel="stylesheet" type="text/css" href="../css/1.0.0/reset.min.css"/>
+<link rel="stylesheet" type="text/css" href="../css/1.0.0/common.min.css"/>
+<link rel="stylesheet" type="text/css" href="../css/1.0.0/page.min.css"/>
+</head>
+
+<body class="com-body">
+<!--页眉-->
+<div class="com-head com-head-outside">
+    <div class="com-head-bd com-head-bd-outside">
+        <!--LOGO-->
+        <div class="com-logo com-logo-outside">
+            <a href="#">流量交换运营平台</a>
+        </div>
+        
+        <!--切换-->
+        <ul class="com-head-tab com-head-tab-outside">
+            <li class="active"><a href="#">首页</a></li>
+            <li><a href="#">常见问题</a></li>
+        </ul>
+    </div>
+</div>
+
+<div id="J-loginBanner" class="login-banner">
+    <div class="login-banner-bd">
+        <ul class="login-banner-lst">
+            <li class="green"></li>
+            <li class="blue"></li>
+            <li class="green"></li>
+            <li class="blue"></li>
+        </ul>
+    </div>
+    
+    <div class="login-panel">
+        <ul class="login-banner-ctrl">
+            <li class="active inline-block"></li><li class="inline-block"></li><li class="inline-block"></li><li class="inline-block"></li>
+        </ul>
+        
+        <div class="login-panel-bd">
+            <a class="com-btn com-btn-block com-btn-large com-btn-orange login-btn-reg" href="#" style="font-size: 24px;">开发者注册</a>
+        
+            <div class="login-form">
+                <div class="login-form-bg"></div>
+                <form id="J-loginFrm" action="#" class="login-form-bd">
+                    <h5 class="login-form-title">登录</h5>
+                    
+                    <div class="login-input-group">
+                        <label class="login-input-group-label inline-block" for="userEmail">
+                            <i class="com-ico login-input-ico login-input-ico-person"></i>
+                        </label><input name="userEmail" id="userEmail" type="text" class="login-input-group-input inline-block" placeholder="邮箱地址" />
+                    </div>
+                    
+                    <div class="input-group login-input-group">
+                        <label class="login-input-group-label inline-block" for="password">
+                            <i class="com-ico login-input-ico login-input-ico-lock"></i>
+                        </label><input name="password" id="password" type="password" class="login-input-group-input inline-block" placeholder="密码" />
+                    </div>
+                    
+                    <div class="login-input-forget">
+                        <a href="#">忘记密码？</a>
+                    </div>
+                    
+                    <div class="input-group login-input-group">
+                        <label class="login-input-group-label inline-block" for="checkCode">
+                            <i class="com-ico login-input-ico login-input-ico-t"></i>
+                        </label><input name="checkCode" id="checkCode" type="text" class="login-input-group-input inline-block" placeholder="验证码" style="width: 53px;" maxlength="4" />
+                        <div class="inline-block login-input-chkcode"><img id="J-loginFrmChkCode" src="http://172.16.4.26:8049/push-admin/verify/image/show.htm" alt="单击更新验证码" title="单击更新验证码" height="38" width="75" /></div>
+                    </div>
+                    
+                    <a id="J-loginBtn" class="com-btn com-btn-block com-btn-blue login-btn-reg" href="javascript:;">登录</a>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="outside-content">
+    <h4 class="outside-content-title">
+        <span>我是开发者</span>
+        <i class="com-ico tool"></i>
+    </h4>
+    <div id="J-developerRate" class="com-rate com-rate-6 clearfix" style="margin: 18px 50px 0;">
+        <div class="com-rate-item com-rate-first com-rate-done">
+            <div class="com-rate-ico"><span class="inline-block">●</span></div>
+            <div class="com-rate-num"><span class="inline-block">1</span></div>
+            <div class="com-rate-line"></div>
+            <p class="com-rate-explain">注册</p>
+        </div>
+        <div class="com-rate-item">
+            <div class="com-rate-ico"><span class="inline-block">●</span></div>
+            <div class="com-rate-num"><span class="inline-block">2</span></div>
+            <div class="com-rate-line"></div>
+            <p class="com-rate-explain">预垫款</p>
+        </div>
+        <div class="com-rate-item">
+            <div class="com-rate-ico"><span class="inline-block">●</span></div>
+            <div class="com-rate-num"><span class="inline-block">3</span></div>
+            <div class="com-rate-line"></div>
+            <p class="com-rate-explain">接入SDK</p>
+        </div>
+        <div class="com-rate-item">
+            <div class="com-rate-ico"><span class="inline-block">●</span></div>
+            <div class="com-rate-num"><span class="inline-block">4</span></div>
+            <div class="com-rate-line"></div>
+            <p class="com-rate-explain">提交应用</p>
+        </div>
+        <div class="com-rate-item">
+            <div class="com-rate-ico"><span class="inline-block">●</span></div>
+            <div class="com-rate-num"><span class="inline-block">5</span></div>
+            <div class="com-rate-line"></div>
+            <p class="com-rate-explain">配置推广</p>
+        </div>
+        <div class="com-rate-item com-rate-last">
+            <div class="com-rate-ico"><span class="inline-block">●</span></div>
+            <div class="com-rate-num"><span class="inline-block">6</span></div>
+            <div class="com-rate-line"></div>
+            <p class="com-rate-explain">费用结算</p>
+        </div>
+    </div>
+    <div style="padding-top: 20px;">
+        <div class="outside-content-explain">
+            <h6 class="outside-content-explain-title">注册指易付push平台，注册成功后，可立即登录账户，登录后只能使用基本的功能，等待管理员审核通过后，才能使用更多功能。</h6>
+            <div class="outside-content-explain-links"><a href="#">立即下载&gt;&gt;</a></div>
+            
+            <i class="com-ico" style="left: 10px;"></i>
+        </div>
+        <div class="outside-content-explain fn-hide">
+            <h6 class="outside-content-explain-title">开发者注册后，指易付工作人员将与开发者联系。开发者打完预垫款之后，才能正常使用其它功能，否则申请appid后，状态将一直显示为“申请中”，无法进行下面的操作。<br />详情咨询指易付商务：0571-***********</h6>
+            <div class="outside-content-explain-links"><a href="#">立即下载&gt;&gt;</a></div>
+            
+            <i class="com-ico" style="left: 149px;"></i>
+        </div>
+        <div class="outside-content-explain fn-hide">
+            <h6 class="outside-content-explain-title">开发者sdk功能：开发者可多维度地查看应用的推广数据，实时查看费用结算情况。</h6>
+            <p>注：若以“下载量”作为用户激活指标，且不需要了解下载之后更多推广数据可以不接sdk；其它情况，必须接入sdk。<br />下载工具包及接入文档<br />工具包清单（包括客户端和服务端）</p>
+            <div class="outside-content-explain-links"><a href="#">立即下载&gt;&gt;</a></div>
+            
+            <i class="com-ico" style="left: 315px;"></i>
+        </div>
+        <div class="outside-content-explain fn-hide">
+            <h6 class="outside-content-explain-title">appid用于区分应用的推广情况。开发者若想推广某款应用，在指易付push平台上提交应用基本信息后，由指易付分配appid。</h6>
+            <div class="outside-content-explain-links"><a href="#">立即申请&gt;&gt;</a></div>
+            
+            <i class="com-ico" style="left: 476px;"></i>
+        </div>
+        <div class="outside-content-explain fn-hide">
+            <h6 class="outside-content-explain-title">配置推广价格，上传应用详情信息，如应用截图、应用介绍、应用标签等。<br />上传安装包开发<br />者上传接入sdk后的安装包，若已配置应用推广信息，一个工作日之后，该应用将在指易付应用市场上线。应用上线后，开发者仍然可以修改推广信息或更新安装包。
+</h6>
+            <p>注意：上传时的安装包包名必须与申请appid时的包名一致，否则会上传失败。 </p>
+            <div class="outside-content-explain-links"><a href="#">立即下载&gt;&gt;</a></div>
+            
+            <i class="com-ico" style="left: 640px;"></i>
+        </div>
+        <div class="outside-content-explain fn-hide">
+            <h6 class="outside-content-explain-title">费用结算。</p>
+            
+            <i class="com-ico" style="left: 775px;"></i>
+        </div>
+    </div>
+</div>
+
+
+<div class="outside-content" style="margin-bottom: 30px;">
+    <h4 class="outside-content-title">
+        <span>我是推广者</span>
+        <i class="com-ico lock"></i>
+    </h4>
+    <div id="J-spreaderRate" class="com-rate com-rate-6 clearfix" style="margin: 18px 50px 0;">
+        <div class="com-rate-item com-rate-first com-rate-done">
+            <div class="com-rate-ico"><span class="inline-block">●</span></div>
+            <div class="com-rate-num"><span class="inline-block">1</span></div>
+            <div class="com-rate-line"></div>
+            <p class="com-rate-explain">注册</p>
+        </div>
+        <div class="com-rate-item">
+            <div class="com-rate-ico"><span class="inline-block">●</span></div>
+            <div class="com-rate-num"><span class="inline-block">2</span></div>
+            <div class="com-rate-line"></div>
+            <p class="com-rate-explain">预垫款</p>
+        </div>
+        <div class="com-rate-item">
+            <div class="com-rate-ico"><span class="inline-block">●</span></div>
+            <div class="com-rate-num"><span class="inline-block">3</span></div>
+            <div class="com-rate-line"></div>
+            <p class="com-rate-explain">接入SDK</p>
+        </div>
+        <div class="com-rate-item">
+            <div class="com-rate-ico"><span class="inline-block">●</span></div>
+            <div class="com-rate-num"><span class="inline-block">4</span></div>
+            <div class="com-rate-line"></div>
+            <p class="com-rate-explain">提交应用</p>
+        </div>
+        <div class="com-rate-item">
+            <div class="com-rate-ico"><span class="inline-block">●</span></div>
+            <div class="com-rate-num"><span class="inline-block">5</span></div>
+            <div class="com-rate-line"></div>
+            <p class="com-rate-explain">配置推广</p>
+        </div>
+        <div class="com-rate-item com-rate-last">
+            <div class="com-rate-ico"><span class="inline-block">●</span></div>
+            <div class="com-rate-num"><span class="inline-block">6</span></div>
+            <div class="com-rate-line"></div>
+            <p class="com-rate-explain">费用结算</p>
+        </div>
+    </div>
+    <div style="padding-top: 20px;">
+        <div class="outside-content-explain">
+            <h6 class="outside-content-explain-title">开发者sdk功能：开发者可多维度地查看应用的推广数据，实时查看费用结算情况。</h6>
+            <p>注：若以“下载量”作为用户激活指标，且不需要了解下载之后更多推广数据可以不接sdk；其它情况，必须接入sdk。 </p>
+            <div class="outside-content-explain-links"><a href="#">立即下载&gt;&gt;</a></div>
+            
+            <i class="com-ico" style="left: 10px;"></i>
+        </div>
+        <div class="outside-content-explain fn-hide">
+            <h6 class="outside-content-explain-title">开发者sdk功能：开发者可多维度地查看应用的推广数据，实时查看费用结算情况。</h6>
+            <p>注：若以“下载量”作为用户激活指标，且不需要了解下载之后更多推广数据可以不接sdk；其它情况，必须接入sdk。 </p>
+            <div class="outside-content-explain-links"><a href="#">立即下载&gt;&gt;</a></div>
+            
+            <i class="com-ico" style="left: 149px;"></i>
+        </div>
+        <div class="outside-content-explain fn-hide">
+            <h6 class="outside-content-explain-title">开发者sdk功能：开发者可多维度地查看应用的推广数据，实时查看费用结算情况。</h6>
+            <p>注：若以“下载量”作为用户激活指标，且不需要了解下载之后更多推广数据可以不接sdk；其它情况，必须接入sdk。 </p>
+            <div class="outside-content-explain-links"><a href="#">立即下载&gt;&gt;</a></div>
+            
+            <i class="com-ico" style="left: 315px;"></i>
+        </div>
+        <div class="outside-content-explain fn-hide">
+            <h6 class="outside-content-explain-title">开发者sdk功能：开发者可多维度地查看应用的推广数据，实时查看费用结算情况。</h6>
+            <p>注：若以“下载量”作为用户激活指标，且不需要了解下载之后更多推广数据可以不接sdk；其它情况，必须接入sdk。 </p>
+            <div class="outside-content-explain-links"><a href="#">立即下载&gt;&gt;</a></div>
+            
+            <i class="com-ico" style="left: 476px;"></i>
+        </div>
+        <div class="outside-content-explain fn-hide">
+            <h6 class="outside-content-explain-title">开发者sdk功能：开发者可多维度地查看应用的推广数据，实时查看费用结算情况。</h6>
+            <p>注：若以“下载量”作为用户激活指标，且不需要了解下载之后更多推广数据可以不接sdk；其它情况，必须接入sdk。 </p>
+            <div class="outside-content-explain-links"><a href="#">立即下载&gt;&gt;</a></div>
+            
+            <i class="com-ico" style="left: 640px;"></i>
+        </div>
+        <div class="outside-content-explain fn-hide">
+            <h6 class="outside-content-explain-title">开发者sdk功能：开发者可多维度地查看应用的推广数据，实时查看费用结算情况。</h6>
+            <p>注：若以“下载量”作为用户激活指标，且不需要了解下载之后更多推广数据可以不接sdk；其它情况，必须接入sdk。 </p>
+            <div class="outside-content-explain-links"><a href="#">立即下载&gt;&gt;</a></div>
+            
+            <i class="com-ico" style="left: 775px;"></i>
+        </div>
+    </div>
+</div>
+
+<div class="com-footer">© Copyright © 2005-2013 SKY-MOBI Inc. All Rights Reserved.</div>
+
+<script type="text/javascript" charset="utf-8">
+seajs.use('pages/login/1.0.0/login');
+</script>
+</body>
+</html>

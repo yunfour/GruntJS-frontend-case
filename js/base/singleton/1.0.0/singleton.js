@@ -1,0 +1,2 @@
+/*! gruntTest 2014-08-05 */
+define("base/singleton/1.0.0/singleton-debug",[],function(){var a=function(a){var b=a||{};return function(){return b}};return a}),define("base/singleton/1.0.0/singleton",[],function(){var a=function(a){var b=a||{};return function(){return b}};return a});

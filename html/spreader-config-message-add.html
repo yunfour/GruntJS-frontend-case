@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<title>新建通知-配置推广信息-推广者—流量交换运营平台</title>
+<script type="text/javascript" src="../gallery/seajs/2.0.0/sea.js"></script>
+<script type="text/javascript" src="../js/config/seajsConfig/1.0.0/seajsConfig.js"></script>
+
+<!--
+<script type="text/javascript" src="../js/common/concat/allVersion.js"></script>
+<script type="text/javascript" src="../js/components/concat/allVersion.js"></script>
+-->
+
+
+<!--<link rel="stylesheet" type="text/css" href="../gallery/bootstrap/3.0.3/css/bootstrap.min.css"/>-->
+<!--<link rel="stylesheet" type="text/css" href="../gallery/bootstrap/3.0.3/css/bootstrap-theme.min.css"/>-->
+<link rel="stylesheet" type="text/css" href="../css/1.0.0/reset.min.css"/>
+<link rel="stylesheet" type="text/css" href="../css/1.0.0/common.min.css"/>
+<link rel="stylesheet" type="text/css" href="../css/1.0.0/page.min.css"/>
+</head>
+
+<body class="com-body">
+<!--页眉-->
+<div class="com-head com-inside-head">
+    <div class="com-head-bd com-inside-head-bd">
+        <!--LOGO-->
+        <div class="com-logo com-inside-logo">
+            <a href="#">流量交换运营平台</a>
+        </div>
+        
+        <!--切换-->
+        <ul class="com-head-tab com-inside-head-tab">
+            <li><a href="#">我是开发者</a></li>
+            <li class="active"><a href="#">我是推广者</a></li>
+        </ul>
+        
+        <div class="com-inside-head-tool">
+            <a href="#">常见问题</a>&nbsp;&nbsp;
+            <a href="#">yunfour</a>&nbsp;&nbsp;
+            <a href="#">系统通知(12)</a>&nbsp;&nbsp;
+            <a href="#">退出</a>
+        </div>
+    </div>
+</div>
+
+<div class="inside-content clearfix">
+    <div class="inside-slide float-l">
+        <ul class="inside-slide-menu" style="padding: 27px 0 0;">
+            <li>
+                <a href="#">使用帮助<i class="com-ico help"></i></a>
+            </li>
+            <li>
+                <a href="#">应用市场<i class="com-ico app"></i></a>
+            </li>
+            <li>
+                <a href="#">我的推广应用<i class="com-ico spread"></i></a>
+            </li>
+            <li>
+                <a href="#">我的应用<i class="com-ico apps"></i></a>
+            </li>
+            <li>
+                <a href="#">渠道管理<i class="com-ico canal"></i></a>
+            </li>
+            <li>
+                <a href="#" class="selected">配置推送方式<i class="com-ico config"></i></a>
+            </li>
+            <li class="sub">
+                <a href="#" class="active">通知栏推送</a>
+            </li>
+            <li>
+                <a href="#">数据统计<i class="com-ico statistics"></i></a>
+            </li>
+            <li class="sub">
+                <a href="#">推广分布统计</a>
+            </li>
+            <li class="sub">
+                <a href="#">推广趋势统计</a>
+            </li>
+            <li>
+                <a href="#">费用结算<i class="com-ico compute"></i></a>
+            </li>
+            <li>
+                <a href="#">我的账户<i class="com-ico account"></i></a>
+            </li>
+        </ul>
+    </div>
+    
+    <div class="inside-content-bd">
+        <h2 class="inside-content-title">
+            <a href="#" class="com-btn inside-back-btn">返回<i class="com-ico"></i></a>
+            <span>配置推广信息 / 新建通知</span>
+        </h2>
+        
+        <div class="inside-content-wrap">
+            <form id="J-theFrm" class="com-form" action="#" style="padding: 0 0 100px;">
+                
+                <fieldset class="com-form-fieldset">
+                    <legend style="padding-left: 0;">选择要推广的应用</legend>
+                    
+                    <div class="com-form-item com-form-item-flow">
+                        <label for="appLst" class="com-label">我推广的应用：</label>
+                        
+                        <select name="appLst" id="appLst" class="com-select" style="width: 330px;">
+                            <option value="1">植物大战僵尸</option>
+                            <option value="1">僵尸大战植物</option>
+                        </select>
+                    </div>
+                </fieldset>
+                
+                <fieldset class="com-form-fieldset">
+                    <legend style="padding-left: 0;">选择在哪里推广</legend>
+                    
+                    <div class="com-form-item com-form-item-flow" style="padding-bottom: 5px;">
+                        <label for="targetApp" class="com-label">选择在哪款应用上推广：</label>
+                        
+                        <select name="targetApp" id="targetApp" class="com-select" style="width: 330px;">
+                            <option value="all">全选</option>
+                            <option value="1">植物大战僵尸</option>
+                            <option value="1">僵尸大战植物</option>
+                        </select>
+                    </div>
+                    
+                    <div class="com-form-item com-form-item-flow" style="padding-bottom: 0px;">
+                        <label for="targetApp" class="com-label">推广渠道：</label>
+                        
+                        <div class="com-checkbox-group inline-block">
+                            <label><input type="checkbox" name="canal" value="all" /> 全部</label>
+                            <label><input type="checkbox" name="canal" value="1" /> 机锋</label>
+                            <label><input type="checkbox" name="canal" value="2" /> 冒泡</label>
+                            <label><input type="checkbox" name="canal" value="3" /> 安智</label>
+                            <label><input type="checkbox" name="canal" value="4" /> 应用汇</label>
+                        </div>
+                    </div>
+                    
+                    <div class="com-form-item com-form-item-flow" style="padding-bottom: 0px;">
+                        <label class="com-label">　运营商：</label>
+                        
+                        <div class="com-checkbox-group inline-block">
+                            <label><input type="checkbox" name="provider" value="all" /> 全部</label>
+                            <label><input type="checkbox" name="provider" value="1" /> 移动</label>
+                            <label><input type="checkbox" name="provider" value="2" /> 电信</label>
+                            <label><input type="checkbox" name="provider" value="3" /> 联通</label>
+                        </div>
+                    </div>
+                    
+                    <div class="com-form-item com-form-item-flow">
+                        <label class="com-label" style="position: static;">推广地区：</label>
+                        
+                        <div class="com-radio-group inline-block">
+                            <label><input type="radio" name="area" value="all" /> 全国</label>
+                            <label><input type="radio" name="area" value="province" /> 分省份</label>
+                        </div>
+                    </div>
+                </fieldset>
+                
+                <fieldset class="com-form-fieldset">
+                    <legend style="padding-left: 0;">请填写通知内容</legend>
+                    
+                    <div class="com-form-item com-form-item-flow">
+                        <div class="inside-mobile-head">
+                            <input name="title" type="text" class="title" placeholder="通知标题，不多余12个中文" />
+                            <textarea name="description" class="description" placeholder="描述文本，不多余2行*个中文"></textarea>
+                        </div>
+                    </div>
+                    
+                    <div class="com-form-item com-form-item-flow">
+                        <label for="movement" class="com-label" style="position: static;">点击通知后续动作：</label>
+                        
+                        <select name="movement" id="movement" class="com-select" style="width: 277px;">
+                            <option value="download">下载应用</option>
+                            <option value="appIntro">应用介绍</option>
+                        </select>
+                    </div>
+                    
+                    <div class="com-form-item com-form-item-flow">
+                        <label class="com-label" style="position: static;">发送开始时间：</label>
+                        
+                        <div class="com-radio-group inline-block">
+                            <label><input type="radio" name="beginTime" value="all" /> 即时</label>
+                            <label><input type="radio" name="beginTime" value="1" /> 定时</label>
+                            <label><input type="radio" name="beginTime" value="1" /> 周期</label>
+                        </div>
+                    </div>
+                </fieldset>
+                    
+                <div class="com-form-item com-form-item-flow">
+                    <input class="com-btn com-btn-blue reg-btn" type="submit" value="提交" style="padding: 0 55px;margin-right: 10px;">
+                    <input class="com-btn com-btn-milk reg-btn" type="reset" value="取消" style="padding: 0 55px;">
+                </div>
+            </form>
+        </div>
+        
+    </div>
+</div>
+
+<div class="com-footer">© Copyright © 2005-2013 SKY-MOBI Inc. All Rights Reserved.</div>
+
+<script type="text/javascript" charset="utf-8">
+seajs.use('pages/configMsg-add/1.0.0/configMsg-add');
+</script>
+</body>
+</html>
