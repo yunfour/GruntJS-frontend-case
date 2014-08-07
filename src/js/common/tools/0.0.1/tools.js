@@ -56,5 +56,22 @@ define(function(require) {
         return theNum;
     };
     
+    // 判断类型
+    tools.isType = function(type) {
+        
+        return function(target) {
+            return Object.prototype.toString(target) === '[object ' + type + ']';
+        };
+        
+    };
+    
+    tools.isString = tools.isType('String');
+    tools.isObject = tools.isType('Object');
+    tools.isArray = tools.isType('Array');
+    tools.isNumber = tools.isType('Number');
+    tools.isFunction = tools.isType('Function');
+    
+    
+    
     return tools;
 });
