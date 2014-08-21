@@ -7,16 +7,23 @@ GruntJS-frontend-case
 1. 资源分类管理
 2. CSS、JS模块化开发，降低耦合和全局冲突
 3. 比较适合多人合作开发，互不干涉
+4. 同一个网站可以引用多个库/框架
 
 
 ##目录结构
+* css/            ——经过GruntJS处理（编译LESS、压缩、合并）后的CSS、LESS文件
+* gallery/        ——精选的前端框架、库、插件等工具，如：jQuery、Bootstrap
+* html/           ——开发的静态HTML页面
+* images/         ——存放图片
+* js/             ——经过GruntJS处理后的JS文件
+* src/            ——未经处理的CSS、JS、LESS、图片等资源的源代码和源文件
+* test/           ——一些测试用的代码文件
+* Gruntfile.js    ——grunt配置文件
+* README.MD       ——说明
 
-css/            ——经过GruntJS处理（编译LESS、压缩、合并）后的CSS、LESS文件
-gallery/        ——精选的前端框架、库、插件等工具，如：jQuery、Bootstrap
-html/           ——开发的静态HTML页面
-images/         ——存放图片
-js/             ——经过GruntJS处理后的JS文件
-src/            ——未经处理的CSS、JS、LESS、图片等资源的源代码和源文件
-test/           ——一些测试用的代码文件
-Gruntfile.js    ——grunt配置文件
-README.MD       ——说明
+
+##需要掌握哪些知识
+1. 使用seajs进行模块化开发和CSS模块化概念
+2. GruntJS及其常用插件的使用
+3. JS面向对象开发和简单的设计模式
+4. 代码规范和注释
