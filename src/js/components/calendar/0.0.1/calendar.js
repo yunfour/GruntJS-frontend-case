@@ -394,11 +394,18 @@ define(function(require) {
                 // trigger的单击事件
                 if(trigger) {
                     $(document.body).on('click', function(ev) {
-                        // 点击页面上日历和trigger以外的地方的时候隐藏日历
+                        /*
+                         * 点击页面上日历和trigger以外的地方的时候隐藏日历
+                         * 代码解释：如果按照此中方式，那么在点击日历中的任
+                         * 意地方是，日历是不是也会隐藏呢？根据事件冒泡原理
+                         * 解释是会出现这样的结果，但是如果这样就不符合我们
+                         * 的需求了，隐藏为了避免单击日历时关闭日历，我们需
+                         * 要阻止日历根节点上的单击事件向document.body冒
+                         * 泡，阻止单击事件冒泡的代码在：249行
+                         */
                         if(ev.srcElement !== trigger[0]) {
                             that.hide();
                         }
-                        
                     });
                     
                     trigger.on(triggerType, function() {
@@ -864,7 +871,6 @@ define(function(require) {
         }
         
         return isLeap;
-        
     }
     
     // 函数：以月份为单位计算日期
@@ -874,9 +880,9 @@ define(function(require) {
             resultYear = theDate.getFullYear(),
             resultMonth = theDate.getMonth() + 1,
             resultDay = theDate.getDate();
-
+        
         month = month % 12;
-
+        
         resultYear = resultYear + years;
         resultMonth = resultMonth + month;
 

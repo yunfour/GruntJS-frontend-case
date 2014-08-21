@@ -3,7 +3,7 @@ define(function(require) {
     
     var $       = require('$'),
         store   = require('gallery/store/1.3.16/store'),
-        Timeout = require('base/timeout/0.0.1/timeout'),
+        Timeout = require('components/timeout/0.0.1/timeout'),
         Tip     = require('components/tip/0.0.1/tip');
     
     var loginFrm     = $('#J-loginFrm'),

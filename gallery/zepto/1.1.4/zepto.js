@@ -1,5 +1,6 @@
 /* Zepto v1.1.4 - zepto event ajax form ie - zeptojs.com/license */
 
+
 var Zepto = (function() {
   var undefined, key, $, classList, emptyArray = [], slice = emptyArray.slice, filter = emptyArray.filter,
     document = window.document,
@@ -1578,3 +1579,10 @@ window.$ === undefined && (window.$ = Zepto)
     }
   }
 })(Zepto)
+
+if(seajs) {
+  define(function(require) {
+
+    return Zepto;
+  };
+}

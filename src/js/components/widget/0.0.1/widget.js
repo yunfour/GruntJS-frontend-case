@@ -51,7 +51,7 @@ define(function(require) {
     var $           = require('$'),
         createClass = require('base/createClass/1.0.2/createClass'),
         PubSub      = require('base/pubSub/1.0.1/pubSub');
-        
+    
     var Widget = createClass({
         superClass: PubSub,
         attrs: {
@@ -69,7 +69,7 @@ define(function(require) {
                 
             },
             
-            // 将组建渲染到文档流中，
+            // 将组件渲染到文档流中，
             render: function(container) {
                 var that      = this,
                     template  = that.getAttr('template'),

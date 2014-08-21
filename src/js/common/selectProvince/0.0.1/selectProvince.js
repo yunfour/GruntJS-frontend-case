@@ -52,10 +52,10 @@ define(function(require) {
             trigger = $(conf.trigger).eq(0);
             
             tip = new ToolTip({
-                trigger         : trigger.parent(),
-                arrowPosition   : 7,
-                theme           : 'white',
-                tipText         : template
+                trigger       : trigger.parent(),
+                arrowPosition : 7,
+                theme         : 'white',
+                tipText       : template
             });
             
             tipEle = tip.getAttr('tipObj').getAttr('tipEle');

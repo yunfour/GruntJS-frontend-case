@@ -39,8 +39,8 @@ define(function(require) {
         },
         methods: {
             bindUI: function() {
-                var that = this,
-                    template = that.getAttr('template'),
+                var that      = this,
+                    template  = that.getAttr('template'),
                     widgetEle = that.getAttr('widgetEle');
                 
                 that.superClass.prototype.bindUI.apply(that);
@@ -51,6 +51,7 @@ define(function(require) {
                 
                 that.on('render', function() {
                     
+                    // 触发渲染事件后将模板代码填充进去
                     widgetEle.html(template);
                     widgetEle.css({
                         background: 'none'
@@ -59,7 +60,7 @@ define(function(require) {
                 });
             },
             setTitle: function(titleText) {
-                var that = this,
+                var that      = this,
                     widgetEle = that.getAttr('widgetEle'),
                     titleEle  = that.getAttr('titleEle');
                 
@@ -177,13 +178,10 @@ define(function(require) {
         
         dialogBdEle.find('p.J-alterTipText').html(confirmTxt);
         dialogObj.show();
-        
     };
-    
     
     ComDialog.alert   = alterDialog;
     ComDialog.confirm = confirmDialog;
-    
     
     return ComDialog;
 });

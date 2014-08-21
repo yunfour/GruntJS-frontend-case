@@ -150,7 +150,6 @@ define(function (require, exports, module) {
                         if(attrObj.hasOwnProperty(k)) {
                             attrs[k] = attrObj[k];
                         }
-                        
                     }
                 }
                 
@@ -182,7 +181,6 @@ define(function (require, exports, module) {
                     if(typeof attrs === 'object') {
                         attrVal = attrs[attrName];
                     }
-                    
                 }
                 
                 return attrVal;
@@ -233,7 +231,6 @@ define(function (require, exports, module) {
                     for(var k in subObj) {
                         Constructor.prototype[k] = subObj[k];
                     }
-                    
                 }
             }
             

@@ -62,7 +62,6 @@ define(function(require) {
         return function(target) {
             return Object.prototype.toString(target) === '[object ' + type + ']';
         };
-        
     };
     
     tools.isString = tools.isType('String');
@@ -71,6 +70,11 @@ define(function(require) {
     tools.isNumber = tools.isType('Number');
     tools.isFunction = tools.isType('Function');
     
+    
+    // 重复字符串
+    tools.repeatStr = function(str, repeat) {
+        return (new Array(repeat + 1)).join(str);
+    };
     
     
     return tools;

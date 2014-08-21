@@ -5,7 +5,7 @@ define(function(require) {
     
     var Upload = require('gallery/upload/1.1.1/upload'),
         Tip = require('components/tip/0.0.1/tip'),
-        Progress = require('base/progress/0.0.1/progress'),
+        Progress = require('components/progress/0.0.1/progress'),
         tools  = require('common/tools/0.0.1/tools');
     
     var uploadTipObj,
@@ -31,6 +31,7 @@ define(function(require) {
                 
                 return result;
             }
+            
             if(theFile.size && theFile.size > 100 * 1000) {
                 // 选择文件的格式不符合
                 result.isPass = false;

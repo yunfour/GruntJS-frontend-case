@@ -10,6 +10,7 @@
     }
 
     seajs.config({
+        
         paths: {
             gallery     : staticHost + 'gallery',
             
@@ -20,22 +21,29 @@
             common      : jsRootPath + 'common',
             pages       : jsRootPath + 'pages'
         },
+
         alias: {
             '$-debug'       : 'gallery/jquery/1.7.2/jquery.js',
             '$'             : 'gallery/jquery/1.7.2/jquery.js',
             'jqery'         : 'gallery/jquery/1.7.2/jquery.js',
-            'jqery-debug'   : 'gallery/jquery/1.7.2/jquery.js'
+            'jqery-debug'   : 'gallery/jquery/1.7.2/jquery.js',
+
+            'zepto'         : 'gallery/zepto/1.1.4/zepto.min.js',
+            'zepto-debug'   : 'gallery/zepto/1.1.4/zepto.js'
         },
+
         plugins: [
             "nocache",
             "style"
         ],
+
         preload: [
             //'gallery/bootstrap/2.3.2/css/bootstrap.min.css',
             //'gallery/bootstrap/2.3.2/css/bootstrap-theme.min.css',
             //'css/1.0.0/common.min.css',
             //'css/1.0.0/style.min.css'
         ],
+
         debuger: {
             
         }

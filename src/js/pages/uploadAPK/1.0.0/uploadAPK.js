@@ -4,7 +4,7 @@ define(function(require) {
         juicer      = require('gallery/juicer/0.6.5/juicer'),
         tools       = require('common/tools/0.0.1/tools'),
         Tip         = require('components/tip/0.0.1/tip'),
-        Progress    = require('base/progress/0.0.1/progress');
+        Progress    = require('components/progress/0.0.1/progress');
     
     var template = require('./template');
     

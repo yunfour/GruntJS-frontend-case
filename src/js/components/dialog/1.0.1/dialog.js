@@ -115,9 +115,9 @@ define(function(require, exports, module) {
             },
             // 关闭对话框
             hide: function() {
-                var that      = this,
+                var that       = this,
                     isShowMask = that.getAttr('mask'),
-                    widgetEle = that.getAttr('widgetEle');
+                    widgetEle  = that.getAttr('widgetEle');
                 
                 widgetEle.hide();
                 
@@ -164,7 +164,6 @@ define(function(require, exports, module) {
                         pos = 'absolute';
                         that.setAttr('position', pos);
                     }
-                    
                 }
                 
                 if(left < 0) {

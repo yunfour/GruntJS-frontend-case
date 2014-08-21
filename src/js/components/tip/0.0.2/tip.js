@@ -98,7 +98,6 @@ define(function(require) {
                     that.setTheme(that.getAttr('theme'));
                     that.setTipText(that.getAttr('tipText'));
                 });
-                
             },
             
             // 设置箭头方向

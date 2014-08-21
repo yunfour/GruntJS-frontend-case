@@ -100,7 +100,6 @@ define(function(require, exports, module) {
             maskEle.css(styleObj);
             
             return this;
-            
         }
     };
     

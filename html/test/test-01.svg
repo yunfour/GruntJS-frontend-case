@@ -19,5 +19,5 @@
     
     <!--包含直线的形状-->
     <polyline points="100,500 200,400 300,200 400,300 500,600" style="fill: #fff; stroke: #f00; stroke-width: 2" />
-    
+
 </svg>

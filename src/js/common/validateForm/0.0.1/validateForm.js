@@ -38,9 +38,9 @@ define(function(require) {
     
     // 显示字段的默认提示
     var showDefaultTip = function(theField, defaultTip) {
-        var field       = $(theField),
-            fieldName   = field.attr('name'),
-            fieldVal    = $.trim(field.val());
+        var field     = $(theField),
+            fieldName = field.attr('name'),
+            fieldVal  = $.trim(field.val());
         
         if(fieldVal === '' && defaultTip) {
             showExplain(field, true, 'explain', defaultTip);
@@ -143,9 +143,9 @@ define(function(require) {
         
         // ajax（异步）验证
         if(errNum === 0 && valiObj.asyncVali) {
-            var valiXhr     = field.data('valiXhr'),
-                asyncVali   = valiObj.asyncVali,
-                url         = asyncVali.url;
+            var valiXhr   = field.data('valiXhr'),
+                asyncVali = valiObj.asyncVali,
+                url       = asyncVali.url;
             
             var params = {};
             

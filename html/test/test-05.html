@@ -49,6 +49,9 @@ body{ padding: 0px; margin: 0px; background: #eee; overflow-x: hidden;}
     }
     
     document.body.addEventListener('touchstart', function(ev) {
+        
+        ev.preventDefault();
+        
         var touch = ev.touches[0];
         
         resetLeftToZero();

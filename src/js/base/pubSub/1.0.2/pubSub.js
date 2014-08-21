@@ -238,9 +238,7 @@ define(function (require, exports, module) {
             if(typeof callback === 'function') {
                 callback(eventName);
             }
-            
         }
-        
     }
     
     function split(str) {

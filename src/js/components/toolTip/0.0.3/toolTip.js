@@ -91,7 +91,6 @@ define(function(require) {
                     
                 var $win = $(window);
                 
-                
                 // 窗口大小变化是，则根据trigger的位置重新定位tip的位置
                 function resize() {
                     if(widgetEle.css('display') !== 'none') {
@@ -100,7 +99,6 @@ define(function(require) {
                 }
                 
                 that.superClass.prototype.bindUI.apply(that);
-                
                 
                 if(trigger) {
                     
