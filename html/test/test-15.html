@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>链表</title>
+</head>
+
+<body>
+
+<script type="text/javascript" charset="utf-8">
+(function() {
+    function Node(element) {
+        this.element = element;
+        this.next = null;
+    }
+    
+    function LinkList() {
+        
+        this.head = new Node('Head');
+    }
+    
+    LinkList.prototype.find = function(itm) {
+        
+        var current = this.head;
+        
+        while(current.element !== itm) {
+            current = current.next;
+        }
+        
+        return current;
+    };
+    
+    LinkList.prototype.findPrev = function(element) {
+        
+        var currentNode = this.head;
+        
+        while(currentNode && currentNode.next.element !== element) {
+            currentNode = currentNode.next;
+        }
+        
+        return currentNode;
+    };
+    
+    LinkList.prototype.insert = function(element, targetItm) {
+        
+        var newNode    = new Node(element),
+            targetNode = this.find(targetItm);
+        
+        if(targetNode) {
+            newNode.next    = targetNode.next;
+            targetNode.next = newNode;
+        }
+    };
+    
+    LinkList.prototype.remove = function(element) {
+        
+        var prevNode = this.findPrev(element);
+        
+        prevNode.next = prevNode.next.next;
+    }
+    
+})();
+</script>
+</body>
+</html>

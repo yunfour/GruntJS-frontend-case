@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>CSS3学习——2d转换</title>
+
+<style type="text/css">
+.panel{
+    height: 100px;
+    width: 100px;
+    margin: 0 0 20px;
+    border-radius: 5px;
+    background: #ccc;
+}
+.rotate{
+    transform: rotate(45deg);
+}
+.rotateX{
+    border: 1px solid #999;
+    transform: rotateX(45deg);
+}
+.rotateY{
+    transform: rotateY(45deg);
+}
+.translate{
+    transform: translateX(100px) translateY(100px);
+}
+.translate-1{
+    transform: translate(100px, 100px);
+}
+.matrix{
+    /*
+     * 参数1：水平缩放（scaleX，倍数）
+     * 参数2：垂直倾斜(skewX)
+     * 参数3：水平倾斜(skewY)
+     * 参数4：垂直缩放（scaleY，倍数）
+     * 参数5：水平移动（translateX）
+     * 参数6：处置移动（translateY）
+     */
+    transform: matrix(1.5, 0.5, -0.5, 0.866, 10, 0);
+}
+.skew{
+    transform: skew(45deg, 0);
+}
+.scale{
+    transform: scale(1, 2);
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="panel rotate">1</div>
+<div class="panel rotateX">1.1</div>
+<div class="panel rotateY">1.1</div>
+<div class="panel translate">2</div>
+<div class="panel translate-1">3</div>
+<div class="panel matrix">4</div>
+
+<div class="panel skew">5</div>
+<div class="panel scale">6</div>
+</body>
+</html>

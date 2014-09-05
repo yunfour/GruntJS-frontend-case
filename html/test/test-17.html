@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>字典</title>
+</head>
+
+<body>
+
+<script type="text/javascript" charset="utf-8">
+(function() {
+    function Dictionary() {
+        
+        this.dataStore = [];
+    }
+    
+    Dictionary.prototype.add = function(key, value) {
+        this.dataStore[key] = value;
+    };
+    
+    Dictionary.prototype.remove = function(key) {
+        delete this.dataStore[key];
+    };
+    
+    Dictionary.prototype.find = function(key) {
+        return this.dataStore[key];
+    };
+    
+    Dictionary.prototype.clear = function() {
+        var keys = Object.keys(this.dataStore);
+        
+        for(var key in keys) {
+            key = keys[key];
+            delete this.dataStore[key];
+        }
+    };
+    
+    Dictionary.prototype.showAll = function() {
+        var keys = Object.keys(this.dataStore);
+        
+        for(var key in keys) {
+            key = keys[key];
+            console.log(key + '-->' + this.dataStore[key]);
+        }
+    };
+    
+    Dictionary.prototype.count = function() {
+        var keys = Object.keys(this.dataStore),
+            len  = 0;
+        
+        for(var key in keys) {
+            len ++;
+        }
+        
+        return len;
+    };
+    
+    
+    var strLst = new Dictionary();
+    var str = 'how are you fine thank you how old are you';
+    
+    var strArr = str.split(' ');
+    
+    for(var i = 0, l = strArr.length; i < l; i ++) {
+        var times = strLst.find(strArr[i]) || 0;
+        
+        times ++;
+        
+        strLst.add(strArr[i], times);
+    }
+    
+    strLst.showAll();
+    
+    window.strLst = strLst;
+    
+    
+})();
+</script>
+</body>
+</html>

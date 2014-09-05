@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>字典</title>
+</head>
+
+<body>
+
+<script type="text/javascript" charset="utf-8">
+(function() {
+    function Dictionary() {
+        
+        this.dataStore = [];
+    }
+    
+    Dictionary.prototype.add = function(key, value) {
+        this.dataStore[key] = value;
+    };
+    
+    Dictionary.prototype.remove = function(key) {
+        delete this.dataStore[key];
+    };
+    
+    Dictionary.prototype.find = function(key) {
+        return this.dataStore[key];
+    };
+    
+    Dictionary.prototype.clear = function() {
+        var keys = Object.keys(this.dataStore);
+        
+        for(var key in keys) {
+            key = keys[key];
+            delete this.dataStore[key];
+        }
+    };
+    
+    Dictionary.prototype.showAll = function() {
+        var keys = Object.keys(this.dataStore);
+        
+        for(var key in keys) {
+            key = keys[key];
+            console.log(key + '-->' + this.dataStore[key]);
+        }
+    };
+    
+    Dictionary.prototype.count = function() {
+        var keys = Object.keys(this.dataStore),
+            len  = 0;
+        
+        for(var key in keys) {
+            len ++;
+        }
+        
+        return len;
+    };
+    
+    
+    var phoneBook = new Dictionary();
+    
+    phoneBook.add('chenhaiyun', '18905810298');
+    phoneBook.add('haiyun', '15869544785');
+    phoneBook.add('chen', '13655422254');
+    phoneBook.add('yangjian', '15896533215');
+    
+    phoneBook.showAll();
+    
+    window.phoneBook = phoneBook;
+    
+})();
+</script>
+</body>
+</html>

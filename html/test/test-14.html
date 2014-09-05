@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title></title>
+<script type="text/javascript" charset="utf-8">
+var head = document.head;
+
+function loadJS(url, callback) {
+    var node = document.createElement('script');
+    
+    node.async = true;
+    node.src = url;
+    
+    head.appendChild(node);
+}
+</script>
+<script type="text/javascript" src="scripts/test-14.js"></script>
+</head>
+<body>
+    
+    <div>
+        <div>2sdafasdfg</div>
+    </div>
+    
+    <script type="text/javascript" charset="utf-8">
+        var scripts = document.getElementsByTagName('script');
+        
+        console.log(scripts[scripts.length - 1]);
+    </script>
+    
+    
+    <p>1212</p>
+    <p>1212</p>
+    <p>1212</p>
+    <p>1212</p>
+    <p>1212</p>
+    <p>1212</p>
+    
+    <script type="text/javascript" charset="utf-8">
+      console.log("2222");
+    </script>
+    <p>1212</p>
+    <p>1212</p>
+    <p>1212</p>
+    <p>1212</p>
+    <p>1212</p>
+    <p>1212</p>
+    <p>1212</p>
+    <p>1212</p>
+    <p>1212</p>
+</body>
+</html>

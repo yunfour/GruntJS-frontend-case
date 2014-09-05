@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>移动端页面-动画</title>
+
+<style>
+
+@-webkit-keyframes myAnimate{
+	from{
+	    background: yellow;
+	    transform: rotate(0deg);
+	    
+	    left: 200px;
+	    top: 200px;
+	}
+	to{
+	    background: red;
+	    transform: rotate(360deg);
+	    width: 200px;
+	    height: 200px;
+        line-height: 200px;
+	    left: 125px;
+	    top: 125px;
+	}
+}
+
+.panel{
+    width: 50px;
+    height: 50px;
+    
+    border: 1px solid #ccc;
+    line-height: 50px;
+    
+    text-align: center;
+    
+    -webkit-animation: myAnimate 3s;
+    position: absolute;
+    left: 200px;
+    top: 200px;
+}
+
+</style>
+</head>
+
+<body>
+    <div class="panel">^_^</div>
+    
+<script type="text/javascript" charset="utf-8">
+
+</script>
+</body>
+</html>

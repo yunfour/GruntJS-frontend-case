@@ -240,6 +240,7 @@
             }
         }
         
+        // interactiveNodeNum === 0时说明所有的模块都已经加载完毕
         if(interactiveNodeNum === 0) {
             var mainModuleUri,
                 mainModule;
@@ -252,7 +253,7 @@
                 if(mainModule && !mainModule.executed) {
                     
                     if(isFunction(mainModule.factory)) {
-                        
+                        mainModule.exports = {};
                         mainModule.exports = mainModule.factory(require);
                         
                     } else {
@@ -303,14 +304,13 @@
             throw new Error(uri + '加载失败');
         }
         
-        if(!module.executed) {
+        if(module.executed) {
+            ret = module.exports;
+        } else {
             
             if(isFunction(module.factory)) {
                 ret = module.exports = module.factory(require);
             }
-            
-        } else {
-            ret = module.exports;
         }
         
         return ret;

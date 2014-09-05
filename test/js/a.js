@@ -1,8 +1,10 @@
 define(function(require) {
-    alert(11)
     require('./b.js');
+    var d = require('./d.js');
+    
+    console.log(d);
     
     return {
-        name: 'chenhaiyun'
+        name: 'aaaaaa'
     };
 });

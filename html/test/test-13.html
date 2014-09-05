@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>测试</title>
+</head>
+<body>
+
+<script>
+(function(){
+    function Person(name, sex) {
+        
+        this.setName = setName;
+        this.setSex = setSex;
+        this.showInfo = showInfo;
+        
+        this.setName(name);
+        this.setSex(sex);
+    }
+    
+    function setName(name) {
+        this.name = name;
+    }
+    function setSex(sex) {
+        this.sex = sex;
+    }
+    function showInfo() {
+        console.log('My name is ' + this.name + ';\nI am a ' + this.sex);
+    }
+    
+    
+    var p1 = new Person('chen1', 'boy'),
+        p2 = new Person('chen2', 'girl');
+    
+    p1.showInfo();
+    console.log(p1.showInfo === p2.showInfo);
+    
+    function Student(name, sex, NO) {
+        
+        if(this === window) {
+            return new Student(name, sex, NO);
+        }
+        
+        Person.call(this, name, sex);
+        
+        this.setNO = setNO;
+        
+        this.setNO(NO);
+    }
+    
+    function setNO(NO) {
+        this.NO = NO;
+    }
+    
+    var stu = new Student('chen3', 'boy', '201400098');
+    
+    console.log(stu);
+    console.log(stu.showInfo === p1.showInfo);
+    console.log(stu instanceof Person);
+    console.log(stu instanceof Student);
+    
+})();
+
+</script>
+
+</body>
+</html>

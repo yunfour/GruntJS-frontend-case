@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>移动端页面-过渡</title>
+
+<style>
+.panel{
+    height: 100px;
+    width: 100px;
+    
+    line-height: 100px;
+    text-align: center;
+    
+    transform: rotate(0deg);
+    
+    border: 1px solid #ccc;
+    background: #eee;
+    transition: transform 1s linear 0.2s;
+}
+
+.panel-transition{
+    transform: rotate(360deg);
+}
+</style>
+</head>
+
+<body>
+    <div id="J-panel" class="panel">^_^</div>
+    
+<script type="text/javascript" charset="utf-8">
+var panel = document.getElementById('J-panel');
+var classname = panel.className;
+
+classname += ' panel-transition';
+
+window.setTimeout(function() {
+    panel.className = classname;
+}, 2000);
+
+</script>
+</body>
+</html>
