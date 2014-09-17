@@ -1,0 +1,115 @@
+/*************************\
+ *    首页样式
+ *    yunfour@qq.com(陈海云)
+ *    2014-09-17
+/*************************/
+
+.home-body{
+    background: #bddae8;
+}
+.home-container{
+    width: 950px;
+    margin: 0 auto;
+}
+
+/*地址切换栏*/
+.home-addr-switch{
+    height: 18px;
+    margin: 5px 0 10px;
+    line-height: 18px;
+    color: #0088c8;
+}
+.home-addr-switch span{}
+.home-addr-switch a{
+    color: #0088c8;
+}
+
+/*banner*/
+.home-banners{
+    height: 80px;
+    margin: 0 0 10px;
+    overflow: hidden;
+    position: relative;
+}
+.home-banners-lst{
+    width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+.home-banners-lst li{
+    height: 80px;
+    overflow: hidden;
+}
+
+.home-banners-ctrls{
+    widows: auto;
+    white-space: nowrap;
+    position: absolute;
+    right: 5px;
+    bottom: 5px;
+    font-size: 0;
+}
+.home-banners-ctrls a{
+    display: inline-block;
+    height: 15px;
+    width: 15px;
+    margin: 0 3px 0 0;
+    line-height: 15px;
+    background: #fff;
+    background-color: rgba(255,255,255,0.5);
+    color: #999;
+    font-size: 12px;
+    font-weight: bold;
+    text-align: center;
+}
+.home-banners-ctrls a:hover{
+    text-decoration: none;
+}
+.home-banners-ctrls a.active{
+    background: #f60;
+    background-color: rgba(255,102,0,0.8);
+    color: #fff;
+}
+
+/*店铺列表*/
+.home-shops{
+    background: #fff;
+    border: 1px solid #f5f5f5;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.3);
+}
+
+/*标题*/
+.home-title{
+    height: 17px;
+    line-height: 17px;
+    padding: 8px 0;
+    background: ##fbfbfb;
+    background-image: -moz-linear-gradient(top,#fff,#f5f5f5);
+    background-image: -ms-linear-gradient(top,#fff,#f5f5f5);
+    background-image: -webkit-linear-gradient(top,#fff,#f5f5f5);
+    background-image: -o-linear-gradient(top,#fff,#f5f5f5);
+    background-image: linear-gradient(top,#fff,#f5f5f5);
+    background-repeat: repeat-x;
+}
+.home-title-more{
+    color: #333;
+    font-size: 14px;
+}
+.home-title-more strong{
+    color: #fe6000;
+    font-size: 20px;
+    font-family: Arial,'Helvetica Neue',sans-serif;
+}
+.home-title-big{
+    padding: 12px 0;
+}
+.home-go-shop{
+    display: inline-block;
+    height: 17px;
+    padding: 0 6px;
+    border-radius: 2px;
+    background: #0c9efc;
+    color: white;
+    font-size: 16px;
+}

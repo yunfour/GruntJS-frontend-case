@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>二叉树</title>
+</head>
+
+<body>
+
+<script type="text/javascript" charset="utf-8">
+(function() {
+    var Node = function(data, left, right) {
+        this.data = data;
+        this.left = left;
+        this.right = right;
+    }
+    
+    Node.prototype.show = function() {
+        return this.data;
+    };
+    
+    function BST() {
+        this.root = null;
+    }
+    
+    BST.prototype.insert = function(data) {
+        var node = new Node(data, null, null);
+        
+        if(this.root === null) {
+            this.root = node;
+        } else {
+            
+            var current = this.root;
+            var parent;
+            
+            while(true) {
+                
+                parent = current;
+                
+                if(data > current.data) {
+                    current = current.right;
+                    
+                    if(current === null) {
+                        parent.right = node;
+                        break;
+                    }
+                } else {
+                    
+                    current = current.left;
+                    
+                    if(current === null) {
+                        parent.left = node;
+                        break;
+                    }
+                }
+            }
+        }
+    };
+    
+    function inOrder(node) {
+        
+        if(node !== null) {
+            
+            inOrder(node.left);
+            console.log(node.show() + ' ');
+            inOrder(node.right);
+        }
+    }
+    
+    
+    var nums = new BST();
+    
+    nums.insert(12);
+    nums.insert(44);
+    nums.insert(334);
+    nums.insert(23);
+    nums.insert(1);
+    nums.insert(33);
+    nums.insert(6);
+    nums.insert(67);
+    nums.insert(23);
+    nums.insert(67);
+    nums.insert(8);
+    nums.insert(56);
+    
+    inOrder(nums.root);
+    
+    
+})();
+</script>
+</body>
+</html>

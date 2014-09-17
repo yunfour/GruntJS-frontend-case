@@ -1,0 +1,172 @@
+
+.com-header{
+    height: 40px;
+    margin: 0 0 10px;
+    background: #222;
+    box-shadow: 0 0 5px rgba(0,0,0,0.5);
+    font-family: "Helvetica Neue", Arial, "Microsoft Yahei", sans-serif;
+}
+
+.com-header-bd{
+    height: 40px;
+    width: 950px;
+    margin: 0 auto;
+    position: relative;
+}
+/*************************\
+ *    公共样式
+ *    yunfour@qq.com(陈海云)
+ *    2014-09-17
+/*************************/
+
+/*LOGO*/
+.com-header-logo{
+    height: 40px;
+    width: 90px;
+    background: url(../images/topbar.png) 0 0;
+    float: left;
+}
+.com-header-logo a{
+    display: block;
+    height: 40px;
+    width: 100%;
+    text-indent: -1000px;
+}
+/*头部登录栏*/
+.com-header-login{
+    
+}
+
+/*导航条*/
+.com-nav{
+    height: 40px;
+    widows: 300px;
+    float: right;
+}
+.com-nav-lst{
+    height: 40px;
+    margin: 0;
+}
+.com-nav-lst li{
+    height: 40px;
+    float: right;
+}
+.com-nav-lst a{
+    display: block;
+    height: 40px;
+    widows: auto;
+    padding: 0 10px;
+    line-height: 40px;
+    color: #ccc;
+    white-space: nowrap;
+}
+.com-nav-lst a:hover{
+    text-decoration: none;
+}
+
+/*店铺列表*/
+.com-shop-lst{
+}
+.com-shop-itm{
+    height: 90px;
+    margin: -1px;
+    border: 1px solid #ddd;
+    background: #fff;
+    overflow: hidden;
+    float: left;
+}
+.com-shop-itm .logo-wraper{
+    height: 80px;
+    width: 46px;
+    padding: 10px 0 0 10px;
+    float: left;
+}
+.com-shop-itm .logo{
+    height: 42px;
+    width: 42px;
+    padding: 1px;
+    border: 1px solid #ddd;
+}
+.com-shop-itm .time{
+    height: 18px;
+    margin: 8px 0 0;
+    line-height: 18px;
+    color: #666;
+    text-align: center;
+}
+.com-shop-itm .time-islong{
+    background: #ffe2e2;
+}
+.com-shop-itm .info{
+    height: 80px;
+    padding: 10px 0 0;
+    margin: 0 0 0 63px;
+    position: relative;
+}
+.com-shop-itm .title{
+    height: 18px;
+    line-height: 18px;
+    font-size: 14px;
+    overflow: hidden;
+    white-space: nowrap;
+}
+.com-shop-itm .title a{
+    color: #333;
+}
+.com-shop-itm .type{
+    height: 12px;
+    margin: 4px 0 0;
+}
+.com-shop-itm .order{
+    height: 14px;
+    margin: 4px 0 0;
+}
+.com-shop-lst-4rows .com-shop-itm{
+    width: 25%;
+}
+.com-shop-lst-5rows .com-shop-itm{
+    width: 20%;
+}
+
+/*等级组件*/
+.com-grade{
+    height: 14px;
+    width: 61px;
+    background-image: url(../images/bg.gif);
+    background-repeat: no-repeat;
+    overflow: hidden;
+    text-indent: -1000px;
+}
+.com-grade-10{
+    background-position: 0 -178px;
+}
+.com-grade-9{
+    background-position: 0 -193px;
+}
+.com-grade-8{
+    background-position: 0 -208px;
+}
+.com-grade-7{
+    background-position: 0 -223px;
+}
+.com-grade-6{
+    background-position: 0 -239px;
+}
+.com-grade-5{
+    background-position: 0 -255px;
+}
+.com-grade-4{
+    background-position: 0 -271px;
+}
+.com-grade-3{
+    background-position: 0 -287px;
+}
+.com-grade-2{
+    background-position: 0 -302px;
+}
+.com-grade-1{
+    background-position: 0 -318px;
+}
+.com-grade-0{
+    background-position: 0 -333px;
+}
