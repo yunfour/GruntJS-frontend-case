@@ -242,7 +242,7 @@ define(function (require, exports, module) {
     
     function split(str) {
         return str.split(SPLITTER);
-    };
+    }
     
     return PubSub;
 });

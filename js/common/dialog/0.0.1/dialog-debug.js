@@ -27,6 +27,7 @@ define("common/dialog/0.0.1/dialog-debug", [ "$-debug", "base/createClass/1.0.2/
                     that.hide();
                 });
                 that.on("render", function() {
+                    // 触发渲染事件后将模板代码填充进去
                     widgetEle.html(template);
                     widgetEle.css({
                         background: "none"

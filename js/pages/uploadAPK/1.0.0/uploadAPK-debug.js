@@ -3,9 +3,9 @@ define("pages/uploadAPK/1.0.0/template-debug", [], function(require) {
     return template;
 });
 
-define("pages/uploadAPK/1.0.0/uploadAPK-debug", [ "$-debug", "gallery/upload/1.1.1/upload-debug", "gallery/juicer/0.6.5/juicer-debug", "common/tools/0.0.1/tools-debug", "components/tip/0.0.1/tip-debug", "base/progress/0.0.1/progress-debug", "./template-debug" ], function(require) {
+define("pages/uploadAPK/1.0.0/uploadAPK-debug", [ "$-debug", "gallery/upload/1.1.1/upload-debug", "gallery/juicer/0.6.5/juicer-debug", "common/tools/0.0.1/tools-debug", "components/tip/0.0.1/tip-debug", "components/progress/0.0.1/progress-debug", "./template-debug" ], function(require) {
     var $ = require("$-debug");
-    var Upload = require("gallery/upload/1.1.1/upload-debug"), juicer = require("gallery/juicer/0.6.5/juicer-debug"), tools = require("common/tools/0.0.1/tools-debug"), Tip = require("components/tip/0.0.1/tip-debug"), Progress = require("base/progress/0.0.1/progress-debug");
+    var Upload = require("gallery/upload/1.1.1/upload-debug"), juicer = require("gallery/juicer/0.6.5/juicer-debug"), tools = require("common/tools/0.0.1/tools-debug"), Tip = require("components/tip/0.0.1/tip-debug"), Progress = require("components/progress/0.0.1/progress-debug");
     var template = require("./template-debug");
     var uploadTipObj, uploadTipObjTimer;
     var progressEle = $("#J-progress"), progressBd = progressEle.children("div.upload-apk-progress-bd"), progressObj = new Progress();

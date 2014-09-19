@@ -129,14 +129,38 @@
     white-space: nowrap;
     float: left;
 }
-.com-shop-itm .reserve{
-    
+.com-shop-itm .info-label{
+    height: 20px;
+    margin-top: 9px;
+}
+.com-shop-itm .book{
+    display: block;
+    height: 18px;
+    width: auto;
+    padding: 0 5px;
+    border: 1px solid #59b170;
+    line-height: 18px;
+    background: #f8f8ee;
+    color: #59b170;
+    white-space: nowrap;
+}
+.com-shop-itm .post-time{
+    color: #999;
 }
 .com-shop-lst-4rows .com-shop-itm{
     width: 25%;
 }
 .com-shop-lst-5rows .com-shop-itm{
     width: 20%;
+}
+.com-shop-itm:hover{
+    background: #f8f8f8;
+}
+.com-shop-itm:hover .post-time{
+    display: none;
+}
+.com-shop-itm-empty:hover{
+    background: #fff;
 }
 
 /*等级组件*/
@@ -180,4 +204,20 @@
 }
 .com-grade-0{
     background-position: 0 -333px;
+}
+
+
+/*图标*/
+.com-ico{
+    display: block;
+    position: absolute;
+}
+.com-ico-star{
+    display: block;
+    height: 15px;
+    width: 15px;
+    background: url(../images/bg.gif) -124px -778px;
+}
+.com-ico-star-gold{
+    background: url(../images/bg.gif) -200px -778px;
 }

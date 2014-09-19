@@ -177,7 +177,7 @@ define(function(require) {
         var uploaderFrm = uploader._uploaders[0].form;
         
         progressObj.on('progress', function() {
-            var percent = parseInt(progressObj.getProgress());
+            var percent = parseInt(progressObj.getProgress(), 10);
             
             showUploading(screenshotItm, percent);
         }).on('finish', function() {

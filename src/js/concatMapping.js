@@ -9,7 +9,15 @@ var rootDirs = {
     pages       : 'src/js/pages/'
 };
 
-var mapping = {};
+var mapping = [];
+
+// 过滤*-debug的JS文件（如果文件为-debug文件，则将其排除）
+var filterDebugJS = function(filePath) {
+    
+    var result = filePath.indexOf('-debug.') === -1;
+    
+    return result;
+};
 
 /*
  * 函数: processMapping(type, moduleName, version, isConcat)
@@ -52,17 +60,26 @@ var processMapping = function(type, moduleName, version, isConcat) {
         isConcat = !!isConcat;
     }
     
+    // 判断是否将所有子模块文件都合并到主模块文件中
     if(isConcat) {
         
-        // 合并该模块目录下的所有模块到主模块中
-        mapping[distFilesPath]      = [
-            srcFilesPath.replace('/js/', '/js/_build/')
-        ];
+        // 合并该模块目录下的所有子模块到主模块中
         
-        mapping[distFilesPathDebug] = [
-            srcFilesPathDebug.replace('/js/', '/js/_build/'),
-            srcCssFilesPathDebug.replace('/js/', '/js/_build/')
-        ];
+        // 压缩版文件
+        mapping.push({
+            dest: distFilesPath,
+            src: srcFilesPath.replace('/js/', '/js/_build/'),
+            filter: filterDebugJS
+        });
+       
+        // 未压缩版文件
+        mapping.push({
+            dest: distFilesPathDebug,
+            src: [
+                srcFilesPathDebug.replace('/js/', '/js/_build/'),
+                srcCssFilesPathDebug.replace('/js/', '/js/_build/')
+            ]
+        });
     } else {
         
         /*
@@ -87,13 +104,18 @@ var processMapping = function(type, moduleName, version, isConcat) {
             srcFilePathDebug            = srcDirPath + fileName.replace('.js', '-debug.js');
             srcCSSFilePathDebug         = srcDirPath + fileName.replace('.js', '-debug.css.js');
             
-            mapping[distFilePath]       = [
-                srcFilePath.replace('/js/', '/js/_build/')
-            ];
-            mapping[distFilePathDebug]  = [
-                srcFilePathDebug.replace('/js/', '/js/_build/'),
-                srcCSSFilePathDebug.replace('/js/', '/js/_build/')
-            ];
+            mapping.push({
+                dest: distFilePath,
+                src: srcFilePath.replace('/js/', '/js/_build/')
+            });
+           
+            mapping.push({
+                dest: distFilePathDebug,
+                src: [
+                    srcFilePathDebug.replace('/js/', '/js/_build/'),
+                    srcCSSFilePathDebug.replace('/js/', '/js/_build/')
+                ]
+            });
         }
     }
 };
@@ -159,19 +181,34 @@ var concatLatestVersion = function(moduleType) {
         concatDebugFiles.push('src/js/_build/' + moduleType + '/' + typeSonDirs[i] + '/' + versions[0] + '\/*-debug.css.js');
     }
     
-    mapping['js/' + moduleType + '/concat/latestVersion.js'] = concatFiles;
-    mapping['js/' + moduleType + '/concat/latestVersion-debug.js'] = concatDebugFiles;
+    
+    mapping.push({
+        dest: 'js/' + moduleType + '/concat/latestVersion.js',
+        src: concatFiles,
+        filter: filterDebugJS
+    });
+    mapping.push({
+        dest: 'js/' + moduleType + '/concat/latestVersion-debug.js',
+        src: concatDebugFiles
+    });
 };
 
 var concatAllVersion = function(moduleType) {
-    mapping['js/' + moduleType + '/concat/allVersion.js'] = [
-        'src/js/_build/' + moduleType + '/**/*.js',
-        'src/js/_build/' + moduleType + '/**/*.css.js'
-    ];
-    mapping['js/' + moduleType + '/concat/allVersion-debug.js'] = [
-        'src/js/_build/' + moduleType + '/**/*-debug.js',
-        'src/js/_build/' + moduleType + '/**/*-debug.css.js'
-    ];
+    mapping.push({
+        dest: 'js/' + moduleType + '/concat/allVersion.js',
+        src: [
+            'src/js/_build/' + moduleType + '/**/*.js',
+            'src/js/_build/' + moduleType + '/**/*.css.js'
+        ],
+        filter: filterDebugJS
+    });
+    mapping.push({
+        dest: 'js/' + moduleType + '/concat/allVersion-debug.js',
+        src: [
+            'src/js/_build/' + moduleType + '/**/*-debug.js',
+            'src/js/_build/' + moduleType + '/**/*-debug.css.js'
+        ]
+    });
 };
 
 

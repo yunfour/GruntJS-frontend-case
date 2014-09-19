@@ -57,7 +57,7 @@ define("components/widget/0.0.1/widget-debug", [ "$-debug", "base/createClass/1.
             renderUI: function() {},
             // 在渲染之后调用，在UI上绑定一些事件
             bindUI: function() {},
-            // 将组建渲染到文档流中，
+            // 将组件渲染到文档流中，
             render: function(container) {
                 var that = this, template = that.getAttr("template"), rendered = that.getAttr("rendered"), widgetEle;
                 // 判断组件是否已经渲染过，防止重复渲染

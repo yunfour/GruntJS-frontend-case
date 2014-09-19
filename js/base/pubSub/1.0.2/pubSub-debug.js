@@ -54,7 +54,7 @@ define("base/pubSub/1.0.2/pubSub-debug", [ "base/createClass/1.0.2/createClass-d
             unbind: function(eventsName, callback) {
                 var that = this, events = that.getAttr("events");
                 if (arguments.length === 0) {
-                    // 单独调用unbind方法不传递任何参数时，则解绑所有时间回调
+                    // 单独调用unbind方法不传递任何参数时，则解绑所有事件回调
                     events = null;
                     events = {};
                     that.setAttr("events", events);

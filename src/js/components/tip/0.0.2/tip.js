@@ -83,7 +83,7 @@ define(function(require) {
         methods: {
             bindUI: function() {
                 var that      = this,
-                    widgetEle = that.getAttr('widgetEle')
+                    widgetEle = that.getAttr('widgetEle');
                 
                 that.on('render', function() {
                     widgetEle.addClass('sea-tip2')

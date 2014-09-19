@@ -20,7 +20,7 @@ define(function(require) {
         ].join('');
         
         return $(deviceLine);
-    };
+    }
     
     // 监听删除按钮单击事件
     deviceLst.on('click', 'a.J-del', function() {
@@ -60,7 +60,7 @@ define(function(require) {
                     }
                 }
             );
-        })
+        });
     });
     
     // 监听添加按钮的单击事件
@@ -107,8 +107,8 @@ define(function(require) {
     }).render();
     
     window.setTimeout(function() {
-        tip.setArrowPosition(12)
-    }, 1000)
+        tip.setArrowPosition(12);
+    }, 1000);
     
     tip.temporaryShow(3000);
 });

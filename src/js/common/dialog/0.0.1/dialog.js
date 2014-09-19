@@ -126,7 +126,7 @@ define(function(require) {
         dialogBdEle.find('p.J-alterTipText').html(alertTxt);
         dialogObj.show();
         
-    };
+    }
     
     // 模拟confirm
     function confirmDialog(confirmTxt, callback) {
@@ -178,7 +178,7 @@ define(function(require) {
         
         dialogBdEle.find('p.J-alterTipText').html(confirmTxt);
         dialogObj.show();
-    };
+    }
     
     ComDialog.alert   = alterDialog;
     ComDialog.confirm = confirmDialog;

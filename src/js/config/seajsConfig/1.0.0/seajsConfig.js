@@ -23,13 +23,13 @@
         },
 
         alias: {
-            '$-debug'       : 'gallery/jquery/1.7.2/jquery.js',
-            '$'             : 'gallery/jquery/1.7.2/jquery.js',
-            'jqery'         : 'gallery/jquery/1.7.2/jquery.js',
-            'jqery-debug'   : 'gallery/jquery/1.7.2/jquery.js',
+            '$-debug'    : 'gallery/jquery/1.7.2/jquery.js',
+            '$'          : 'gallery/jquery/1.7.2/jquery.js',
+            'jqery'      : 'gallery/jquery/1.7.2/jquery.js',
+            'jqery-debug': 'gallery/jquery/1.7.2/jquery.js',
 
-            'zepto'         : 'gallery/zepto/1.1.4/zepto.min.js',
-            'zepto-debug'   : 'gallery/zepto/1.1.4/zepto.js'
+            'zepto'      : 'gallery/zepto/1.1.4/zepto.min.js',
+            'zepto-debug': 'gallery/zepto/1.1.4/zepto.js'
         },
 
         plugins: [

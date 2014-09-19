@@ -39,7 +39,7 @@ define(function(require, exports, module) {
     var $ = require('$');
     
     var createClass = require('base/createClass/1.0.2/createClass'),
-        Widget      = require('components/widget/0.0.1/widget')
+        Widget      = require('components/widget/0.0.1/widget'),
         mask        = require('./mask');
         
     var Dialog = createClass({
@@ -62,7 +62,7 @@ define(function(require, exports, module) {
                 
                 function onresize() {
                     that.setPosition();
-                };
+                }
                 
                 $(window).on('resize', onresize);
                 
