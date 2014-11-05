@@ -1,2 +1,177 @@
-/*! gruntTest 2014-09-19 */
-define("common/validateForm/0.0.1/validateForm",["$"],function(a){var b=a("$"),c=function(a,c,d,e){var f=b(a),g=f.closest(".com-form-item"),h=g.find(".com-form-explain"),i=h.hasClass("com-form-explain-block");e=e||"&nbsp;",0===h.size()?(h=b('<div class="com-form-explain com-form-explain-hasIco"></div>'),h.appendTo(g)):(h.removeClass().addClass("com-form-explain com-form-explain-hasIco"),i&&h.addClass("com-form-explain-block")),c?(h.show(),"explain"===d?h.html('<i class="com-ico com-form-ico com-form-ico-explain"></i><span>'+e+"</span>"):""!==d&&h.addClass("com-form-explain-"+d).html('<i class="com-ico com-form-ico com-form-ico-'+d+'"></i><span>'+e+"</span>")):h.hide()},d=function(a,d){var e=b(a),f=(e.attr("name"),b.trim(e.val()));""===f&&d&&c(e,!0,"explain",d)},e=function(a,d,e){var f,g,h=b(a),i=h.attr("name"),j=b.trim(h.val()),k=(h.attr("type")||"").toLowerCase(),l=h.prop("tagName").toLowerCase(),m=(h.closest("div.com-form-item"),h.closest("form")),n=0;if(d){if(g="undefined"==typeof d.isShowSuccessTip?!0:!!d.isShowSuccessTip,h.data("is_pass_validate","false"),c(h,!1),d.required)if("text"===k||"password"===k||"hidden"===k||"textarea"===l||"select"===l)""===j&&(c(h,!0,"err",d.emptyTip||"该字段不能为空！"),n++);else if("radio"===k||"checkbox"===k){var o=m.find("input[name="+i+"]:checked");0===o.size()&&(c(h,!0,"err",d.emptyTip||"该字段不能为空！"),n++)}if(0===n&&d.compare){var p=m.find("input[name="+d.compare.fieldName+"],textarea[name="+d.compare.fieldName+"]").eq(0),q=b.trim(p.val());p.size()&&(d.compare.compareFn(j,q)||(c(h,!0,"err",d.compare.failedTip||""),n++))}if(f=d.patterns,0===n&&f&&f.constructor===Array)for(var r,s,t,u=0,v=f.length;v>u;u++)if(s=f[u],t=s.pattern,r=s.noMatchTip||"你输入的内容格式有误！",t.constructor===RegExp&&(t=function(a){return s.pattern.test(a)}),!t(j)){c(h,!0,"err",r),n++;break}if(0===n&&d.asyncVali){var w=h.data("valiXhr"),x=d.asyncVali,y=x.url,z={};z.fieldName=x.name||i,z.fieldVal=encodeURIComponent(j),z._r=Math.random(),w&&w.abort&&w.abort(),c(h,!0,"loading",""),h.data("is_pass_validate","asyncValidating"),w=b.getJSON(y,z,function(a){var b="1"===a.status;b?(g&&c(h,!0,"success",x.successTip||d.successTip||""),h.data("is_pass_validate","true")):(c(h,!0,"err",a.message||""),h.data("is_pass_validate","false")),"function"==typeof e&&e(b,a)}),h.data("valiXhr",w)}0!==n?(h.data("is_pass_validate","false"),"function"==typeof e&&e(!1)):d.asyncVali||(g&&c(h,!0,"success",d.successTip||""),h.data("is_pass_validate","true"),"function"==typeof e&&e(!0))}},f=function(a,b){var c,d,e=[];for(var f in b)d=!1,b.hasOwnProperty(f)&&(c=a.find("[name="+f+"]").eq(0),c.size()&&(d=c.data("is_pass_validate"),"true"!==d&&e.push(f)));return{isPass:0===e.length,notPassFieldsName:e}},g=function(a,b){var c;for(var d in b)b.hasOwnProperty(d)&&(c=a.find("[name="+d+"]").eq(0),c.size()&&"true"!==c.data("is_pass_validate")&&e(c,b[d]))};return{showExplain:c,showDefaultTip:d,valiFn:e,isPassVali:f,goVali:g}});
+define("common/validateForm/0.0.1/validateForm", [ "$" ], function(require) {
+    var $ = require("$");
+    // 显示字段提示
+    var showExplain = function(theField, isShow, type, explainTxt) {
+        var field = $(theField), fieldPanel = field.closest(".com-form-item"), explainEle = fieldPanel.find(".com-form-explain"), isBlock = explainEle.hasClass("com-form-explain-block");
+        explainTxt = explainTxt || "&nbsp;";
+        if (explainEle.size() === 0) {
+            explainEle = $('<div class="com-form-explain com-form-explain-hasIco"></div>');
+            explainEle.appendTo(fieldPanel);
+        } else {
+            explainEle.removeClass().addClass("com-form-explain com-form-explain-hasIco");
+            if (isBlock) {
+                explainEle.addClass("com-form-explain-block");
+            }
+        }
+        if (isShow) {
+            explainEle.show();
+            if (type === "explain") {
+                explainEle.html('<i class="com-ico com-form-ico com-form-ico-explain"></i><span>' + explainTxt + "</span>");
+            } else if (type !== "") {
+                explainEle.addClass("com-form-explain-" + type).html('<i class="com-ico com-form-ico com-form-ico-' + type + '"></i><span>' + explainTxt + "</span>");
+            }
+        } else {
+            explainEle.hide();
+        }
+    };
+    // 显示字段的默认提示
+    var showDefaultTip = function(theField, defaultTip) {
+        var field = $(theField), fieldName = field.attr("name"), fieldVal = $.trim(field.val());
+        if (fieldVal === "" && defaultTip) {
+            showExplain(field, true, "explain", defaultTip);
+        }
+    };
+    // 根据设定的验证方案验证指定的字段
+    var valiFn = function(theField, valiObj, callback) {
+        var field = $(theField), fieldName = field.attr("name"), fieldVal = $.trim(field.val()), fieldType = (field.attr("type") || "").toLowerCase(), fieldTagName = field.prop("tagName").toLowerCase(), fieldPanel = field.closest("div.com-form-item"), theForm = field.closest("form"), errNum = 0, patterns;
+        var isShowSuccessTip;
+        if (!valiObj) {
+            return;
+        }
+        if (typeof valiObj.isShowSuccessTip === "undefined") {
+            isShowSuccessTip = true;
+        } else {
+            isShowSuccessTip = !!valiObj.isShowSuccessTip;
+        }
+        field.data("is_pass_validate", "false");
+        showExplain(field, false);
+        // 非空验证
+        if (!!valiObj.required) {
+            if (fieldType === "text" || fieldType === "password" || fieldType === "hidden" || fieldTagName === "textarea" || fieldTagName === "select") {
+                if (fieldVal === "") {
+                    showExplain(field, true, "err", valiObj.emptyTip || "该字段不能为空！");
+                    errNum++;
+                }
+            } else if (fieldType === "radio" || fieldType === "checkbox") {
+                var checkedFields = theForm.find("input[name=" + fieldName + "]:checked");
+                if (checkedFields.size() === 0) {
+                    showExplain(field, true, "err", valiObj.emptyTip || "该字段不能为空！");
+                    errNum++;
+                }
+            }
+        }
+        // 字段对比验证（使用场景：验证确认密码是否和密码一致）
+        if (errNum === 0 && valiObj.compare) {
+            var compareField = theForm.find("input[name=" + valiObj.compare.fieldName + "],textarea[name=" + valiObj.compare.fieldName + "]").eq(0), compareFieldVal = $.trim(compareField.val());
+            if (compareField.size()) {
+                if (!valiObj.compare.compareFn(fieldVal, compareFieldVal)) {
+                    showExplain(field, true, "err", valiObj.compare.failedTip || "");
+                    errNum++;
+                }
+            }
+        }
+        // 正则验证
+        patterns = valiObj.patterns;
+        if (errNum === 0 && patterns && patterns.constructor === Array) {
+            var reg, noMatchTip, patternObj, pattern;
+            for (var i = 0, l = patterns.length; i < l; i++) {
+                patternObj = patterns[i];
+                pattern = patternObj.pattern;
+                noMatchTip = patternObj.noMatchTip || "你输入的内容格式有误！";
+                if (pattern.constructor === RegExp) {
+                    pattern = function(val) {
+                        return patternObj.pattern.test(val);
+                    };
+                }
+                if (!pattern(fieldVal)) {
+                    showExplain(field, true, "err", noMatchTip);
+                    errNum++;
+                    break;
+                }
+            }
+        }
+        // ajax（异步）验证
+        if (errNum === 0 && valiObj.asyncVali) {
+            var valiXhr = field.data("valiXhr"), asyncVali = valiObj.asyncVali, url = asyncVali.url;
+            var params = {};
+            params.fieldName = asyncVali.name || fieldName;
+            params.fieldVal = encodeURIComponent(fieldVal);
+            params._r = Math.random();
+            if (valiXhr && valiXhr.abort) {
+                valiXhr.abort();
+            }
+            showExplain(field, true, "loading", "");
+            field.data("is_pass_validate", "asyncValidating");
+            valiXhr = $.getJSON(url, params, function(data) {
+                var isPass = data.status === "1";
+                if (isPass) {
+                    if (isShowSuccessTip) {
+                        showExplain(field, true, "success", asyncVali.successTip || valiObj.successTip || "");
+                    }
+                    field.data("is_pass_validate", "true");
+                } else {
+                    showExplain(field, true, "err", data.message || "");
+                    field.data("is_pass_validate", "false");
+                }
+                if (typeof callback === "function") {
+                    callback(isPass, data);
+                }
+            });
+            field.data("valiXhr", valiXhr);
+        }
+        if (errNum !== 0) {
+            field.data("is_pass_validate", "false");
+            if (typeof callback === "function") {
+                callback(false);
+            }
+        } else if (!valiObj.asyncVali) {
+            // 全部验证通过则显示成功的提示
+            if (isShowSuccessTip) {
+                showExplain(field, true, "success", valiObj.successTip || "");
+            }
+            field.data("is_pass_validate", "true");
+            if (typeof callback === "function") {
+                callback(true);
+            }
+        }
+    };
+    // 判断指定表单是否通过指定方案的验证操作
+    var isPassVali = function(theFrm, validPlan) {
+        var notPassFieldsName = [], isPass = false, field, valiState;
+        for (var k in validPlan) {
+            valiState = false;
+            if (validPlan.hasOwnProperty(k)) {
+                field = theFrm.find("[name=" + k + "]").eq(0);
+                if (field.size()) {
+                    valiState = field.data("is_pass_validate");
+                    if (valiState !== "true") {
+                        notPassFieldsName.push(k);
+                    }
+                }
+            }
+        }
+        return {
+            isPass: notPassFieldsName.length === 0,
+            notPassFieldsName: notPassFieldsName
+        };
+    };
+    // 按照设定的验证的方案去验证指定的表单
+    var goVali = function(theFrm, valiPlan) {
+        var notPassFieldsName = [], field;
+        for (var k in valiPlan) {
+            if (valiPlan.hasOwnProperty(k)) {
+                field = theFrm.find("[name=" + k + "]").eq(0);
+                if (field.size() && field.data("is_pass_validate") !== "true") {
+                    valiFn(field, valiPlan[k]);
+                }
+            }
+        }
+    };
+    return {
+        showExplain: showExplain,
+        showDefaultTip: showDefaultTip,
+        valiFn: valiFn,
+        isPassVali: isPassVali,
+        goVali: goVali
+    };
+});

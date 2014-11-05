@@ -290,7 +290,7 @@ define("pages/configSpread/1.0.0/uploadScreenshot-debug", [ "$-debug", "gallery/
         });
         var uploaderFrm = uploader._uploaders[0].form;
         progressObj.on("progress", function() {
-            var percent = parseInt(progressObj.getProgress());
+            var percent = parseInt(progressObj.getProgress(), 10);
             showUploading(screenshotItm, percent);
         }).on("finish", function() {
             screenshotItm.find("div.uploading").hide();

@@ -55,7 +55,7 @@
  * @Events: 无；
  * 
  */
-define("components/tip/0.0.2/tip-debug", [ "$-debug", "base/createClass/1.0.2/createClass-debug", "components/layer/0.0.1/layer-debug", "./tipStyle-debug.css" ], function(require) {
+define("components/tip/0.0.2/tip-debug", [ "$-debug", "base/createClass/1.0.2/createClass-debug", "components/layer/0.0.1/layer-debug" ], function(require) {
     var $ = require("$-debug"), createClass = require("base/createClass/1.0.2/createClass-debug"), Layer = require("components/layer/0.0.1/layer-debug");
     var template = [ '<div class="sea-tip2-content"></div>', '<i class="sea-tip2-pointer sea-tip2-pointer-11">◆</i>' ].join("");
     var Tip = createClass({
@@ -170,10 +170,6 @@ define("components/tip/0.0.2/tip-debug", [ "$-debug", "base/createClass/1.0.2/cr
         }
     });
     // 引入样式
-    require("./tipStyle-debug.css");
+    require("./css/tipStyle-debug.css");
     return Tip;
-});
-
-define("components/tip/0.0.2/tipStyle-debug.css", [], function() {
-    seajs.importStyle('.sea-tip2{padding:5px 10px;border-radius:5px;line-height:1.7;background:#000;color:#fff;font-family:"microsoft yahei","微软雅黑";overflow:visible;position:absolute;z-index:10010}.sea-tip2-content{height:auto}.sea-tip2-pointer{display:block;height:12px;width:12px;line-height:12px;color:#000;font-style:normal;font-family:"宋体";font-size:12px;position:absolute}.sea-tip2-pointer-1{left:70%;top:-6px;margin-left:-6px}.sea-tip2-pointer-2{top:30%;right:-6px;margin-top:-6px}.sea-tip2-pointer-3{top:50%;right:-6px;margin-top:-6px}.sea-tip2-pointer-4{top:70%;right:-6px;margin-top:-6px}.sea-tip2-pointer-5{left:70%;bottom:-7px;margin-left:-6px}.sea-tip2-pointer-6{left:50%;bottom:-7px;margin-left:-6px}.sea-tip2-pointer-7{left:30%;bottom:-7px;margin-left:-6px}.sea-tip2-pointer-8{top:70%;left:-6px;margin-top:-6px}.sea-tip2-pointer-9{top:50%;left:-6px;margin-top:-6px}.sea-tip2-pointer-10{top:30%;left:-6px;margin-top:-6px}.sea-tip2-pointer-11{left:30%;top:-6px;margin-left:-6px}.sea-tip2-pointer-12{left:50%;top:-6px;margin-left:-6px}.sea-tip2-theme-red{background:#f28c77;color:#fff}.sea-tip2-theme-red .sea-tip2-pointer{color:#f28c77}.sea-tip2-theme-blue{background:#71c6f7;color:#fff}.sea-tip2-theme-blue .sea-tip2-pointer{color:#71c6f7}.sea-tip2-theme-green{background:#4bc577;color:#fff}.sea-tip2-theme-green .sea-tip2-pointer{color:#4bc577}.sea-tip2-theme-white{background:#eee;color:#333}.sea-tip2-theme-white .sea-tip2-pointer{color:#eee}.sea-tip2-theme-orange{background:#f57403;color:#fff}.sea-tip2-theme-orange .sea-tip2-pointer{color:#f57403}');
 });

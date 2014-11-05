@@ -120,7 +120,7 @@
  * 
  *          其他事件可能在父类的某些行为中触发，请参考父类
  */
-define("components/calendar/0.0.1/calendar-debug", [ "$-debug", "base/createClass/1.0.2/createClass-debug", "base/dateFormat/0.0.1/dateFormat-debug", "components/widget/0.0.1/widget-debug", "./calendarStyle-debug.css" ], function(require) {
+define("components/calendar/0.0.1/calendar-debug", [ "$-debug", "base/createClass/1.0.2/createClass-debug", "base/dateFormat/0.0.1/dateFormat-debug", "components/widget/0.0.1/widget-debug" ], function(require) {
     var $ = require("$-debug"), createClass = require("base/createClass/1.0.2/createClass-debug"), dateFormat = require("base/dateFormat/0.0.1/dateFormat-debug"), Widget = require("components/widget/0.0.1/widget-debug");
     // 日历模板
     var TEMPLATE = [ '<div class="sea-calendar" style="display:none;">', '<h6 class="sea-calendar-title">', '<a class="J-operate pre-year" href="javascript:;" title="上一年">&lt;&lt;</a>', '<a class="J-operate pre-month" href="javascript:;" title="上一月">&lt;</a>', '<a class="month" href="javascript:;"></a>', '<a class="year" href="javascript:;"></a>', '<a class="J-operate next-month" href="javascript:;" title="下一月">&gt;</a>', '<a class="J-operate next-year" href="javascript:;" title="下一年">&gt;&gt;</a>', "</h6>", '<div class="sea-calendar-date">', '<ul class="sea-calendar-week"></ul>', '<ul class="sea-calendar-day clearfix"></ul>', "</div>", '<ul class="sea-calendar-years"></ul>', '<ul class="sea-calendar-monthes"></ul>', "</div>" ].join("");
@@ -291,7 +291,15 @@ define("components/calendar/0.0.1/calendar-debug", [ "$-debug", "base/createClas
                 // trigger的单击事件
                 if (trigger) {
                     $(document.body).on("click", function(ev) {
-                        // 点击页面上日历和trigger以外的地方的时候隐藏日历
+                        /*
+                         * 点击页面上日历和trigger以外的地方的时候隐藏日历
+                         * 代码解释：如果按照此中方式，那么在点击日历中的任
+                         * 意地方是，日历是不是也会隐藏呢？根据事件冒泡原理
+                         * 解释是会出现这样的结果，但是如果这样就不符合我们
+                         * 的需求了，隐藏为了避免单击日历时关闭日历，我们需
+                         * 要阻止日历根节点上的单击事件向document.body冒
+                         * 泡，阻止单击事件冒泡的代码在：249行
+                         */
                         if (ev.srcElement !== trigger[0]) {
                             that.hide();
                         }
@@ -390,7 +398,7 @@ define("components/calendar/0.0.1/calendar-debug", [ "$-debug", "base/createClas
                 monthEle.off();
                 trigger.off();
                 // 调用父类的销毁方法
-                that.superClass.prototype.destroy(that);
+                that.superClass.prototype.destroy.call(that);
                 return that;
             }
         }
@@ -932,8 +940,7 @@ define("components/dialog/1.0.0/mask-debug", [ "$-debug" ], function(require, ex
  */
 define("components/dialog/1.0.1/dialog-debug", [ "$-debug", "base/createClass/1.0.2/createClass-debug", "components/widget/0.0.1/widget-debug", "./mask-debug", "components/layer/0.0.1/layer-debug" ], function(require, exports, module) {
     var $ = require("$-debug");
-    var createClass = require("base/createClass/1.0.2/createClass-debug"), Widget = require("components/widget/0.0.1/widget-debug");
-    mask = require("./mask-debug");
+    var createClass = require("base/createClass/1.0.2/createClass-debug"), Widget = require("components/widget/0.0.1/widget-debug"), mask = require("./mask-debug");
     var Dialog = createClass({
         superClass: Widget,
         init: function(conf) {
@@ -1214,6 +1221,134 @@ define("components/layer/0.0.1/layer-debug", [ "$-debug", "base/createClass/1.0.
 });
 
 /**
+ * @Author      : 陈海云
+ * @Date        : 2014-06-12
+ * @Memo        : 实现一个模拟进度的过程（可用于ajax请求等场景，模拟进度条），
+ *                进度的值都是模拟实现，并非任务准确的进度
+ * @superClass  : PubSub，继承该类，为了实现其事件处理的机制，
+ * @param       : 无
+ * @methods: 
+ *      start:
+ *          描述       : 启动进度，当任务开始的时候调用此方法
+ *          参数       : 无
+ *          返回值    : 当前对象
+ *      finish:
+ *          描述       : 完成进度，当任务结束时调用此方法，此时进度为100%
+ *          参数       : 无
+ *          返回值    : 当前对象
+ *      pause:
+ *          描述       : 暂停进度，任务进行时出现某些情况，需要暂停进度，此时进度保持当前值
+ *          参数       : 无
+ *          返回值    : 当前对象
+ *      stop:
+ *          描述       : 停止进度，任务进行时出现某些情况，需要停止进度，此时进度会置为0
+ *          参数       : 无
+ *          返回值    : 当前对象
+ *      restart:
+ *          描述       : 重启进度，如果任务暂停、完成或者停止，则可以调用此方法重新启动进
+ *                   度，此时进入则之前保持的进度开始计算
+ *          参数       : 无
+ *          返回值    : 当前对象
+ *      getProgress:
+ *          描述       : 获取当前进度的值
+ *          参数       : 无
+ *          返回值    : 当前进度的值，0-100的一个数字
+ * 
+ *      其他方法：其他方法继承自超类：PubSub，请参考该类的方法
+ * @events：
+ *      start   : 启动时触发
+ *      finish  : 进度完成时触发
+ *      pause   : 进度暂停时触发
+ *      stop    : 进度停止时触发
+ *      restart : 进度重启
+ *      progress: 进度进行中时触发（进度每次发生变化都会触发）
+ */
+define("components/progress/0.0.1/progress-debug", [ "base/createClass/1.0.1/createClass-debug", "base/pubSub/1.0.0/pubSub-debug" ], function(require) {
+    var createClass = require("base/createClass/1.0.1/createClass-debug"), PubSub = require("base/pubSub/1.0.0/pubSub-debug");
+    var Progress = createClass({
+        superClass: PubSub,
+        init: function() {
+            this.setAttr("percent", 0);
+        },
+        methods: {
+            start: function() {
+                var that = this, interval = that.getAttr("interval"), timeout = 20, cumulateTime = 0;
+                window.clearInterval(interval);
+                interval = window.setInterval(function() {
+                    var percent = that.getAttr("percent"), finished = that.getAttr("finished", true);
+                    if (finished) {
+                        percent += 3;
+                    } else if (percent < 17) {
+                        percent += .61;
+                    } else if (percent >= 17 && percent < 27) {
+                        percent += .02;
+                    } else if (percent >= 27 && percent < 37) {
+                        percent += .21;
+                    } else if (percent >= 37 && percent < 47) {
+                        percent += .1;
+                    } else if (percent >= 47 && percent < 57) {
+                        percent += .08;
+                    } else if (percent >= 57 && percent < 67) {
+                        percent += .05;
+                    } else if (percent >= 67 && percent < 77) {
+                        percent += .04;
+                    } else if (percent >= 77 && percent < 87) {
+                        percent += .02;
+                    }
+                    if (percent >= 100) {
+                        percent = 100;
+                        window.clearInterval(interval);
+                        that.on("finish");
+                    }
+                    cumulateTime += timeout;
+                    that.setAttr({
+                        percent: percent,
+                        cumulateTime: cumulateTime
+                    });
+                    that.on("progress");
+                }, timeout);
+                that.setAttr("interval", interval);
+                return this;
+            },
+            finish: function() {
+                var that = this;
+                that.setAttr("finished", true);
+                return that;
+            },
+            pause: function() {
+                var that = this, interval = that.getAttr("interval");
+                window.clearInterval(interval);
+                that.on("pause");
+                return that;
+            },
+            stop: function() {
+                var that = this;
+                that.setAttr({
+                    percent: 0,
+                    finished: false,
+                    cumulateTime: 0
+                }).pause();
+                that.on("stop");
+                return that;
+            },
+            restart: function() {
+                this.setAttr({
+                    percent: 0,
+                    finished: false,
+                    cumulateTime: 0
+                }).start();
+                this.on("restart");
+                return this;
+            },
+            getProgress: function() {
+                return this.getAttr("percent");
+            }
+        }
+    });
+    return Progress;
+});
+
+/**
  * @Author：陈海云
  * @Date：2014-5-15
  * @SuperClass：SubPub(继承订阅-发布模式的实现，以实现事件处理的功能)
@@ -1297,6 +1432,98 @@ define("components/tab/1.0.1/tab-debug", [ "$-debug", "base/createClass/1.0.0/cr
         }
     });
     return Tab;
+});
+
+/**
+ * @Author：陈海云
+ * @Date：2014-05-16
+ * @Memo：提供一个记录超时时间的构造函数，使用场景：一个操作需要
+ *       在一定时间段内才能完成，例如：一部请求，通过该构造函数
+ *       初始化实例，当操作时间超过设置的时间是会触发"timeout"的事件；
+ *       构造函数继承了PubSub，因此部分方法请参考类 PubSub 对应的模
+ *       块：common/pubSub/1.0.0/pubSub.js
+ * @superClass：PubSub，继承该类，为了实现其事件处理的机制，
+ * @param：time——初始设置超时时间，单位：毫秒
+ * @methods：
+ *      setTime：
+ *          描述：设置超时时间；
+ *          参数：
+ *              millisecond——超时时间（单位：毫秒）；
+ *          返回值：当前对象
+ *      start：
+ *          描述：启动超时器；
+ *          参数：无；
+ *          返回值：当前对象
+ *      stop：
+ *          描述：停止超时记录，使用该方法后，下次在启动超时器时则从0开始计时；
+ *          参数：无；
+ *          返回值：当前对象
+ *      pause： 
+ *          描述：暂停定时器，使用该方法后，下次启动超时器时则从暂停的时刻开始计时；
+ *          参数：无
+ *          返回值：当前对象
+ *      其他方法：其他方法继承自超类：PubSub，请参考该类的方法
+ * @events：
+ *      start   ：启动时触发
+ *      timeout ：超时时触发
+ *      stop    ：停止定时器是触发
+ *      pause   ：暂停定时器触发
+ */
+define("components/timeout/0.0.1/timeout-debug", [ "base/createClass/1.0.2/createClass-debug", "base/pubSub/1.0.0/pubSub-debug" ], function(require) {
+    var createClass = require("base/createClass/1.0.2/createClass-debug"), PubSub = require("base/pubSub/1.0.0/pubSub-debug");
+    var Timeout = createClass({
+        // 设置超类
+        superClass: PubSub,
+        // 初始化方法
+        init: function(time) {
+            var that = this;
+            that.setAttr({
+                time: parseInt(time, 10) || 0,
+                curTime: 0
+            });
+        },
+        // 方法
+        methods: {
+            // 设置超时时间
+            setTime: function(millisecond) {
+                var that = this;
+                millisecond = parseInt(millisecond, 10);
+                if (isNaN(millisecond) || millisecond <= 0) {
+                    throw new Error("方法：setTime(millisecond) 的参数 millisecond 必须为大于数字");
+                }
+                that.setAttr("time", millisecond);
+                return that;
+            },
+            // 启动超时器
+            start: function() {
+                var that = this, time = that.getAttr("time");
+                var timer = window.setInterval(function() {
+                    var curTime = that.getAttr("curTime") + 50;
+                    if (curTime >= time) {
+                        that.on("timeout").stop();
+                    }
+                    that.setAttr("curTime", curTime);
+                }, 50);
+                window.clearInterval(that.getAttr("timer"));
+                that.setAttr("timer", timer).on("start");
+                return that;
+            },
+            // 停止记录超时时间
+            stop: function() {
+                var that = this;
+                that.setAttr("curTime", 0).pause().on("stop");
+                return that;
+            },
+            // 暂停记录超时时间
+            pause: function() {
+                var that = this;
+                window.clearTimeout(that.getAttr("timer"));
+                that.on("pause");
+                return that;
+            }
+        }
+    });
+    return Timeout;
 });
 
 define("components/tip/0.0.1/tip-debug", [ "$-debug", "base/createClass/1.0.2/createClass-debug", "base/pubSub/1.0.0/pubSub-debug" ], function(require) {
@@ -1583,7 +1810,7 @@ define("components/tip/0.0.2/tip-debug", [ "$-debug", "base/createClass/1.0.2/cr
         }
     });
     // 引入样式
-    require("./tipStyle-debug.css");
+    require("./css/tipStyle-debug.css");
     return Tip;
 });
 
@@ -2327,7 +2554,7 @@ define("components/widget/0.0.1/widget-debug", [ "$-debug", "base/createClass/1.
             renderUI: function() {},
             // 在渲染之后调用，在UI上绑定一些事件
             bindUI: function() {},
-            // 将组建渲染到文档流中，
+            // 将组件渲染到文档流中，
             render: function(container) {
                 var that = this, template = that.getAttr("template"), rendered = that.getAttr("rendered"), widgetEle;
                 // 判断组件是否已经渲染过，防止重复渲染
@@ -2368,12 +2595,4 @@ define("components/widget/0.0.1/widget-debug", [ "$-debug", "base/createClass/1.
         }
     });
     return Widget;
-});
-
-define("components/calendar/0.0.1/calendarStyle-debug.css", [], function() {
-    seajs.importStyle(".sea-calendar{height:auto;width:210px;padding:15px 10px;border:1px solid #E5E5E5;box-shadow:0 0 15px -3px #aaa;border-radius:3px;background:#fff;color:#333;position:absolute;left:0;top:0;z-index:10000}.sea-calendar,.sea-calendar a{color:#333}.sea-calendar-title{height:25px;margin:0 0 5px}.sea-calendar-title a{display:block;height:25px;line-height:25px;text-align:center;float:left}.sea-calendar-title a:hover{background:#ccc;text-decoration:none}.sea-calendar-title .year,.sea-calendar-title .month{width:26%;font-weight:700}.sea-calendar-title .pre-month,.sea-calendar-title .next-month,.sea-calendar-title .pre-year,.sea-calendar-title .next-year{width:12%}.sea-calendar-date{height:auto}.sea-calendar-week{height:30px}.sea-calendar-week li{height:30px;width:14.28%;font-weight:700;line-height:30px;text-align:center;float:left;overflow:hidden;cursor:default}.sea-calendar-day{height:auto}.sea-calendar-day li{width:14.28%;height:28px;float:left}.sea-calendar-day a{display:block;height:28px;line-height:28px;color:#333;text-align:center}.sea-calendar-day a:hover,.sea-calendar-day a.today{border-radius:3px;background:#CFCFCF;text-decoration:none}.sea-calendar-day a.active{border-radius:3px;background:#5fb3e3;color:#fff}.sea-calendar-day a.space{cursor:default}.sea-calendar-day a.disabled,.sea-calendar-day a.disabled:hover{border-radius:0;background:#eee;color:#999;cursor:default;cursor:not-allowed!important}.sea-calendar-years{height:auto;display:none}.sea-calendar-years li{width:33.33%;float:left}.sea-calendar-years a{display:block;height:35px;line-height:35px;text-align:center}.sea-calendar-years a:hover{background:#ccc;text-decoration:none}.sea-calendar-years a.active{background:#5fb3e3;color:#fff}.sea-calendar-monthes{height:auto;display:none}.sea-calendar-monthes li{width:33.33%;float:left}.sea-calendar-monthes a{display:block;height:35px;line-height:35px;text-align:center}.sea-calendar-monthes a:hover{background:#ccc;text-decoration:none}.sea-calendar-monthes a.active{background:#5fb3e3;color:#fff}.sea-calendar-theme-orange .sea-calendar-day a.active,.sea-calendar-theme-orange .sea-calendar-years a.active,.sea-calendar-theme-orange .sea-calendar-monthes a.active{background:#f57403}.sea-calendar-theme-black .sea-calendar-day a.active,.sea-calendar-theme-black .sea-calendar-years a.active,.sea-calendar-theme-black .sea-calendar-monthes a.active{background:#333}");
-});
-
-define("components/tip/0.0.2/tipStyle-debug.css", [], function() {
-    seajs.importStyle('.sea-tip2{padding:5px 10px;border-radius:5px;line-height:1.7;background:#000;color:#fff;font-family:"microsoft yahei","微软雅黑";overflow:visible;position:absolute;z-index:10010}.sea-tip2-content{height:auto}.sea-tip2-pointer{display:block;height:12px;width:12px;line-height:12px;color:#000;font-style:normal;font-family:"宋体";font-size:12px;position:absolute}.sea-tip2-pointer-1{left:70%;top:-6px;margin-left:-6px}.sea-tip2-pointer-2{top:30%;right:-6px;margin-top:-6px}.sea-tip2-pointer-3{top:50%;right:-6px;margin-top:-6px}.sea-tip2-pointer-4{top:70%;right:-6px;margin-top:-6px}.sea-tip2-pointer-5{left:70%;bottom:-7px;margin-left:-6px}.sea-tip2-pointer-6{left:50%;bottom:-7px;margin-left:-6px}.sea-tip2-pointer-7{left:30%;bottom:-7px;margin-left:-6px}.sea-tip2-pointer-8{top:70%;left:-6px;margin-top:-6px}.sea-tip2-pointer-9{top:50%;left:-6px;margin-top:-6px}.sea-tip2-pointer-10{top:30%;left:-6px;margin-top:-6px}.sea-tip2-pointer-11{left:30%;top:-6px;margin-left:-6px}.sea-tip2-pointer-12{left:50%;top:-6px;margin-left:-6px}.sea-tip2-theme-red{background:#f28c77;color:#fff}.sea-tip2-theme-red .sea-tip2-pointer{color:#f28c77}.sea-tip2-theme-blue{background:#71c6f7;color:#fff}.sea-tip2-theme-blue .sea-tip2-pointer{color:#71c6f7}.sea-tip2-theme-green{background:#4bc577;color:#fff}.sea-tip2-theme-green .sea-tip2-pointer{color:#4bc577}.sea-tip2-theme-white{background:#eee;color:#333}.sea-tip2-theme-white .sea-tip2-pointer{color:#eee}.sea-tip2-theme-orange{background:#f57403;color:#fff}.sea-tip2-theme-orange .sea-tip2-pointer{color:#f57403}');
 });

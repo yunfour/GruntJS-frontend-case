@@ -226,7 +226,7 @@ define(function(require) {
     });
     
     // 引入样式
-    require('./tipStyle.css');
+    require('./css/tipStyle.css');
     
     return Tip;
 });

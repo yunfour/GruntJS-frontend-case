@@ -1,2 +1,2 @@
-/*! gruntTest 2014-09-19 */
+/*! gruntTest 2014-11-05 */
 define("components/layer/0.0.1/layer",["$","base/createClass/1.0.2/createClass","components/widget/0.0.1/widget"],function(a){var b=(a("$"),a("base/createClass/1.0.2/createClass")),c=a("components/widget/0.0.1/widget"),d=b({superClass:c,attrs:{template:'<div style="display:none"></div>'},methods:{show:function(){var a=this,b=a.getAttr("widgetEle");return b.show(),a},hide:function(){var a=this,b=a.getAttr("widgetEle");return b.hide(),a},position:function(a,b){var c,d=this,e=d.getAttr("widgetEle");return"none"===e.css("display")?(c=e.show().offset(),e.hide()):c=e.offset(),a||0===a||(a=c.left),b||0===b||(b=c.top),e.css({left:a,top:b}),d}}});return d});

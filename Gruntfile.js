@@ -7,6 +7,9 @@ module.exports = function (grunt) {
     
     var aliasInfo = grunt.file.readJSON("alias_info.json");
     
+    // 生成合并的映射关系，在concat插件中使用
+    var configConcat = require('./src/js/concatMapping');
+    
     // 过滤*-debug的JS文件
     var filterDebugJS = function(filePath) {
         var result = filePath.indexOf('-debug.') === -1;
@@ -37,9 +40,9 @@ module.exports = function (grunt) {
             tasks: [
                 'less',
                 'jshint',
-                //'transport',
-                //'concat',
-                //'uglify',
+                'transport',
+                'concat',
+                'uglify',
                 'clean'
             ]
         },
@@ -70,7 +73,8 @@ module.exports = function (grunt) {
                 
                 parsers: {
                     '.js': [script.jsParser],
-                    '.css': [style.css2jsParser]
+                    //'.css': [style.css2jsParser]  // 将css转换成js文件
+                    '.css': [style.cssParser]
                 },
                 
                 // 是否生产-debug文件
@@ -134,16 +138,74 @@ module.exports = function (grunt) {
             }
         },
         
+        // 复制文件
+        copy: {
+            styles: {
+                files: [
+                    {
+                        expand: true,
+                        cwd: 'src/js/_build/',
+                        src: '**/*.css',
+                        dest: 'js/'
+                    }
+                ]
+            },
+            images: {
+                files: [
+                    {
+                        expand: true,
+                        cwd: 'src/js/',
+                        dest: 'js/',
+                        src: '**/*.jpg'
+                    },
+                    {
+                        expand: true,
+                        cwd: 'src/js/',
+                        dest: 'js/',
+                        src: '**/*.jpeg'
+                    },
+                    {
+                        expand: true,
+                        cwd: 'src/js/',
+                        dest: 'js/',
+                        src: '**/*.gif'
+                    },
+                    {
+                        expand: true,
+                        cwd: 'src/js/',
+                        dest: 'js/',
+                        src: '**/*.png'
+                    },
+                    {
+                        expand: true,
+                        cwd: 'src/js/',
+                        dest: 'js/',
+                        src: '**/*.bmp'
+                    }
+                ]
+            }
+        },
+        
         // 合并文件
         concat: {
             options: {
                 separator: '\n;'
             },
             dist: {
-                files: [
+                files: configNoConcat([
                     // 合并是的文件对应关系,读取concatMapping模块
-                    require('./src/js/concatMapping')
-                ]
+                    
+                    {
+                        type: 'components',
+                        name: 'dialog',
+                        version: '1.0.0'
+                    },
+                    {
+                        type: 'components',
+                        name: 'dialog',
+                        version: '1.0.1'
+                    }
+                ])
             }
         },
         
@@ -174,7 +236,7 @@ module.exports = function (grunt) {
                     }
                 ]
             },
-            // 压缩组件文件
+            // 压缩seajs模块
             components: {
                 files: [
                     {
@@ -231,9 +293,17 @@ module.exports = function (grunt) {
         
         // 清理临时文件
         clean: {
-            foo: {
+            // 清理js/文件夹，以备生成最新的js模块文件使用
+            js_dest: {
                 src: [
-                    'src/js/_build',
+                    'js/'
+                ]
+            },
+            
+            // 清理临时文件夹src/js/_build
+            build: {
+                src: [
+                    'src/js/_build'
                 ]
             }
         }
@@ -243,6 +313,7 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-contrib-jshint');
     grunt.loadNpmTasks('grunt-cmd-transport');
+    grunt.loadNpmTasks('grunt-contrib-copy');
     grunt.loadNpmTasks('grunt-cmd-concat');
     grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-contrib-clean');
@@ -252,10 +323,11 @@ module.exports = function (grunt) {
      * 1、使用jshint插件对js进行验证
      * 2、使用transport插件对所有cmd模块（seajs模块是cmd的一个子集）提取id等操作
      *    见处理好的模块转移到src/js/build目录中
-     * 3、使用concat插件按规则对上一步处理src/js/build/下的模块进行合并，将合并后的文件转移到js/目录中；
+     * 3、使用copy插件将src/js/目录下的所有样式和图片copy到js/目录下对应的目录中
+     * 4、使用concat插件按规则对上一步处理src/js/build/下的模块进行合并，将合并后的文件转移到js/目录中；
      *    合并规则详细见concat的配置和src/js/concatMapping.js中
-     * 4、使用uglify插件对上一步中合并好的在js/下的js进行压缩处理
-     * 5、使用watch插件对文件进行监视，如果文件变得，则按顺序执行以上4步的任务
+     * 5、使用uglify插件对上一步中合并好的在js/下的js进行压缩处理
+     * 6、使用watch插件对文件进行监视，如果文件变得，则按顺序执行以上4步的任务
      */
-    grunt.registerTask('default', ['less', 'jshint', 'transport', 'concat', 'uglify', 'clean', 'watch']);
+    grunt.registerTask('default', ['clean:js_dest', 'less', 'jshint', 'transport', 'copy', 'concat', 'uglify', 'clean:build', 'watch']);
 };

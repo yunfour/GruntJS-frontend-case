@@ -1,2 +1,21 @@
-/*! gruntTest 2014-09-19 */
-define("pages/closingCost/1.0.0/closingCost",["$","base/dateFormat/0.0.1/dateFormat","common/setFilter/0.0.1/setFilter","components/calendar/0.0.1/calendar"],function(a){var b=a("$"),c=(a("base/dateFormat/0.0.1/dateFormat"),a("common/setFilter/0.0.1/setFilter")),d=b("#J-pagerPanel"),e=b("#J-filterPanel"),f=e.find("input[name=beginDate]"),g=e.find("input[name=endDate]");c({},e,d);var h=a("components/calendar/0.0.1/calendar"),i=new Date,j=new h({range:[void 0,i],trigger:f}),k=new h({range:[void 0,i],trigger:g});j.on("selectDate",function(a){k.range([a,i])}),k.on("selectDate",function(a){j.range([void 0,a])})});
+define("pages/closingCost/1.0.0/closingCost", [ "$", "base/dateFormat/0.0.1/dateFormat", "common/setFilter/0.0.1/setFilter", "components/calendar/0.0.1/calendar" ], function(require) {
+    var $ = require("$"), dateFormat = require("base/dateFormat/0.0.1/dateFormat"), setFilter = require("common/setFilter/0.0.1/setFilter");
+    var pagerPanel = $("#J-pagerPanel"), filterPanel = $("#J-filterPanel"), applyBeginDate = filterPanel.find("input[name=beginDate]"), applyEndDate = filterPanel.find("input[name=endDate]");
+    setFilter({}, filterPanel, pagerPanel);
+    var Calendar = require("components/calendar/0.0.1/calendar");
+    var today = new Date();
+    var beginDateCalendar = new Calendar({
+        range: [ undefined, today ],
+        trigger: applyBeginDate
+    });
+    var endDateCalendar = new Calendar({
+        range: [ undefined, today ],
+        trigger: applyEndDate
+    });
+    beginDateCalendar.on("selectDate", function(theDate) {
+        endDateCalendar.range([ theDate, today ]);
+    });
+    endDateCalendar.on("selectDate", function(theDate) {
+        beginDateCalendar.range([ undefined, theDate ]);
+    });
+});

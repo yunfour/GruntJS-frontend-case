@@ -36,8 +36,7 @@
  */
 define("components/dialog/1.0.1/dialog-debug", [ "$-debug", "base/createClass/1.0.2/createClass-debug", "components/widget/0.0.1/widget-debug", "./mask-debug", "components/layer/0.0.1/layer-debug" ], function(require, exports, module) {
     var $ = require("$-debug");
-    var createClass = require("base/createClass/1.0.2/createClass-debug"), Widget = require("components/widget/0.0.1/widget-debug");
-    mask = require("./mask-debug");
+    var createClass = require("base/createClass/1.0.2/createClass-debug"), Widget = require("components/widget/0.0.1/widget-debug"), mask = require("./mask-debug");
     var Dialog = createClass({
         superClass: Widget,
         init: function(conf) {

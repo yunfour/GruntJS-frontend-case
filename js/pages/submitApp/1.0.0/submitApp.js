@@ -1,2 +1,184 @@
-/*! gruntTest 2014-09-19 */
-define("pages/submitApp/1.0.0/setFrm",["$","common/validateForm/0.0.1/validateForm"],function(a){function b(){return{imgUrl:encodeURIComponent(c.trim(f.val())),appName:encodeURIComponent(c.trim(g.val())),kitName:encodeURIComponent(c.trim(h.val())),appType:encodeURIComponent(c.trim(i.val()))}}var c=a("$"),d=a("common/validateForm/0.0.1/validateForm"),e=c("#J-submitAppFrm"),f=c("#imgUrl"),g=c("#appName"),h=c("#kitName"),i=c("#appType"),j=e.find("input[type=submit]"),k={imgUrl:{required:!0,emptyTip:"请上传图标！"},appName:{required:!0,emptyTip:"请输入应用名称！"},appType:{patterns:[{pattern:function(a){var b="null"!==a;return b},noMatchTip:"请选择应用类型"}]}};e.delegate("input","blur",function(){var a=c(this),b=a.attr("name");d.valiFn(this,k[b])}),i.on("change",function(){var a=i,b=a.attr("name");d.valiFn(this,k[b])}),e.on("submit",function(){var a=function(){var a=d.isPassVali(e,k);return a.isPass||(d.goVali(e,k),a=d.isPassVali(e,k)),a.isPass};return j.hasClass("com-btn-disable")?!1:(d.showExplain(j,!1),a()&&(j.addClass("com-btn-disable").val("提交中..."),c.post("jsp/submitApp.jsp",b(),function(a){j.removeClass("com-btn-disable").val("提交"),"1"!==a.status?d.showExplain(j,!0,"warn",a.message):(d.showExplain(j,!0,"success","提交成功"),location.href="dev-submit-app-success.html")},"JSON")),!1)})}),define("pages/submitApp/1.0.0/submitApp",["$","./uploadAppIco","gallery/upload/1.1.1/upload","components/ToolTip/0.0.3/ToolTip","./setFrm","common/validateForm/0.0.1/validateForm"],function(a){a("$");a("./uploadAppIco"),a("./setFrm")}),define("pages/submitApp/1.0.0/uploadAppIco",["$","gallery/upload/1.1.1/upload","components/ToolTip/0.0.3/ToolTip"],function(a){function b(a){var b=/\.(jpg|jpeg|gif|png)$/i.test(a);return b}function c(a,b,c){if(e||(e=new h({theme:"red",arrowPosition:6}).render()),b){var d=a.offset();e.setTipText(c).position(d.left+a.outerWidth()/2,d.top-2).temporaryShow(2e3)}else e.hide()}function d(a,b,c){var d=k.find("i.com-form-ico"),e=k.find("span"),f="com-ico com-form-ico com-form-ico-";a?(k.removeClass("com-form-explain-warn").show(),f+=b,d.removeClass().addClass(f),e.html(c)):k.hide()}var e,f=a("$"),g=a("gallery/upload/1.1.1/upload"),h=a("components/ToolTip/0.0.3/ToolTip"),i=f("#J-uploadIcoBtn"),j=f("#J-selectIcoBtn"),k=f("#J-uploadExplain"),l=f("#imgUrl"),m=[],n=new g({trigger:j,name:"appImg",action:"./jsp/uplaodAppPic.jsp",accept:"image/*",multiple:!1,data:{r:Math.random()},change:function(a){c(j,!1),m=[],l.val("");for(var d,e=0,f=a.length;f>e;e++){if(d=a[e],!b(a[e].name))return c(j,!0,"请选择格式为JPG,PNG,GIF的文件"),!1;if(d.size&&d.size>5e5)return c(j,!0,"文件大小不能超过500k"),!1}m=a},error:function(){i.removeClass("com-btn-disable"),d(!0,"warn","上传出错，请重试")},success:function(a){var b=f.parseJSON(a);i.removeClass("com-btn-disable"),"1"===b.status?(d(!0,"success","上传成功"),l.val(b.imgUrl),j.html('<img src="'+b.imgUrl+'" width="125" height="125" style="border-radius: 5px;" />')):d(!0,"warn",b.message)},progress:function(){}});i.on("click",function(){return i.hasClass("com-btn-disable")?!1:0===m.length?(c(i,!0,"请选择图标文件"),!1):(i.addClass("com-btn-disable"),n.submit(),d(!0,"loading","正在上传中..."),void(m=[]))})});
+define("pages/submitApp/1.0.0/setFrm", [ "$", "common/validateForm/0.0.1/validateForm" ], function(require) {
+    var $ = require("$");
+    var validateFrm = require("common/validateForm/0.0.1/validateForm");
+    var theFrm = $("#J-submitAppFrm"), imgUrl = $("#imgUrl"), appName = $("#appName"), kitName = $("#kitName"), appType = $("#appType"), submitBtn = theFrm.find("input[type=submit]");
+    var validatePlan = {
+        imgUrl: {
+            required: true,
+            emptyTip: "请上传图标！"
+        },
+        appName: {
+            required: true,
+            emptyTip: "请输入应用名称！"
+        },
+        //'kitName': {
+        //    required: true,
+        //    emptyTip: '请输入包名称！'
+        //},
+        appType: {
+            patterns: [ {
+                pattern: function(val) {
+                    var result = val !== "null";
+                    return result;
+                },
+                noMatchTip: "请选择应用类型"
+            } ]
+        }
+    };
+    // 采集表单数据
+    function getFrmInfo() {
+        return {
+            imgUrl: encodeURIComponent($.trim(imgUrl.val())),
+            appName: encodeURIComponent($.trim(appName.val())),
+            kitName: encodeURIComponent($.trim(kitName.val())),
+            appType: encodeURIComponent($.trim(appType.val()))
+        };
+    }
+    // 当表单中的字段失去焦点时，则去验证该字段的值
+    theFrm.delegate("input", "blur", function() {
+        var theField = $(this), fieldName = theField.attr("name");
+        validateFrm.valiFn(this, validatePlan[fieldName]);
+    });
+    // 当表单中的字段失去焦点时，则去验证该字段的值
+    appType.on("change", function() {
+        var theField = appType, fieldName = theField.attr("name");
+        validateFrm.valiFn(this, validatePlan[fieldName]);
+    });
+    // 监听表单提交
+    theFrm.on("submit", function() {
+        var isVali = function() {
+            var flag = true, valiResult = validateFrm.isPassVali(theFrm, validatePlan);
+            if (!valiResult.isPass) {
+                // 如果表单验证没有通过，则去主动验证一次
+                validateFrm.goVali(theFrm, validatePlan);
+                valiResult = validateFrm.isPassVali(theFrm, validatePlan);
+            }
+            return valiResult.isPass;
+        };
+        if (submitBtn.hasClass("com-btn-disable")) {
+            return false;
+        }
+        validateFrm.showExplain(submitBtn, false);
+        if (isVali()) {
+            submitBtn.addClass("com-btn-disable").val("提交中...");
+            $.post("jsp/submitApp.jsp", getFrmInfo(), function(data) {
+                submitBtn.removeClass("com-btn-disable").val("提交");
+                if (data.status !== "1") {
+                    validateFrm.showExplain(submitBtn, true, "warn", data.message);
+                } else {
+                    validateFrm.showExplain(submitBtn, true, "success", "提交成功");
+                    location.href = "dev-submit-app-success.html";
+                }
+            }, "JSON");
+        }
+        return false;
+    });
+});
+
+define("pages/submitApp/1.0.0/submitApp", [ "$", "./uploadAppIco", "gallery/upload/1.1.1/upload", "components/ToolTip/0.0.3/ToolTip", "./setFrm", "common/validateForm/0.0.1/validateForm" ], function(require) {
+    var $ = require("$");
+    require("./uploadAppIco");
+    require("./setFrm");
+});
+
+define("pages/submitApp/1.0.0/uploadAppIco", [ "$", "gallery/upload/1.1.1/upload", "components/ToolTip/0.0.3/ToolTip" ], function(require) {
+    var $ = require("$"), Upload = require("gallery/upload/1.1.1/upload");
+    var Tip = require("components/ToolTip/0.0.3/ToolTip");
+    var uploadIcoBtn = $("#J-uploadIcoBtn"), selectIcoBtn = $("#J-selectIcoBtn"), uploadExplain = $("#J-uploadExplain");
+    var imgUrl = $("#imgUrl");
+    var selectedFiles = [];
+    var uploader = new Upload({
+        trigger: selectIcoBtn,
+        name: "appImg",
+        action: "./jsp/uplaodAppPic.jsp",
+        accept: "image/*",
+        multiple: false,
+        data: {
+            r: Math.random()
+        },
+        change: function(files) {
+            showUploadTip(selectIcoBtn, false);
+            selectedFiles = [];
+            imgUrl.val("");
+            for (var i = 0, l = files.length, theFile; i < l; i++) {
+                theFile = files[i];
+                if (!isImgType(files[i].name)) {
+                    // 选择文件的格式不符合
+                    showUploadTip(selectIcoBtn, true, "请选择格式为JPG,PNG,GIF的文件");
+                    return false;
+                }
+                if (theFile.size && theFile.size > 500 * 1e3) {
+                    // 选择文件的格式不符合
+                    showUploadTip(selectIcoBtn, true, "文件大小不能超过500k");
+                    return false;
+                }
+            }
+            selectedFiles = files;
+        },
+        error: function(files) {
+            uploadIcoBtn.removeClass("com-btn-disable");
+            showUploadExplain(true, "warn", "上传出错，请重试");
+        },
+        success: function(response) {
+            var result = $.parseJSON(response);
+            uploadIcoBtn.removeClass("com-btn-disable");
+            if (result.status === "1") {
+                showUploadExplain(true, "success", "上传成功");
+                imgUrl.val(result.imgUrl);
+                selectIcoBtn.html('<img src="' + result.imgUrl + '" width="125" height="125" style="border-radius: 5px;" />');
+            } else {
+                showUploadExplain(true, "warn", result.message);
+            }
+        },
+        progress: function(event, position, total, percent, files) {}
+    });
+    var uploadTipObj;
+    // 判断文件名是否为图片格式的文件名
+    function isImgType(fileName) {
+        var isImg = /\.(jpg|jpeg|gif|png)$/i.test(fileName);
+        return isImg;
+    }
+    // 显示气泡提示
+    function showUploadTip(ele, isShow, tipText) {
+        if (!uploadTipObj) {
+            uploadTipObj = new Tip({
+                theme: "red",
+                arrowPosition: 6
+            }).render();
+        }
+        if (isShow) {
+            var offset = ele.offset();
+            //tipText = '<div style="width:175px">' + tipText + '</div>';
+            uploadTipObj.setTipText(tipText).position(offset.left + ele.outerWidth() / 2, offset.top - 2).temporaryShow(2e3);
+        } else {
+            uploadTipObj.hide();
+        }
+    }
+    // 显示上传按钮旁边的提示
+    function showUploadExplain(isShow, type, explainText) {
+        var icoEle = uploadExplain.find("i.com-form-ico"), tipEle = uploadExplain.find("span");
+        var icoClass = "com-ico com-form-ico com-form-ico-";
+        if (isShow) {
+            uploadExplain.removeClass("com-form-explain-warn").show();
+            icoClass = icoClass + type;
+            icoEle.removeClass().addClass(icoClass);
+            tipEle.html(explainText);
+        } else {
+            uploadExplain.hide();
+        }
+    }
+    uploadIcoBtn.on("click", function() {
+        if (uploadIcoBtn.hasClass("com-btn-disable")) {
+            return false;
+        }
+        if (selectedFiles.length === 0) {
+            // 未选择文件
+            showUploadTip(uploadIcoBtn, true, "请选择图标文件");
+            return false;
+        }
+        uploadIcoBtn.addClass("com-btn-disable");
+        uploader.submit();
+        showUploadExplain(true, "loading", "正在上传中...");
+        selectedFiles = [];
+    });
+});

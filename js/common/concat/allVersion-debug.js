@@ -101,6 +101,7 @@ define("common/dialog/0.0.1/dialog-debug", [ "$-debug", "base/createClass/1.0.2/
                     that.hide();
                 });
                 that.on("render", function() {
+                    // 触发渲染事件后将模板代码填充进去
                     widgetEle.html(template);
                     widgetEle.css({
                         background: "none"
@@ -420,6 +421,21 @@ define("common/tools/0.0.1/tools-debug", [ "$-debug" ], function(require) {
             }
         }
         return theNum;
+    };
+    // 判断类型
+    tools.isType = function(type) {
+        return function(target) {
+            return Object.prototype.toString(target) === "[object " + type + "]";
+        };
+    };
+    tools.isString = tools.isType("String");
+    tools.isObject = tools.isType("Object");
+    tools.isArray = tools.isType("Array");
+    tools.isNumber = tools.isType("Number");
+    tools.isFunction = tools.isType("Function");
+    // 重复字符串
+    tools.repeatStr = function(str, repeat) {
+        return new Array(repeat + 1).join(str);
     };
     return tools;
 });

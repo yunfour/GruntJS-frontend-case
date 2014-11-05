@@ -1,2 +1,57 @@
-/*! gruntTest 2014-09-19 */
-define("pages/appDetail/1.0.0/appDetail",["$","components/toolTip/0.0.1/toolTip","components/vScroll/0.0.1/vScroll"],function(a){function b(a,b){c.post("jsp/spreadApp.jsp",{appId:a},function(a){"function"==typeof b&&b(a)},"JSON")}var c=a("$"),d=a("components/toolTip/0.0.1/toolTip"),e=a("components/vScroll/0.0.1/vScroll"),f=c("#J-spreadAppBtn"),g=f.attr("data-appid"),h=c("#J-screenshotLst"),i=h.find("ul"),j=i.children("li"),k=new d({trigger:f,arrowPosition:12}),l=new e({view:i,speed:350,scale:260});f.on("click",function(){return"true"===f.data("spreaded")?(k.setTipText("您已在推广此应用，不能重复添加").setTheme("red").temporaryShow(3e3),!1):"true"===f.data("ajaxlock")?!1:(f.data("ajaxlock","true"),void b(g,function(a){f.data("ajaxlock","false"),"1"===a.status?(f.data("spreaded","true"),k.setTipText("已添加至“推广应用记录”").setTheme("green").temporaryShow(3e3)):k.setTipText(a.message).setTheme("red").temporaryShow(3e3)}))}),h.delegate("a.inside-screenshot-pager","click",function(){var a=c(this),b=l.getIndex();a.hasClass("inside-screenshot-pager-pre")?b-=1:b+=1,0>=b&&(b=0),b>j.size()-2||l.scrollTo(b)})});
+define("pages/appDetail/1.0.0/appDetail", [ "$", "components/toolTip/0.0.1/toolTip", "components/vScroll/0.0.1/vScroll" ], function(require) {
+    var $ = require("$");
+    var ToolTip = require("components/toolTip/0.0.1/toolTip"), VScroll = require("components/vScroll/0.0.1/vScroll");
+    var spreadAppBtn = $("#J-spreadAppBtn"), appId = spreadAppBtn.attr("data-appid"), screenshotPanel = $("#J-screenshotLst"), screenshotLst = screenshotPanel.find("ul"), screenshotItms = screenshotLst.children("li");
+    var tip = new ToolTip({
+        trigger: spreadAppBtn,
+        arrowPosition: 12
+    });
+    var vScrollOfScreenshot = new VScroll({
+        view: screenshotLst,
+        speed: 350,
+        scale: 260
+    });
+    function spreadApp(appId, callback) {
+        $.post("jsp/spreadApp.jsp", {
+            appId: appId
+        }, function(data) {
+            if (typeof callback === "function") {
+                callback(data);
+            }
+        }, "JSON");
+    }
+    spreadAppBtn.on("click", function() {
+        if (spreadAppBtn.data("spreaded") === "true") {
+            tip.setTipText("您已在推广此应用，不能重复添加").setTheme("red").temporaryShow(3e3);
+            return false;
+        }
+        if (spreadAppBtn.data("ajaxlock") === "true") {
+            return false;
+        }
+        spreadAppBtn.data("ajaxlock", "true");
+        spreadApp(appId, function(data) {
+            spreadAppBtn.data("ajaxlock", "false");
+            if (data.status === "1") {
+                spreadAppBtn.data("spreaded", "true");
+                tip.setTipText("已添加至“推广应用记录”").setTheme("green").temporaryShow(3e3);
+            } else {
+                tip.setTipText(data.message).setTheme("red").temporaryShow(3e3);
+            }
+        });
+    });
+    screenshotPanel.delegate("a.inside-screenshot-pager", "click", function() {
+        var pagerBtn = $(this), index = vScrollOfScreenshot.getIndex();
+        if (pagerBtn.hasClass("inside-screenshot-pager-pre")) {
+            index = index - 1;
+        } else {
+            index = index + 1;
+        }
+        if (index <= 0) {
+            index = 0;
+        }
+        if (index > screenshotItms.size() - 2) {
+            return;
+        }
+        vScrollOfScreenshot.scrollTo(index);
+    });
+});

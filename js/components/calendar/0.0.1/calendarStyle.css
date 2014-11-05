@@ -1,0 +1,56 @@
+/*! define components/calendar/0.0.1/calendarStyle.css */
+.sea-calendar{ height: auto; width: 210px; padding: 15px 10px; border: 1px solid #E5E5E5; box-shadow: 0 0 15px -3px #aaa; border-radius: 3px; background: #fff; color: #333; position: absolute; left: 0; top: 0; z-index: 10000;}
+.sea-calendar,
+.sea-calendar a{ color: #333;}
+
+/*日历标题栏*/
+.sea-calendar-title{ height: 25px; margin: 0 0 5px;}
+.sea-calendar-title a{ display: block; height: 25px; line-height: 25px; text-align: center; float: left;}
+.sea-calendar-title a:hover{ background: #ccc; text-decoration: none;}
+.sea-calendar-title .year,
+.sea-calendar-title .month{ width: 26%; font-weight: bold;}
+.sea-calendar-title .pre-month,
+.sea-calendar-title .next-month,
+.sea-calendar-title .pre-year,
+.sea-calendar-title .next-year{ width: 12%;}
+
+.sea-calendar-date{ height: auto;}
+
+/*星期列表*/
+.sea-calendar-week{ height: 30px;}
+.sea-calendar-week li{ height: 30px; width: 14.28%; font-weight: bold; line-height: 30px; text-align: center; float: left; overflow: hidden; cursor: default;}
+
+/*日 列表*/
+.sea-calendar-day{ height: auto;}
+.sea-calendar-day li{ width: 14.28%; height: 28px; float: left;}
+.sea-calendar-day a{ display: block; height: 28px; line-height: 28px; color: #333; text-align: center;}
+.sea-calendar-day a:hover,
+.sea-calendar-day a.today{ border-radius: 3px; background: #CFCFCF; text-decoration: none;}
+.sea-calendar-day a.active{ border-radius: 3px; background: #5fb3e3; color: #fff;}
+.sea-calendar-day a.space{ cursor: default;}
+.sea-calendar-day a.disabled,
+.sea-calendar-day a.disabled:hover{ border-radius: 0; background: #eee; color: #999; cursor: default; cursor: not-allowed !important;}
+
+/*年份列表*/
+.sea-calendar-years{ height: auto; display: none;}
+.sea-calendar-years li{ width: 33.33%; float: left;}
+.sea-calendar-years a{ display: block; height: 35px; line-height: 35px; text-align: center;}
+.sea-calendar-years a:hover{ background: #ccc; text-decoration: none;}
+.sea-calendar-years a.active{ background: #5fb3e3; color: #fff;}
+
+/*月份列表*/
+.sea-calendar-monthes{ height: auto; display: none;}
+.sea-calendar-monthes li{ width: 33.33%; float: left;}
+.sea-calendar-monthes a{ display: block; height: 35px; line-height: 35px; text-align: center;}
+.sea-calendar-monthes a:hover{ background: #ccc; text-decoration: none;}
+.sea-calendar-monthes a.active{ background: #5fb3e3; color: #fff;}
+
+/*主题样式：橙色主题*/
+.sea-calendar-theme-orange .sea-calendar-day a.active,
+.sea-calendar-theme-orange .sea-calendar-years a.active,
+.sea-calendar-theme-orange .sea-calendar-monthes a.active{ background: #f57403;}
+
+/*主题样式：黑色主题*/
+.sea-calendar-theme-black .sea-calendar-day a.active,
+.sea-calendar-theme-black .sea-calendar-years a.active,
+.sea-calendar-theme-black .sea-calendar-monthes a.active{ background: #333;}

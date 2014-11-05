@@ -1,2 +1,69 @@
-/*! gruntTest 2014-09-19 */
-define("pages/selfTest/1.0.0/selfTest",["$","components/tab/1.0.1/tab","common/dialog/0.0.1/dialog","common/addTestDeviceDialog/0.0.1/addTestDeviceDialog","components/toolTip/0.0.3/toolTip"],function(a){function b(a){var b=['<tr data-keyid="'+a.keyId+'">',"<td>"+a.createTime+"</td>","<td>"+a.device+"</td>","<td>"+a.imei+"</td>",'<td><a class="J-del" href="javascript:;">删除</a></td>',"</tr>"].join("");return c(b)}var c=a("$"),d=a("components/tab/1.0.1/tab");Dialog=a("common/dialog/0.0.1/dialog"),addTestDeviceDialog=a("common/addTestDeviceDialog/0.0.1/addTestDeviceDialog");var e=c("#J-deviceLst"),f=e.find("tbody"),g=c("#J-addDeviceBtn");e.on("click","a.J-del",function(){var a=c(this),b=a.closest("tr"),d=b.attr("date-keyid");"true"!==a.attr("ajaxlock")&&Dialog.confirm("您确定删除该记录吗？",function(e){e&&(a.attr("ajaxlock","true").text("正在删除").css("color","#999"),c.getJSON("jsp/del-info.jsp",{keyid:d,r:Math.random()},function(c){a.attr("ajaxlock","false").text("删除").css("color","#5fb3e3"),"1"===c.status?(Dialog.alert("信息删除成功"),b.remove()):Dialog.alert('信息删除失败！<br /><span style="color:#f00">'+(c.message||"")+"</span>")}))})}),g.on("click",function(){addTestDeviceDialog(function(a){var c=b(a);f.prepend(c)})});var h=c("#J-testFlowTab"),i=c("#J-developerFlow"),j=c("#J-spreaderFlow");new d({tabItems:h.find("li a"),selectedClass:"active"}).on("change",function(){var a=this.getAttr("index");0===a?(i.show(),j.hide()):(i.hide(),j.show())});var k=a("components/toolTip/0.0.3/toolTip"),l=new k({trigger:g,tipText:"点击添加测试设备",arrowPosition:6,theme:"red"}).render();window.setTimeout(function(){l.setArrowPosition(12)},1e3),l.temporaryShow(3e3)});
+define("pages/selfTest/1.0.0/selfTest", [ "$", "components/tab/1.0.1/tab", "common/dialog/0.0.1/dialog", "common/addTestDeviceDialog/0.0.1/addTestDeviceDialog", "components/toolTip/0.0.3/toolTip" ], function(require) {
+    var $ = require("$"), Tab = require("components/tab/1.0.1/tab");
+    Dialog = require("common/dialog/0.0.1/dialog");
+    addTestDeviceDialog = require("common/addTestDeviceDialog/0.0.1/addTestDeviceDialog");
+    var deviceLst = $("#J-deviceLst"), deviceLstBd = deviceLst.find("tbody"), addDeviceBtn = $("#J-addDeviceBtn");
+    // 创建一条新的设备信息
+    function createDeviceLine(data) {
+        var deviceLine = [ '<tr data-keyid="' + data.keyId + '">', "<td>" + data.createTime + "</td>", "<td>" + data.device + "</td>", "<td>" + data.imei + "</td>", '<td><a class="J-del" href="javascript:;">删除</a></td>', "</tr>" ].join("");
+        return $(deviceLine);
+    }
+    // 监听删除按钮单击事件
+    deviceLst.on("click", "a.J-del", function() {
+        var delBtn = $(this), line = delBtn.closest("tr"), keyid = line.attr("date-keyid");
+        if (delBtn.attr("ajaxlock") === "true") {
+            return;
+        }
+        Dialog.confirm("您确定删除该记录吗？", function(flag) {
+            if (!flag) {
+                return;
+            }
+            delBtn.attr("ajaxlock", "true").text("正在删除").css("color", "#999");
+            $.getJSON("jsp/del-info.jsp", {
+                keyid: keyid,
+                r: Math.random()
+            }, function(data) {
+                delBtn.attr("ajaxlock", "false").text("删除").css("color", "#5fb3e3");
+                if (data.status === "1") {
+                    Dialog.alert("信息删除成功");
+                    line.remove();
+                } else {
+                    Dialog.alert('信息删除失败！<br /><span style="color:#f00">' + (data.message || "") + "</span>");
+                }
+            });
+        });
+    });
+    // 监听添加按钮的单击事件
+    addDeviceBtn.on("click", function() {
+        addTestDeviceDialog(function(data) {
+            var newDeviceLine = createDeviceLine(data);
+            deviceLstBd.prepend(newDeviceLine);
+        });
+    });
+    // "应用测试流程"Tab切换
+    var testFlowTab = $("#J-testFlowTab"), developerFlow = $("#J-developerFlow"), spreaderFlow = $("#J-spreaderFlow");
+    new Tab({
+        tabItems: testFlowTab.find("li a"),
+        selectedClass: "active"
+    }).on("change", function() {
+        var index = this.getAttr("index");
+        if (index === 0) {
+            developerFlow.show();
+            spreaderFlow.hide();
+        } else {
+            developerFlow.hide();
+            spreaderFlow.show();
+        }
+    });
+    var ToolTip = require("components/toolTip/0.0.3/toolTip");
+    var tip = new ToolTip({
+        trigger: addDeviceBtn,
+        tipText: "点击添加测试设备",
+        arrowPosition: 6,
+        theme: "red"
+    }).render();
+    window.setTimeout(function() {
+        tip.setArrowPosition(12);
+    }, 1e3);
+    tip.temporaryShow(3e3);
+});

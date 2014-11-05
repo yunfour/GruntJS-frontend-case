@@ -1,2 +1,56 @@
-/*! gruntTest 2014-09-19 */
-define("common/tools/0.0.1/tools",["$"],function(a){var b=(a("$"),{});return b.isImgType=function(a){var b=/\.(jpg|jpeg|gif|png)$/i.test(a);return b},b.decimalPlace=function(a,b){if(b=parseInt(b,10),isNaN(Number(a)))throw new Error("参数 theNum 必须为数字");if(isNaN(b)||0>b)throw new Error("参数 digit 必须为大于0的数字");if(a+="",-1!==a.indexOf(".")){var c=a.split("."),d=c[1],e=b-d.length;if(0===b)a=c[0];else{if(e>0){for(;e>0;e--)d+="0";d="."+d}else d="."+d.substring(0,b);a=c[0]+d}}return a},b.isType=function(a){return function(b){return Object.prototype.toString(b)==="[object "+a+"]"}},b.isString=b.isType("String"),b.isObject=b.isType("Object"),b.isArray=b.isType("Array"),b.isNumber=b.isType("Number"),b.isFunction=b.isType("Function"),b.repeatStr=function(a,b){return new Array(b+1).join(a)},b});
+define("common/tools/0.0.1/tools", [ "$" ], function(require) {
+    var $ = require("$");
+    // 常用的工具和函数
+    var tools = {};
+    // 函数：判断文件名是否为图片格式（jpg、jpeg、git、png）
+    tools.isImgType = function(fileName) {
+        var isImg = /\.(jpg|jpeg|gif|png)$/i.test(fileName);
+        return isImg;
+    };
+    // 函数：保留小数位
+    tools.decimalPlace = function(theNum, digit) {
+        digit = parseInt(digit, 10);
+        if (isNaN(Number(theNum))) {
+            throw new Error("参数 theNum 必须为数字");
+        }
+        if (isNaN(digit) || digit < 0) {
+            throw new Error("参数 digit 必须为大于0的数字");
+        }
+        theNum = theNum + "";
+        if (theNum.indexOf(".") !== -1) {
+            var splitArr = theNum.split("."), decimalPlace = splitArr[1], zeroFillNum = digit - decimalPlace.length;
+            if (digit === 0) {
+                theNum = splitArr[0];
+            } else {
+                if (zeroFillNum > 0) {
+                    // 补0
+                    for (;zeroFillNum > 0; zeroFillNum--) {
+                        decimalPlace = decimalPlace + "0";
+                    }
+                    decimalPlace = "." + decimalPlace;
+                } else {
+                    // 截取
+                    decimalPlace = "." + decimalPlace.substring(0, digit);
+                }
+                theNum = splitArr[0] + decimalPlace;
+            }
+        }
+        return theNum;
+    };
+    // 判断类型
+    tools.isType = function(type) {
+        return function(target) {
+            return Object.prototype.toString(target) === "[object " + type + "]";
+        };
+    };
+    tools.isString = tools.isType("String");
+    tools.isObject = tools.isType("Object");
+    tools.isArray = tools.isType("Array");
+    tools.isNumber = tools.isType("Number");
+    tools.isFunction = tools.isType("Function");
+    // 重复字符串
+    tools.repeatStr = function(str, repeat) {
+        return new Array(repeat + 1).join(str);
+    };
+    return tools;
+});

@@ -1,2 +1,314 @@
-/*! gruntTest 2014-09-19 */
-define("pages/configSpread/1.0.0/configSpread",["$","./uploadScreenshot","gallery/upload/1.1.1/upload","components/tip/0.0.1/tip","components/progress/0.0.1/progress","common/tools/0.0.1/tools","./setDeadline","components/tab/1.0.1/tab","gallery/jquery-ui/1.9.2/jquery-ui-debug","./setFrm","common/validateForm/0.0.1/validateForm"],function(a){a("$");a("./uploadScreenshot"),a("./setDeadline"),a("./setFrm")}),define("pages/configSpread/1.0.0/setDeadline",["$","components/tab/1.0.1/tab","gallery/jquery-ui/1.9.2/jquery-ui-debug"],function(a){var b=a("$"),c=a("components/tab/1.0.1/tab"),d=b("#J-configSpreadFrm"),e=d.find("input[name=deadline]"),f=b("#J-deadlineAttach"),g=b("#deadlineValue"),h=f.find("label.com-ico-canlendar"),i=new c({tabItems:e,selectedClass:""});a("gallery/jquery-ui/1.9.2/jquery-ui-debug")(b),i.on("change",function(){var a=i.getAttr("index");f.show(),g.val(""),h.hide(),0===a?(h.show(),g.datepicker({dateFormat:"yy-mm-dd"})):g.datepicker("destroy")})}),define("pages/configSpread/1.0.0/setFrm",["$","components/tab/1.0.1/tab","common/validateForm/0.0.1/validateForm"],function(a){function b(){var a={},b=[];return f.each(function(a){var d=f.eq(a),e=c.trim(d.val());""!==e&&b.push(encodeURIComponent(e))}),a.appLabel=b.join(";"),a.appIntro=encodeURIComponent(c.trim(g.val())),a.spreadPrice=encodeURIComponent(c.trim(h.val())),a.deadline=i.filter(":checked").val(),a.deadlineVal=j.val(),a.targets=k.filter(":checked").val(),{}}var c=a("$"),d=(a("components/tab/1.0.1/tab"),a("common/validateForm/0.0.1/validateForm")),e=c("#J-configSpreadFrm"),f=e.find("input.J-appLabel"),g=c("#appIntro"),h=c("#spreadPrice"),i=e.find("input[name=deadline]"),j=c("#deadlineValue"),k=e.find("input[name=targets]"),l=e.find("input[type=button]"),m={appLabel_1:{isShowSuccessTip:!1,patterns:[{pattern:function(){for(var a=!1,b=0,d=f.size();d>b;b++)if(""!==c.trim(f.eq(b).val())){a=!0;break}return a},noMatchTip:"请输入应用标签"}]},appIntro:{isShowSuccessTip:!1,patterns:[{pattern:function(a){var b=a.length>=20&&a.length<=500;return b},noMatchTip:"应用简介为20-500个中文字符！"}]},screenshot:{isShowSuccessTip:!1,required:!0,emptyTip:"请上传应用截图"},spreadPrice:{isShowSuccessTip:!1,required:!0,emptyTip:"请输入推广价格",patterns:[{pattern:function(a){var b=Number(a),c=!0;return isNaN(b)?c=!1:0>=b&&(c=!1),c},noMatchTip:"推广价格必须为大于0数值！"}]},deadline:{isShowSuccessTip:!1,required:!0,emptyTip:"请选择推广截止方式"},deadlineValue:{isShowSuccessTip:!1,required:!0,emptyTip:"请选输入内容",patterns:[{pattern:function(a){var b=!0,c=i.filter(":checked"),d=Number(a);return"date"===c.val()||"total"===c.val()&&(0>=d||isNaN(d))&&(b=!1),b},noMatchTip:"格式不正确"}]},targets:{isShowSuccessTip:!1,required:!0,emptyTip:"请选择用户激活指标"}};i.on("click",function(){var a=c(this).val();d.valiFn(i,m.deadline),"date"===a?d.valiFn(j,m.deadlineValue):d.valiFn(j,m.deadlineValue)}),l.on("click",function(){function a(){var a=d.isPassVali(e,m);return a.isPass||(d.goVali(e,m),a=d.isPassVali(e,m)),a.isPass}return l.hasClass("com-btn-disable")?!1:(d.showExplain(l,!1),a()?(l.addClass("com-btn-disable").val("提交中..."),c.post("jsp/submitConfigSpread.jsp",b(),function(a){l.removeClass("com-btn-disable").val("提交"),"1"!==a.status?d.showExplain(l,!0,"warn",a.message):d.showExplain(l,!0,"success","提交成功")},"JSON")):d.showExplain(l,!0,"warn","请按要求完善以上信息"),!1)})}),define("pages/configSpread/1.0.0/uploadScreenshot",["$","gallery/upload/1.1.1/upload","components/tip/0.0.1/tip","components/progress/0.0.1/progress","common/tools/0.0.1/tools"],function(a){function b(a){for(var b,c={isPass:!0},d=0,e=a.length;e>d;d++){if(b=a[d],!l.isImgType(a[d].name))return c.isPass=!1,c.message="请选择格式为JPG,PNG,GIF的文件",c;if(b.size&&b.size>1e5)return c.isPass=!1,c.message="文件大小不能超过500k",c}return c}function c(a,b,c){if(f||(f=new j({theme:"red",arrowPosition:6})),g&&window.clearTimeout(g),a){var d=b.offset();f.setTipText(c).setPosition(d.left+47,d.top-2).show(),g=window.setTimeout(function(){f.hide()},3e3)}else f.hide()}function d(a,b){var c=a.find("div.uploading");0===c.size()&&(c=h('<div class="uploading"></div>').appendTo(a)),c.html("上传中 "+b+"%"),c.show()}function e(a,b){var c=a.find("div.uploading"),d=a.find("div.img-panel");c.hide(),0===d.size()?(d=h('<div class="img-panel"><img src="'+b+'" alt="应用截图"><a href="javascript:;" class="img-del-btn">x</a></div>'),c.before(d)):d.find("img").attr("src",b),a.removeClass("bordered"),d.show()}var f,g,h=a("$"),i=a("gallery/upload/1.1.1/upload"),j=a("components/tip/0.0.1/tip"),k=a("components/progress/0.0.1/progress"),l=a("common/tools/0.0.1/tools"),m=h("#J-screenshotLst"),n=m.children("li"),o=h("#screenshot");n.each(function(a){var f=h(this),g=new k,j=new i({trigger:f,name:"screenshot",action:"./jsp/uploadScreenshot.jsp",accept:"image/*",multiple:!1,data:{index:a,r:Math.random()},change:function(a){var d=b(a);return d.isPass?(j.submit(),l.hide(),g.start(),void 0):(c(!0,f,d.message),!1)},error:function(){j._uploaders[0].refreshInput(),g.stop(),c(!0,f,"上传文件出错，请重试"),f.data("uploaderFrm").show()},success:function(b){var d=h.parseJSON(b),i=o.val().split(";");j._uploaders[0].refreshInput(),g.finish().stop(),"1"===d.status?(e(f,d.data),i[a]=encodeURI(d.data),o.val(i.join(";"))):(c(!0,f,"上传文件出错，请重试"),f.data("uploaderFrm").show())},progress:function(){}}),l=j._uploaders[0].form;g.on("progress",function(){var a=parseInt(g.getProgress());d(f,a)}).on("finish",function(){f.find("div.uploading").hide()}).on("stop",function(){f.find("div.uploading").hide()}),f.data({uploader:j,uploaderFrm:l}),f.find("div.img-panel img").size()&&l.hide()}),m.delegate("a.img-del-btn","click",function(){var a=h(this),b=a.closest("li"),c=b.find("div.img-panel"),d=b.data("uploaderFrm");b.addClass("bordered"),d.show(),c.remove()})});
+define("pages/configSpread/1.0.0/configSpread", [ "$", "./uploadScreenshot", "gallery/upload/1.1.1/upload", "components/tip/0.0.1/tip", "components/progress/0.0.1/progress", "common/tools/0.0.1/tools", "./setDeadline", "components/tab/1.0.1/tab", "gallery/jquery-ui/1.9.2/jquery-ui-debug", "./setFrm", "common/validateForm/0.0.1/validateForm" ], function(require) {
+    var $ = require("$");
+    require("./uploadScreenshot");
+    require("./setDeadline");
+    require("./setFrm");
+});
+
+// 设置“推广截止点”切换效果
+define("pages/configSpread/1.0.0/setDeadline", [ "$", "components/tab/1.0.1/tab", "gallery/jquery-ui/1.9.2/jquery-ui-debug" ], function(require) {
+    var $ = require("$");
+    var Tab = require("components/tab/1.0.1/tab");
+    var theFrm = $("#J-configSpreadFrm"), deadline = theFrm.find("input[name=deadline]"), deadlineAttach = $("#J-deadlineAttach"), deadlineValue = $("#deadlineValue"), deadlineValueIco = deadlineAttach.find("label.com-ico-canlendar");
+    var tabObj = new Tab({
+        tabItems: deadline,
+        selectedClass: ""
+    });
+    require("gallery/jquery-ui/1.9.2/jquery-ui-debug")($);
+    tabObj.on("change", function() {
+        var index = tabObj.getAttr("index");
+        deadlineAttach.show();
+        deadlineValue.val("");
+        deadlineValueIco.hide();
+        if (index === 0) {
+            deadlineValueIco.show();
+            deadlineValue.datepicker({
+                dateFormat: "yy-mm-dd"
+            });
+        } else {
+            deadlineValue.datepicker("destroy");
+        }
+    });
+});
+
+// 设置表单的验证、提交切换效果
+define("pages/configSpread/1.0.0/setFrm", [ "$", "components/tab/1.0.1/tab", "common/validateForm/0.0.1/validateForm" ], function(require) {
+    var $ = require("$");
+    var Tab = require("components/tab/1.0.1/tab"), validateFrm = require("common/validateForm/0.0.1/validateForm");
+    var theFrm = $("#J-configSpreadFrm"), appLabels = theFrm.find("input.J-appLabel"), appIntro = $("#appIntro"), spreadPrice = $("#spreadPrice"), deadlineRadios = theFrm.find("input[name=deadline]"), deadlineValue = $("#deadlineValue"), targets = theFrm.find("input[name=targets]"), submitBtn = theFrm.find("input[type=button]");
+    var validatePlan = {
+        appLabel_1: {
+            isShowSuccessTip: false,
+            patterns: [ {
+                pattern: function(val) {
+                    var result = false;
+                    for (var i = 0, l = appLabels.size(); i < l; i++) {
+                        if ($.trim(appLabels.eq(i).val()) !== "") {
+                            result = true;
+                            break;
+                        }
+                    }
+                    return result;
+                },
+                noMatchTip: "请输入应用标签"
+            } ]
+        },
+        appIntro: {
+            isShowSuccessTip: false,
+            patterns: [ {
+                pattern: function(val) {
+                    var result = val.length >= 20 && val.length <= 500;
+                    return result;
+                },
+                noMatchTip: "应用简介为20-500个中文字符！"
+            } ]
+        },
+        screenshot: {
+            isShowSuccessTip: false,
+            required: true,
+            emptyTip: "请上传应用截图"
+        },
+        spreadPrice: {
+            isShowSuccessTip: false,
+            required: true,
+            emptyTip: "请输入推广价格",
+            patterns: [ {
+                pattern: function(val) {
+                    var valNum = Number(val), result = true;
+                    if (isNaN(valNum)) {
+                        result = false;
+                    } else if (valNum <= 0) {
+                        result = false;
+                    }
+                    return result;
+                },
+                noMatchTip: "推广价格必须为大于0数值！"
+            } ]
+        },
+        deadline: {
+            isShowSuccessTip: false,
+            required: true,
+            emptyTip: "请选择推广截止方式"
+        },
+        deadlineValue: {
+            isShowSuccessTip: false,
+            required: true,
+            emptyTip: "请选输入内容",
+            patterns: [ {
+                pattern: function(val) {
+                    var result = true, deadlineRadioChecked = deadlineRadios.filter(":checked"), valNum = Number(val);
+                    if (deadlineRadioChecked.val() === "date") {} else if (deadlineRadioChecked.val() === "total") {
+                        if (valNum <= 0 || isNaN(valNum)) {
+                            result = false;
+                        }
+                    }
+                    return result;
+                },
+                noMatchTip: "格式不正确"
+            } ]
+        },
+        targets: {
+            isShowSuccessTip: false,
+            required: true,
+            emptyTip: "请选择用户激活指标"
+        }
+    };
+    function getFrmInfo() {
+        var info = {};
+        var appLabelsArr = [];
+        appLabels.each(function(i) {
+            var label = appLabels.eq(i), val = $.trim(label.val());
+            if (val !== "") {
+                appLabelsArr.push(encodeURIComponent(val));
+            }
+        });
+        info.appLabel = appLabelsArr.join(";");
+        info.appIntro = encodeURIComponent($.trim(appIntro.val()));
+        info.spreadPrice = encodeURIComponent($.trim(spreadPrice.val()));
+        info.deadline = deadlineRadios.filter(":checked").val();
+        info.deadlineVal = deadlineValue.val();
+        info.targets = targets.filter(":checked").val();
+        return {};
+    }
+    deadlineRadios.on("click", function() {
+        var val = $(this).val();
+        validateFrm.valiFn(deadlineRadios, validatePlan.deadline);
+        if (val === "date") {
+            validateFrm.valiFn(deadlineValue, validatePlan.deadlineValue);
+        } else {
+            validateFrm.valiFn(deadlineValue, validatePlan.deadlineValue);
+        }
+    });
+    // 监听表单提交
+    submitBtn.on("click", function() {
+        function isVali() {
+            var flag = true, valiResult = validateFrm.isPassVali(theFrm, validatePlan);
+            if (!valiResult.isPass) {
+                // 如果表单验证没有通过，则去主动验证一次
+                validateFrm.goVali(theFrm, validatePlan);
+                valiResult = validateFrm.isPassVali(theFrm, validatePlan);
+            }
+            return valiResult.isPass;
+        }
+        if (submitBtn.hasClass("com-btn-disable")) {
+            return false;
+        }
+        validateFrm.showExplain(submitBtn, false);
+        if (isVali()) {
+            submitBtn.addClass("com-btn-disable").val("提交中...");
+            $.post("jsp/submitConfigSpread.jsp", getFrmInfo(), function(data) {
+                submitBtn.removeClass("com-btn-disable").val("提交");
+                if (data.status !== "1") {
+                    validateFrm.showExplain(submitBtn, true, "warn", data.message);
+                } else {
+                    validateFrm.showExplain(submitBtn, true, "success", "提交成功");
+                }
+            }, "JSON");
+        } else {
+            validateFrm.showExplain(submitBtn, true, "warn", "请按要求完善以上信息");
+        }
+        return false;
+    });
+});
+
+// 设置上传应用截图效果
+define("pages/configSpread/1.0.0/uploadScreenshot", [ "$", "gallery/upload/1.1.1/upload", "components/tip/0.0.1/tip", "components/progress/0.0.1/progress", "common/tools/0.0.1/tools" ], function(require) {
+    var $ = require("$");
+    var Upload = require("gallery/upload/1.1.1/upload"), Tip = require("components/tip/0.0.1/tip"), Progress = require("components/progress/0.0.1/progress"), tools = require("common/tools/0.0.1/tools");
+    var uploadTipObj, uploadTipObjTimer;
+    var screenshotLst = $("#J-screenshotLst"), screenshotItms = screenshotLst.children("li"), screenshotField = $("#screenshot");
+    // 验证选中的图片是否合法
+    function validateImg(files) {
+        var result = {
+            isPass: true
+        };
+        for (var i = 0, l = files.length, theFile; i < l; i++) {
+            theFile = files[i];
+            if (!tools.isImgType(files[i].name)) {
+                // 选择文件的格式不符合
+                result.isPass = false;
+                result.message = "请选择格式为JPG,PNG,GIF的文件";
+                return result;
+            }
+            if (theFile.size && theFile.size > 100 * 1e3) {
+                // 选择文件的格式不符合
+                result.isPass = false;
+                result.message = "文件大小不能超过500k";
+                return result;
+            }
+        }
+        return result;
+    }
+    // 显示气泡提示
+    function showTip(isShow, screenshotItm, tipText) {
+        if (!uploadTipObj) {
+            uploadTipObj = new Tip({
+                theme: "red",
+                arrowPosition: 6
+            });
+        }
+        if (uploadTipObjTimer) {
+            window.clearTimeout(uploadTipObjTimer);
+        }
+        if (isShow) {
+            var offset = screenshotItm.offset();
+            //tipText = '<div style="width:175px">' + tipText + '</div>';
+            uploadTipObj.setTipText(tipText).setPosition(offset.left + 47, offset.top - 2).show();
+            uploadTipObjTimer = window.setTimeout(function() {
+                uploadTipObj.hide();
+            }, 3e3);
+        } else {
+            uploadTipObj.hide();
+        }
+    }
+    // 展示上传中的效果
+    function showUploading(screenshotItm, percent) {
+        var loadingLabel = screenshotItm.find("div.uploading");
+        if (loadingLabel.size() === 0) {
+            loadingLabel = $('<div class="uploading"></div>').appendTo(screenshotItm);
+        }
+        loadingLabel.html("上传中 " + percent + "%");
+        loadingLabel.show();
+    }
+    // 上传成功
+    function uploadSuccess(screenshotItm, imgUrl) {
+        var loadingLabel = screenshotItm.find("div.uploading"), imgPanel = screenshotItm.find("div.img-panel");
+        loadingLabel.hide();
+        if (imgPanel.size() === 0) {
+            imgPanel = $('<div class="img-panel"><img src="' + imgUrl + '" alt="应用截图"><a href="javascript:;" class="img-del-btn">x</a></div>');
+            loadingLabel.before(imgPanel);
+        } else {
+            imgPanel.find("img").attr("src", imgUrl);
+        }
+        screenshotItm.removeClass("bordered");
+        imgPanel.show();
+    }
+    screenshotItms.each(function(i) {
+        var screenshotItm = $(this), progressObj = new Progress();
+        var uploader = new Upload({
+            trigger: screenshotItm,
+            name: "screenshot",
+            action: "./jsp/uploadScreenshot.jsp",
+            accept: "image/*",
+            multiple: false,
+            data: {
+                index: i,
+                r: Math.random()
+            },
+            change: function(files) {
+                var validateResult = validateImg(files);
+                if (validateResult.isPass) {
+                    uploader.submit();
+                    uploaderFrm.hide();
+                    progressObj.start();
+                } else {
+                    showTip(true, screenshotItm, validateResult.message);
+                    return false;
+                }
+            },
+            error: function(files) {
+                // 刷新input
+                uploader._uploaders[0].refreshInput();
+                progressObj.stop();
+                showTip(true, screenshotItm, "上传文件出错，请重试");
+                screenshotItm.data("uploaderFrm").show();
+            },
+            success: function(response) {
+                var result = $.parseJSON(response), screenshotImgArr = screenshotField.val().split(";");
+                uploader._uploaders[0].refreshInput();
+                progressObj.finish().stop();
+                if (result.status === "1") {
+                    uploadSuccess(screenshotItm, result.data);
+                    screenshotImgArr[i] = encodeURI(result.data);
+                    screenshotField.val(screenshotImgArr.join(";"));
+                } else {
+                    showTip(true, screenshotItm, "上传文件出错，请重试");
+                    screenshotItm.data("uploaderFrm").show();
+                }
+            },
+            progress: function(event, position, total, percent, files) {}
+        });
+        var uploaderFrm = uploader._uploaders[0].form;
+        progressObj.on("progress", function() {
+            var percent = parseInt(progressObj.getProgress(), 10);
+            showUploading(screenshotItm, percent);
+        }).on("finish", function() {
+            screenshotItm.find("div.uploading").hide();
+        }).on("stop", function() {
+            screenshotItm.find("div.uploading").hide();
+        });
+        screenshotItm.data({
+            uploader: uploader,
+            uploaderFrm: uploaderFrm
+        });
+        if (screenshotItm.find("div.img-panel img").size()) {
+            uploaderFrm.hide();
+        }
+    });
+    screenshotLst.delegate("a.img-del-btn", "click", function() {
+        var delImgBtn = $(this), screenshotItm = delImgBtn.closest("li"), imgPanel = screenshotItm.find("div.img-panel"), uploaderFrm = screenshotItm.data("uploaderFrm");
+        screenshotItm.addClass("bordered");
+        uploaderFrm.show();
+        imgPanel.remove();
+    });
+});
