@@ -1,0 +1,56 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN"
+"http://www.w3.org/TR/html4/strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>水平、垂直居中</title>
+
+<style type="text/css">
+.panel{
+    height: 500px;
+    width: 600px;
+    border: 1px solid #ccc;
+    position: relative;
+}
+.son{
+    width: 150px;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+}
+.son-bd{
+    text-align: center;
+    position: relative;
+    left: -50%;
+    top: -50%;
+    background: #eee;
+}
+
+.son-1{
+    width: 200px;
+    height: 200px;
+    background: #eee;
+    position: absolute;
+    margin: auto;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+</style>
+</head>
+
+<body>
+    <div class="panel">
+        <div class="son">
+            <div class="son-bd">你好吗？<br />阿斯顿飞不<br />阿斯顿飞不<br />阿斯顿飞不</div>
+        </div>
+    </div>
+    
+    
+    <div class="panel">
+        <div class="son-1">你好吗？<br />阿斯顿飞不<br />阿斯顿飞不<br />阿斯顿飞不</div>
+    </div>
+</body>
+</html>

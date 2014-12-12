@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+<head>
+    <meta charset="utf-8">
+    <title>CSS类和样式</title>
+    
+    <script type="text/javascript" src="../../gallery/angular/1.2.26/angular.js"></script>
+    
+    <style type="text/css">
+        .error{
+            color: #f00;
+        }
+        .warning{
+            color: #F2A54A;
+        }
+        
+        .selected{
+            background: lightgreen;
+        }
+    </style>
+</head>
+
+<body>
+    
+    <div ng-controller="ClassOfCSS">
+        <button ng-click="showErr()">错误</button>
+        <button ng-click="showWarn()">警告</button>
+        
+        <p ng-class="{error: isError, warning: isWarn}">{{message}}</p>
+    </div>
+    
+    
+    <div ng-controller="ClassOfCSS_1">
+        <table border="0" cellspacing="0" cellpadding="5">
+            <tr>
+                <th>姓名</th>
+                <th>餐馆</th>
+            </tr>
+            <tr ng-repeat="cuisine in cuisines" ng-click="select($index)" ng-class="{selected: $index==selectedRow}">
+                <td>{{cuisine.name}}</td>
+                <td>{{cuisine.cuisine}}</td>
+            </tr>
+        </table>
+    </div>
+
+<script type="text/javascript">
+    var app = angular.module('myApp', []);
+    
+    app.controller('ClassOfCSS', function($scope) {
+        
+        $scope.isError = false;
+        $scope.isWarn  = false;
+        
+        $scope.showErr = function() {
+            $scope.isError = true;
+            $scope.isWarn  = false;
+            $scope.message = '这是错误信息！';
+        };
+        $scope.showWarn = function() {
+            $scope.isError = false;
+            $scope.isWarn  = true;
+            $scope.message = '这是警告信息！';
+        };
+    });
+    
+    app.controller('ClassOfCSS_1', function($scope) {
+        
+        $scope.cuisines = [
+            {name: '陈海云', cuisine: '弄堂里'},
+            {name: '陈云', cuisine: '外婆家'},
+            {name: '陈云2', cuisine: '外婆家1'}
+        ];
+        
+        $scope.select = function(row) {
+            $scope.selectedRow = row;
+        };
+    });
+</script>
+</body>
+</html>

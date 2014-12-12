@@ -1,0 +1,62 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN"
+"http://www.w3.org/TR/html4/strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>响应式实用工具的介绍</title>
+    
+    <link rel="stylesheet" type="text/css" href="statics/bootstrap/3.2.0/css/bootstrap.css"/>
+    <link rel="stylesheet" type="text/css" href="statics/bootstrap/3.2.0/css/bootstrap-theme.css"/>
+    
+    <style type="text/css">
+        .test-container{ min-height: 500px;}
+        
+        .row{ margin: 0 0 20px;}
+        .row > div{ min-height: 100px; border: 1px solid #fff; background: #ccc;}
+        
+        .responsive{ height: 100px; width: 500px; border: 1px solid #ccc; background: #eee; text-align: center; line-height: 100px;}
+    </style>
+</head>
+
+<body>
+    
+    <div class="container test-container">
+        <h2>显示 visible-*</h2>
+        <div class="responsive visible-xs">
+            <span>visible-xs:手机设备，宽度&lt;768px时显示</span>
+        </div>
+        
+        <div class="responsive visible-sm">
+            <span>visible-sm:小型设备，768px&lt;宽度&lt;970px时显示</span>
+        </div>
+        
+        <div class="responsive visible-md">
+            <span>visible-md:中型设备，970px&lt;宽度&lt;1120px时显示</span>
+        </div>
+        
+        <div class="responsive visible-lg">
+            <span>visible-lg:大型设备，宽度大于1120px时显示</span>
+        </div>
+        
+        <h2>隐藏 hidden-*</h2>
+        
+        <div class="responsive hidden-xs">
+            <span>hidden-xs:手机设备，宽度&lt;768px时隐藏</span>
+        </div>
+        <div class="responsive hidden-sm">
+            <span>hidden-sm:小型设备，768px&lt;宽度&lt;970px时隐藏</span>
+        </div>
+        
+        <div class="responsive hidden-md">
+            <span>hidden-md:中型设备，970px&lt;宽度&lt;1120px时隐藏</span>
+        </div>
+        
+        <div class="responsive hidden-lg">
+            <span>hidden-lg:大型设备，1120px&lt;宽度 时隐藏</span>
+        </div>
+    </div>
+    
+    <div class="container-fluid test-container"></div>
+</body>
+</html>

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+<head>
+    <meta charset="utf-8">
+    <title>显示/隐藏</title>
+    
+    <script type="text/javascript" src="../../gallery/angular/1.2.26/angular.js"></script>
+    
+    <style type="text/css">
+    	.panel{
+    	    height: 300px;
+    	    width: 300px;
+    	    border: 1px solid #ccc;
+    	}
+    </style>
+</head>
+
+<body ng-controller="MessageTxt">
+    
+    
+    <button ng-click="toggle()">显示/隐藏</button>
+    
+    <div class="panel" ng-show="menuState">这是内容</div>
+    
+
+<script type="text/javascript">
+    var app = angular.module('myApp', []);
+    
+    app.controller('MessageTxt', function($scope) {
+        
+        $scope.menuState = true;
+        
+        $scope.toggle = function() {
+            $scope.menuState = !$scope.menuState;
+        };
+    });
+</script>
+</body>
+</html>

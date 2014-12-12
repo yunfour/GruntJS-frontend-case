@@ -1,12 +1,16 @@
 (function() {
-    var isDebug = true;
+    var isDebug = location.href.indexOf('debug=true') !== -1;
     
     var staticHost = seajs.resolve('../'),
         jsRootPath = staticHost + 'js/',
         jsSrcRootPath = staticHost + 'src/js/';
-        
+    
+    var plugins = ['style'];
+    
     if(isDebug) {
+        
         jsRootPath = jsSrcRootPath;
+        plugins.push('nocache');
     }
 
     seajs.config({
@@ -32,10 +36,7 @@
             'zepto-debug': 'gallery/zepto/1.1.4/zepto.js'
         },
 
-        plugins: [
-            "nocache",
-            "style"
-        ],
+        plugins: plugins,
 
         preload: [
             //'gallery/bootstrap/2.3.2/css/bootstrap.min.css',

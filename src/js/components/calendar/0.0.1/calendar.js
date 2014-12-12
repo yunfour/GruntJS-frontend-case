@@ -119,6 +119,7 @@
  *          描述: 选择月份列表的月份按钮时触发该事件，会把选择的月份的值导入到回调函数的参数；
  * 
  *          其他事件可能在父类的某些行为中触发，请参考父类
+ * 
  */
 
 define(function(require) {
@@ -257,15 +258,16 @@ define(function(require) {
                     
                     // 年列表如果显示，点击该按钮则隐藏该列表，如果隐藏则显示
                     if(yearLstEle.css('display') === 'block') {
+                        
                         calendarBd.show();
                         monthLstEle.hide();
                         yearLstEle.hide();
                     } else {
+                        
                         yearLstEle.show();
                         monthLstEle.hide();
                         calendarBd.hide();
                     }
-                    
                 });
                 
                 // 顶部选择"月"的按钮单击事件
@@ -316,9 +318,7 @@ define(function(require) {
                         monthLstEle.hide();
                         
                         that.trigger('selectYear', year);
-                        
                     }
-                    
                 });
                 
                 // 点击月份列表
@@ -358,7 +358,6 @@ define(function(require) {
                     if(hideOnSelect) {
                         that.hide();
                     }
-                    
                 });
                 
                 // 点击"上一年"、"上一月"、"下一年"、"下一月"按钮
@@ -388,7 +387,6 @@ define(function(require) {
                     renderCalendar.apply(that, [newDate]);
                     
                     that.trigger(eventName);
-                    
                 });
                 
                 // trigger的单击事件
@@ -418,7 +416,6 @@ define(function(require) {
                         }
                         
                         positionByTrigger.apply(that);
-                        
                     });
                     
                     if(isTxtInput(trigger)) {
@@ -545,10 +542,10 @@ define(function(require) {
             // 方法：销毁组件，重新父类的方法
             destroy: function() {
                 
-                var that        = this,
-                    yearEle     = that.getAttr('yearEle'),
-                    monthEle    = that.getAttr('monthEle'),
-                    trigger     = that.getAttr('trigger');
+                var that     = this,
+                    yearEle  = that.getAttr('yearEle'),
+                    monthEle = that.getAttr('monthEle'),
+                    trigger  = that.getAttr('trigger');
                 
                 yearEle.off();
                 monthEle.off();

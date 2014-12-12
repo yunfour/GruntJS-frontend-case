@@ -47,8 +47,6 @@ define(function(require) {
             );
         };
         
-        console.log(dialog);
-        
         confirmBtn.click(function() {
             setAuth(managerId, authLst.val());
             dialog.hide();

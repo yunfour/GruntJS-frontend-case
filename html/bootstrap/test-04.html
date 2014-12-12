@@ -1,0 +1,91 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN"
+"http://www.w3.org/TR/html4/strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>几种响应式的布局方式</title>
+    
+    <link rel="stylesheet" type="text/css" href="statics/bootstrap/3.2.0/css/bootstrap.css"/>
+    <link rel="stylesheet" type="text/css" href="statics/bootstrap/3.2.0/css/bootstrap-theme.css"/>
+    
+    <style type="text/css">
+        .test-container{ min-height: 500px;}
+        
+        .row{ margin: 0 0 20px;}
+        .row > div{ min-height: 100px; border: 1px solid #fff; background: #ccc;}
+    </style>
+</head>
+
+<body>
+    
+    <div class="container test-container">
+        <h2>示例1: 宽度自动适应，但是在所有尺寸设备下均水平排列</h2>
+        <div class="row clearfix">
+            <div class="col-xs-3">1</div>
+            <div class="col-xs-3">2</div>
+            <div class="col-xs-3">3</div>
+            <div class="col-xs-3">4</div>
+        </div>
+        
+        <h2>示例2: 宽度固定，但是在所有尺寸下均水平排列</h2>
+        <div class="row clearfix" style="width: 700px;">
+            <div class="col-xs-3">1</div>
+            <div class="col-xs-3">2</div>
+            <div class="col-xs-3">3</div>
+            <div class="col-xs-3">4</div>
+        </div>
+        
+        
+        <h2>示例3: 宽度固定，但是在大尺寸下水平排列，小尺寸下垂直排列</h2>
+        <div class="row clearfix" style="width: 700px;">
+            <div class="col-sm-3">1</div>
+            <div class="col-sm-3">2</div>
+            <div class="col-sm-3">3</div>
+            <div class="col-sm-3">4</div>
+        </div>
+        
+        <h2>示例4: 宽度自适应，大尺寸下水平排列，小尺寸下垂直排列</h2>
+        <div class="row clearfix">
+            <div class="col-sm-3">1</div>
+            <div class="col-sm-3">2</div>
+            <div class="col-sm-3">3</div>
+            <div class="col-sm-3">4</div>
+        </div>
+        
+        <h2>示例5: 不管尺寸大小均是多列排列，但是在不同尺寸下列数不一样<small>（大屏4列显示，小屏3列显示）</small></h2>
+        <h2><small>（大屏4列显示，小屏3列显示）</small></h2>
+        <div class="row clearfix">
+            <div class="col-lg-3 col-xs-4">1</div>
+            <div class="col-lg-3 col-xs-4">2</div>
+            <div class="col-lg-3 col-xs-4">3</div>
+            <div class="col-lg-3 col-xs-4">4</div>
+            <div class="col-lg-3 col-xs-4">5</div>
+            <div class="col-lg-3 col-xs-4">6</div>
+            <div class="col-lg-3 col-xs-4">7</div>
+            <div class="col-lg-3 col-xs-4">8</div>
+            <div class="col-lg-3 col-xs-4">9</div>
+            <div class="col-lg-3 col-xs-4">10</div>
+            <div class="col-lg-3 col-xs-4">11</div>
+            <div class="col-lg-3 col-xs-4">12</div>
+        </div>
+        <h2>更复杂的响应<small>（大屏4列显示，中屏3列显示，小屏2列显示）</small></h2>
+        <div class="row clearfix">
+            <div class="col-lg-3 col-md-4 col-xs-6">1</div>
+            <div class="col-lg-3 col-md-4 col-xs-6">2</div>
+            <div class="col-lg-3 col-md-4 col-xs-6">3</div>
+            <div class="col-lg-3 col-md-4 col-xs-6">4</div>
+            <div class="col-lg-3 col-md-4 col-xs-6">5</div>
+            <div class="col-lg-3 col-md-4 col-xs-6">6</div>
+            <div class="col-lg-3 col-md-4 col-xs-6">7</div>
+            <div class="col-lg-3 col-md-4 col-xs-6">8</div>
+            <div class="col-lg-3 col-md-4 col-xs-6">9</div>
+            <div class="col-lg-3 col-md-4 col-xs-6">10</div>
+            <div class="col-lg-3 col-md-4 col-xs-6">11</div>
+            <div class="col-lg-3 col-md-4 col-xs-6">12</div>
+        </div>
+    </div>
+    
+    <div class="container-fluid test-container"></div>
+</body>
+</html>

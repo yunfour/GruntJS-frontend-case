@@ -26,6 +26,13 @@
  *              top——弹出层跟解答的垂直方向坐标；
  *          返回值: 当前对象；
  * 
+ *      setSize:
+ *          描述: 设置tip尺寸；
+ *          参数: 
+ *              width——tip宽度；选填；默认为auto；
+ *              height——tip高度；选填；默认为auto；
+ *          返回值: 当前对象；
+ * 
  *      
  *      部分方法继承自父类 Widget，请参考父类 Widget
  * 
@@ -48,7 +55,6 @@ define(function(require) {
         },
         
         methods: {
-
             show: function() {
                 var that      = this,
                     widgetEle = that.getAttr('widgetEle');
@@ -89,6 +95,20 @@ define(function(require) {
                 widgetEle.css({
                     left: left,
                     top: top
+                });
+                
+                return that;
+            },
+            setSize: function(width, height) {
+                var that      = this,
+                    widgetEle = that.getAttr('widgetEle');
+                
+                width = width || 'auto';
+                height = height || 'auto';
+                
+                widgetEle.css({
+                    height: height,
+                    width: width
                 });
                 
                 return that;

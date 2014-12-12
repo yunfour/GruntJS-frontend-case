@@ -3,9 +3,9 @@
  * @Date        : 2014-06-12
  * @Memo        : 实现一个模拟进度的过程（可用于ajax请求等场景，模拟进度条），
  *                进度的值都是模拟实现，并非任务准确的进度
- * @superClass  : PubSub，继承该类，为了实现其事件处理的机制，
- * @param       : 无
- * @methods: 
+ * @SuperClass  : PubSub，继承该类，为了实现其事件处理的机制，
+ * @Param       : 无
+ * @Methods: 
  *      start:
  *          描述       : 启动进度，当任务开始的时候调用此方法
  *          参数       : 无
@@ -33,13 +33,14 @@
  *          返回值    : 当前进度的值，0-100的一个数字
  * 
  *      其他方法：其他方法继承自超类：PubSub，请参考该类的方法
- * @events：
- *      start   : 启动时触发
- *      finish  : 进度完成时触发
- *      pause   : 进度暂停时触发
- *      stop    : 进度停止时触发
- *      restart : 进度重启
- *      progress: 进度进行中时触发（进度每次发生变化都会触发）
+ * @Events:
+ *      start      : 启动时触发
+ *      finish     : 进度完成时触发
+ *      pause      : 进度暂停时触发
+ *      stop       : 进度停止时触发
+ *      restart    : 进度重启
+ *      progress   : 进度进行中时触发（进度每次发生变化都会触发）
+ * 
  */
 
 define(function(require) {

@@ -1,0 +1,58 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN"
+"http://www.w3.org/TR/html4/strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>xs、sm、md、lg的差异</title>
+    
+    <link rel="stylesheet" type="text/css" href="statics/bootstrap/3.2.0/css/bootstrap.css"/>
+    <link rel="stylesheet" type="text/css" href="statics/bootstrap/3.2.0/css/bootstrap-theme.css"/>
+    
+    <style type="text/css">
+        .test-container{ min-height: 500px;}
+        
+        .row{ margin: 0 0 20px;}
+        .row > div{ min-height: 100px; border: 1px solid #fff; background: #ccc;}
+    </style>
+</head>
+
+<body>
+    
+    <div class="container test-container">
+        <h2>xs: 不管设备尺寸为多少，总是水平排列</h2>
+        <div class="row clearfix">
+            <div class="col-xs-3">1</div>
+            <div class="col-xs-3">2</div>
+            <div class="col-xs-3">3</div>
+            <div class="col-xs-3">4</div>
+        </div>
+        
+        <h2>sm: 适配大尺寸设备，设备宽度大于768px时，水平排列，否则垂直排列</h2>
+        <div class="row clearfix">
+            <div class="col-sm-3">1</div>
+            <div class="col-sm-3">2</div>
+            <div class="col-sm-3">3</div>
+            <div class="col-sm-3">4</div>
+        </div>
+        
+        <h2>md: 适配大尺寸设备，设备宽度大于992px时，水平排列，否则垂直排列</h2>
+        <div class="row clearfix">
+            <div class="col-md-3">1</div>
+            <div class="col-md-3">2</div>
+            <div class="col-md-3">3</div>
+            <div class="col-md-3">4</div>
+        </div>
+        
+        <h2>lg: 适配大尺寸设备，设备宽度大于1200px时，水平排列，否则垂直排列</h2>
+        <div class="row clearfix">
+            <div class="col-lg-3">1</div>
+            <div class="col-lg-3">2</div>
+            <div class="col-lg-3">3</div>
+            <div class="col-lg-3">4</div>
+        </div>
+    </div>
+    
+    <div class="container-fluid test-container"></div>
+</body>
+</html>

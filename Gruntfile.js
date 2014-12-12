@@ -8,7 +8,7 @@ module.exports = function (grunt) {
     var aliasInfo = grunt.file.readJSON("alias_info.json");
     
     // 生成合并的映射关系，在concat插件中使用
-    var configConcat = require('./src/js/concatMapping');
+    var configNoConcat = require('./src/js/concatMapping');
     
     // 过滤*-debug的JS文件
     var filterDebugJS = function(filePath) {
@@ -193,7 +193,7 @@ module.exports = function (grunt) {
             },
             dist: {
                 files: configNoConcat([
-                    // 合并是的文件对应关系,读取concatMapping模块
+                    // 配置不需要合并的模块
                     
                     {
                         type: 'components',
@@ -329,5 +329,15 @@ module.exports = function (grunt) {
      * 5、使用uglify插件对上一步中合并好的在js/下的js进行压缩处理
      * 6、使用watch插件对文件进行监视，如果文件变得，则按顺序执行以上4步的任务
      */
-    grunt.registerTask('default', ['clean:js_dest', 'less', 'jshint', 'transport', 'copy', 'concat', 'uglify', 'clean:build', 'watch']);
+    grunt.registerTask('default', [
+        'clean:js_dest',
+        'less',
+        'jshint',
+        'transport',
+        'copy',
+        'concat',
+        'uglify',
+        'clean:build',
+        'watch'
+    ]);
 };

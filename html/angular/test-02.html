@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+<head>
+    <meta charset="utf-8">
+    <title>美元换算(变量监视)</title>
+    
+    <script type="text/javascript" src="../../gallery/angular/1.2.26/angular.js"></script>
+</head>
+
+<body ng-controller="MessageTxt">
+    
+    <label>人民币金额：</label>
+    <input type="text" ng-model="amount" />
+    
+    <p>汇率：0.1631</p>
+    <p>美元金额：<span ng-bind="result"></span></p>
+    
+    
+    <input type="button" value="重置" ng-click="reset()" />
+    
+
+<script type="text/javascript">
+    var app = angular.module('myApp', []);
+    
+    app.controller('MessageTxt', function($scope) {
+        
+        $scope.amount = 0;
+        
+        $scope.compute = function() {
+            $scope.result = $scope.amount * 0.1631;
+        };
+        
+        $scope.reset = function() {
+            $scope.amount = 0;
+        };
+        
+        $scope.$watch('amount', $scope.compute);
+    });
+</script>
+</body>
+</html>

@@ -1,0 +1,106 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN"
+"http://www.w3.org/TR/html4/strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>布局容器</title>
+	
+    <link rel="stylesheet" type="text/css" href="statics/bootstrap/3.2.0/css/bootstrap.css"/>
+    <link rel="stylesheet" type="text/css" href="statics/bootstrap/3.2.0/css/bootstrap-theme.css"/>
+    
+    <style type="text/css">
+    	.test-container{ min-height: 500px;}
+    	
+    	.row{ margin: 0 0 20px;}
+    	.row > div{ min-height: 100px; border: 1px solid #fff; background: #ccc;}
+    </style>
+</head>
+
+<body>
+    
+    <div class="container test-container">
+        <h2>12等分：col-xs-1 <small>（xs: 不管设备尺寸为多少，总是水平排列）</small></h2>
+        <div class="row clearfix">
+            <div class="col-xs-1">1</div>
+            <div class="col-xs-1">2</div>
+            <div class="col-xs-1">3</div>
+            <div class="col-xs-1">4</div>
+            <div class="col-xs-1">5</div>
+            <div class="col-xs-1">6</div>
+            <div class="col-xs-1">7</div>
+            <div class="col-xs-1">8</div>
+            <div class="col-xs-1">9</div>
+            <div class="col-xs-1">10</div>
+            <div class="col-xs-1">11</div>
+            <div class="col-xs-1">12</div>
+        </div>
+        
+        <h2>4等分：col-xs-3</h2>
+        <div class="row clearfix">
+            <div class="col-xs-3">1</div>
+            <div class="col-xs-3">2</div>
+            <div class="col-xs-3">3</div>
+            <div class="col-xs-3">4</div>
+        </div>
+        
+        <h2>6等分：col-lg-2 <small>（lg: 适配大尺寸设备，设备宽度大于1200px时，水平排列，否则垂直排列）</small></h2>
+        <div class="row clearfix">
+            <div class="col-lg-2">1</div>
+            <div class="col-lg-2">2</div>
+            <div class="col-lg-2">3</div>
+            <div class="col-lg-2">4</div>
+            <div class="col-lg-2">5</div>
+            <div class="col-lg-2">6</div>
+        </div>
+        
+        <h2>4等分：col-md-2 <small>（md: 适配大尺寸设备，设备宽度大于992px时，水平排列，否则垂直排列）</small></h2>
+        <div class="row clearfix">
+            <div class="col-md-3">1</div>
+            <div class="col-md-3">2</div>
+            <div class="col-md-3">3</div>
+            <div class="col-md-3">4</div>
+        </div>
+        
+        <h2>2等分：col-sm-2（sm: 适配大尺寸设备，设备宽度大于768px时，水平排列，否则垂直排列）</h2>
+        <div class="row clearfix">
+            <div class="col-sm-6">1</div>
+            <div class="col-sm-6">2</div>
+        </div>
+        
+        <h2>3列不等分</h2>
+        <div class="row clearfix">
+            <div class="col-xs-2">1</div>
+            <div class="col-xs-4">2</div>
+            <div class="col-xs-6">3</div>
+        </div>
+        
+        <h2 style="width: 768px; margin: 0 auto;">固定宽度</h2>
+        <div class="row clearfix" style="width: 768px; margin: 0 auto;">
+            <div class="col-xs-2">1</div>
+            <div class="col-xs-4">2</div>
+            <div class="col-xs-6">3</div>
+        </div>
+        
+        
+        <h2>响应时，非单列响应 <small>（大屏4列显示，小屏3列显示）</small></h2>
+        <div class="row clearfix">
+            <div class="col-lg-3 col-xs-4">1</div>
+            <div class="col-lg-3 col-xs-4">2</div>
+            <div class="col-lg-3 col-xs-4">3</div>
+            <div class="col-lg-3 col-xs-4">4</div>
+            <div class="col-lg-3 col-xs-4">5</div>
+            <div class="col-lg-3 col-xs-4">6</div>
+            <div class="col-lg-3 col-xs-4">7</div>
+            <div class="col-lg-3 col-xs-4">8</div>
+            <div class="col-lg-3 col-xs-4">9</div>
+            <div class="col-lg-3 col-xs-4">10</div>
+            <div class="col-lg-3 col-xs-4">11</div>
+            <div class="col-lg-3 col-xs-4">12</div>
+        </div>
+    	
+    </div>
+    
+    <div class="container-fluid test-container"></div>
+</body>
+</html>

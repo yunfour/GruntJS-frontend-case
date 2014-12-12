@@ -313,6 +313,7 @@ define(function(require) {
             validObj = validatePlan[fieldName];
         
         if(validObj && validObj.defaultTip) {
+            
             showDefaultTip(theField, validObj.defaultTip);
         }
     });

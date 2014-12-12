@@ -61,6 +61,7 @@ var processMapping = function(type, moduleName, version, isConcat) {
         srcFilesPath         = srcDirPath + '*.js',
         srcFilesPathDebug    = srcDirPath + '*-debug.js',
         srcCssFilesPathDebug = srcDirPath + '*-debug.css.js',
+        
         // 目标文件路径
         distFilesPath        = distDirPath + moduleName + '.js',
         distFilesPathDebug   = distDirPath + moduleName + '-debug.js',
@@ -116,6 +117,9 @@ var processMapping = function(type, moduleName, version, isConcat) {
             distFilePath,
             srcFilePath;
         
+        // 判断文件是否为.js文件的正则表达式
+        var jsExtReg = /\.js$/;
+        
         for(var i = 0, l = srcDirFiles.length; i < l; i ++) {
             
             // 遍历目录下的所有文件，为每个文件生成一个合并映射
@@ -148,13 +152,15 @@ var processMapping = function(type, moduleName, version, isConcat) {
                 src: srcFilePath.replace('/js/', '/js/_build/')
             });
            
-            mappingPush({
-                dest: distFilePathDebug,
-                src: [
-                    srcFilePathDebug.replace('/js/', '/js/_build/'),
-                    srcCSSFilePathDebug.replace('/js/', '/js/_build/')
-                ]
-            });
+            if(jsExtReg.test(fileName)) {
+                mappingPush({
+                    dest: distFilePathDebug,
+                    src: [
+                        srcFilePathDebug.replace('/js/', '/js/_build/'),
+                        srcCSSFilePathDebug.replace('/js/', '/js/_build/')
+                    ]
+                });
+            }
         }
         
         // 如果源码中没有主模块文件，则将默认的主模块映射关系从mapping中删除
@@ -172,28 +178,6 @@ var processMapping = function(type, moduleName, version, isConcat) {
             mapping[mainMouduleIndex] = {};
             mapping[mainMouduleDebugIndex] = {};
         }
-        
-        /*
-        var mainModuleDestPath = distDirPath + moduleName + '.js',
-            mainModuleSrcPath = srcDirPath + moduleName + '.js',
-            mainModuleDestPathDebug = distDirPath + moduleName + '-debug.js',
-            mainModuleSrcPathDebug = srcDirPath + moduleName + '-debug.js';
-            
-        mainModuleSrcPath = mainModuleSrcPath.replace('/js/', '/js/_build/');
-        
-        mappingPush({
-            dest: mainModuleDestPath,
-            src: [
-                mainModuleSrcPath
-            ]
-        });
-        mappingPush({
-            dest: mainModuleDestPathDebug,
-            src: [
-                mainModuleSrcPathDebug
-            ]
-        });
-        */
     }
 };
 
@@ -349,9 +333,9 @@ concatAllVersion('common');
  *     ...
  * ]
  */
-function configConcat(noConcatOpts) {
+function configNoConcat(noConcatOpts) {
     
-    opts = opts || [];
+    var opts = noConcatOpts || [];
     
     for(var i = 0, l = opts.length, opt; i < l; i++) {
         
@@ -360,17 +344,17 @@ function configConcat(noConcatOpts) {
         processMapping(opt.type, opt.name, opt.version, false);
     }
     
-    // 将映射对应关系数据存储到concatMapping.json文件中
-    fs.writeFile('src/js/concatMapping.json', JSON.stringify(mapping), function(err) {
+    try {
         
-        if(err) {
-            throw err;
-        }
-        
+        // 将映射对应关系数据存储到concatMapping.json文件中
+        fs.writeFileSync('src/js/concatMapping.json', JSON.stringify(mapping));
         console.log('合并文件映射关系已生成！');
-    });
+    } catch(ex) {
+        
+        console.log('合并文件映射关系生成失败:\n' + ex);
+    }
     
     return mapping;
 }
 
-module.exports = configConcat;
+module.exports = configNoConcat;

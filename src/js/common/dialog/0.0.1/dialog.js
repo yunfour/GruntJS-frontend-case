@@ -56,7 +56,6 @@ define(function(require) {
                     widgetEle.css({
                         background: 'none'
                     });
-                    
                 });
             },
             setTitle: function(titleText) {
@@ -125,7 +124,6 @@ define(function(require) {
         
         dialogBdEle.find('p.J-alterTipText').html(alertTxt);
         dialogObj.show();
-        
     }
     
     // 模拟confirm

@@ -14,6 +14,7 @@
  *              eventsName——事件名称（必填），
  *              callback——事件回调函数（选填，未设置该参数或者该参数为非function类型时则绑定无效）；
  *          返回值: 当前对象
+ * 
  *      unbind: 
  *          描述: 解绑（取消订阅）事件；
  *          参数: 
@@ -21,6 +22,7 @@
  *              callback——事件回调函数（选填，不设置该参数的时候则删除eventsName对应事件的所有回调函数）
  *                        如果两个参数均设置，则只删除eventName对应和callback函数相同的回调函数；
  *          返回值: 当前对象
+ * 
  *      trigger: 
  *          描述: 发布消息（触发事件）；
  *          参数: 
@@ -28,6 +30,7 @@
  *              callback——事件回调函数（选填，不设置该参数的时候则删除eventsName对应事件的所有回调函数）
  *                        如果两个参数均设置，则只删除eventName对应和callback函数相同的回调函数；
  *          返回值: 当前对象
+ * 
  *      on: 
  *          描述: 扩展方法，可以使用该方法绑定/触发事件；
  *          参数: 
@@ -36,6 +39,15 @@
  *                        数绑定到eventName事件中，如果没有该参数，则触发名字
  *                        为: eventName的事件
  *          返回值: 当前对象
+ * 
+ *      off: 
+ *          描述: 解绑（取消订阅）事件；
+ *          参数: 
+ *              eventsName——事件名称（选填，不设置该参数的时候则解绑所有事件的所有回调函数），
+ *              callback——事件回调函数（选填，不设置该参数的时候则删除eventsName对应事件的所有回调函数）
+ *                        如果两个参数均设置，则只删除eventName对应和callback函数相同的回调函数；
+ *          返回值: 当前对象
+ * 
  *      once:
  *          描述: 通过该方法绑定的事件回调，在触发对应事件时只会执行一次
  *          参数: 
@@ -80,6 +92,7 @@ define(function (require, exports, module) {
                     args.shift();
                     
                     eachEvents(eventsName, function(eventName) {
+                        
                         var theArgs = args.slice();
                         
                         theArgs.unshift(eventName);
@@ -101,6 +114,7 @@ define(function (require, exports, module) {
                 eventsName = args.shift();
                 
                 eachEvents(eventsName, function(eventName) {
+                    
                     var theArgs = args.slice();
                     
                     theArgs.unshift(eventName);
@@ -116,9 +130,17 @@ define(function (require, exports, module) {
                 
                 if(arguments.length === 1) {
                     that.trigger(eventsName);
-                } else if(arguments.length > 1){
+                } else if(arguments.length > 1) {
                     that.bind(eventsName, callback);
                 }
+                
+                return that;
+            },
+
+            off: function(eventsName, callback) {
+                var that = this;
+                
+                that.unbind(eventsName, callback);
                 
                 return that;
             },

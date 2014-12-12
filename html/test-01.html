@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<title>测试文件</title>
+<script type="text/javascript" src="../gallery/seajs/2.0.0/sea.js"></script>
+<script type="text/javascript" src="../js/config/seajsConfig/1.0.0/seajsConfig.js"></script>
+
+<!--
+<script type="text/javascript" src="../js/common/concat/allVersion.js"></script>
+<script type="text/javascript" src="../js/components/concat/allVersion.js"></script>
+-->
+
+
+<!--<link rel="stylesheet" type="text/css" href="../gallery/bootstrap/3.0.3/css/bootstrap.min.css"/>-->
+<!--<link rel="stylesheet" type="text/css" href="../gallery/bootstrap/3.0.3/css/bootstrap-theme.min.css"/>-->
+<link rel="stylesheet" type="text/css" href="../css/1.0.0/reset.min.css"/>
+<link rel="stylesheet" type="text/css" href="../css/1.0.0/common.min.css"/>
+<link rel="stylesheet" type="text/css" href="../css/1.0.0/page.min.css"/>
+</head>
+
+<body class="com-body">
+
+
+<script type="text/javascript" charset="utf-8">
+//seajs.use(['pages/devMyAccount/1.0.0/devMyAccount']);
+
+seajs.use('base/pubSub/1.0.3/pubSub', function(PubSub) {
+    
+    var eventer = new PubSub();
+    
+    eventer.once('show', function() {
+        console.log('123123');
+    });
+    
+    eventer.trigger('show');
+    eventer.trigger('show');
+    eventer.trigger('show');
+});
+</script>
+</body>
+</html>

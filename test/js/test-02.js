@@ -207,7 +207,6 @@
             
             module.exports = factory;
             module.executed = true;
-            
         }
         
         module.dependencies = dependencies;
@@ -215,7 +214,6 @@
         for(var i = 0, l = dependencies.length; i < l; i ++) {
             
             request(dependencies[i]);
-            
         }
     }
     
@@ -235,6 +233,7 @@
         var interactiveNodeNum = 0;
         
         for(var i = 0, l = scripts.length; i < l; i ++) {
+            
             if(scripts[i].className === MODULE_CLASSNAME) {
                 interactiveNodeNum ++;
             }
@@ -253,13 +252,12 @@
                 if(mainModule && !mainModule.executed) {
                     
                     if(isFunction(mainModule.factory)) {
+                        
                         mainModule.exports = {};
                         mainModule.exports = mainModule.factory(require);
-                        
                     } else {
                         
                         mainModule.exports = mainModule.factory;
-                        
                     }
                 }
             }

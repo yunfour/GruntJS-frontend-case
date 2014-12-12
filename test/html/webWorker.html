@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Web Worker(Html5多线程)</title>
+</head>
+
+<body>
+
+<script type="text/javascript">
+if(typeof Worker !== 'undefined') {
+    
+    var w = new Worker('../js/worker.js');
+    
+    w.onmessage = function(event) {
+        console.log(event.data);
+    };
+} else {
+    
+}
+</script>
+</body>
+</html>

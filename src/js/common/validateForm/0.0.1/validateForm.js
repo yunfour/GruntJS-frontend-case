@@ -49,14 +49,14 @@ define(function(require) {
     
     // 根据设定的验证方案验证指定的字段
     var valiFn = function(theField, valiObj, callback) {
-        var field       = $(theField),
-            fieldName   = field.attr('name'),
-            fieldVal    = $.trim(field.val()),
-            fieldType   = (field.attr('type') || '').toLowerCase(),
-            fieldTagName= field.prop('tagName').toLowerCase(),
-            fieldPanel  = field.closest('div.com-form-item'),
-            theForm     = field.closest('form'),
-            errNum      = 0,
+        var field        = $(theField),
+            fieldName    = field.attr('name'),
+            fieldVal     = $.trim(field.val()),
+            fieldType    = (field.attr('type') || '').toLowerCase(),
+            fieldTagName = field.prop('tagName').toLowerCase(),
+            fieldPanel   = field.closest('div.com-form-item'),
+            theForm      = field.closest('form'),
+            errNum       = 0,
             patterns;
         var isShowSuccessTip;
         
@@ -122,6 +122,7 @@ define(function(require) {
                 pattern;
             
             for(var i = 0, l = patterns.length; i < l; i ++) {
+                
                 patternObj  = patterns[i];
                 pattern     = patternObj.pattern;
                 noMatchTip  = patternObj.noMatchTip || '你输入的内容格式有误！';
@@ -257,10 +258,10 @@ define(function(require) {
     };
     
     return {
-        showExplain     : showExplain,
-        showDefaultTip  : showDefaultTip,
-        valiFn          : valiFn,
-        isPassVali      : isPassVali,
-        goVali          : goVali
+        showExplain    : showExplain,
+        showDefaultTip : showDefaultTip,
+        valiFn         : valiFn,
+        isPassVali     : isPassVali,
+        goVali         : goVali
     };
 });

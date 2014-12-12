@@ -1,0 +1,331 @@
+.com-nav {
+	height: 46px;
+	min-width: 640px;
+	background: rgb(99, 99, 99);
+	background: rgba(0, 0, 0, 0.6);
+	text-align: center;
+}
+.com-nav-lst {
+	height: 46px;
+	max-width: 1000px;
+	min-width: 640px;
+	margin: 0 auto;
+	font-family: "微软雅黑";
+	text-align: justify;
+	position: relative;
+}
+.com-nav-lst:after {
+	content: '';
+	width: 100%;
+	display: inline-block;
+	font-size: 0;
+	line-height: 0;
+}
+.com-nav-lst li {
+	display: inline-block;
+	*display: inline;
+	height: 46px;
+	margin: 0;
+	list-style: none;
+	overflow: hidden;
+	zoom: 1;
+}
+.com-nav-link {
+	display: block;
+	height: 46px;
+	width: auto;
+	padding: 0 10px;
+	line-height: 46px;
+	color: #fff;
+}
+a.com-nav-link:hover {
+	color: #ccc;
+	text-decoration: none;
+}
+.com-nav-logo {
+	width: 50px;
+	background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4NCjxzdmcgdmVyc2lvbj0iMS4xIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB4PSIwcHgiIHk9IjBweCINCgkgd2lkdGg9IjE5cHgiIGhlaWdodD0iMjNweCIgdmlld0JveD0iMCAwIDE5IDIzIiBlbmFibGUtYmFja2dyb3VuZD0ibmV3IDAgMCAxOSAyMyIgeG1sOnNwYWNlPSJwcmVzZXJ2ZSI+DQoJPHBhdGggZmlsbD0iI0ZGRkZGRiIgZD0iTTE3Ljk3NywxNi4zNzJjLTAuMTExLDAuMzM0LTAuMjI5LDAuNjUyLTAuMzU0LDAuOTU5Yy0wLjMwNSwwLjcyMi0wLjY2NiwxLjM4OC0xLjA4MiwxLjk5OA0KCQljLTAuNTcsMC44MzQtMS4wMzUsMS40MDktMS4zOTYsMS43MjljLTAuNTU3LDAuNTI2LTEuMTUyLDAuNzk4LTEuNzkxLDAuODEyYy0wLjQ1OSwwLTEuMDEtMC4xMzQtMS42NTYtMC40MDQNCgkJYy0wLjY0Ni0wLjI3MS0xLjIzOC0wLjQwNi0xLjc4MS0wLjQwNmMtMC41NjksMC0xLjE4MSwwLjEzNi0xLjgzMywwLjQwNnMtMS4xOCwwLjQxNC0xLjU4MiwwLjQyNw0KCQljLTAuNjEyLDAuMDI4LTEuMjIzLTAuMjUtMS44MzMtMC44MzNjLTAuMzg5LTAuMzQ4LTAuODc1LTAuOTQ0LTEuNDU4LTEuNzkyYy0wLjYyNS0wLjkwMi0xLjEzOS0xLjk1LTEuNTQyLTMuMTQ2DQoJCWMtMC40MjktMS4yOTEtMC42NDUtMi41NDEtMC42NDUtMy43NDhjMC0xLjM4OSwwLjI5Mi0yLjU4MywwLjg3NS0zLjU4M2MwLjQ1OC0wLjgwNSwxLjA2OS0xLjQ0LDEuODMzLTEuOTA2DQoJCWMwLjc2NC0wLjQ2NiwxLjU5LTAuNzA0LDIuNDc5LTAuNzE4YzAuNDg2LDAsMS4xMjUsMC4xNTMsMS45MTYsMC40NThzMS4yOTcsMC40NTksMS41MiwwLjQ1OWMwLjE2NywwLDAuNzI5LTAuMTgxLDEuNjg4LTAuNTQyDQoJCWMwLjktMC4zMzQsMS42NjYtMC40NzIsMi4yOTEtMC40MTdjMS42OTMsMC4xNCwyLjk2NSwwLjgyNiwzLjgxMSwyLjA2MmMtMS41MTQsMC45NDQtMi4yNjIsMi4yNjMtMi4yNDgsMy45NTcNCgkJYzAuMDE0LDEuMzE4LDAuNDc5LDIuNDE3LDEuMzk2LDMuMjkxQzE2Ljk5OCwxNS44MzcsMTcuNDYzLDE2LjE1LDE3Ljk3NywxNi4zNzJ6IE0xMy42NDUsMS4xMDUNCgkJYzAuMDE0LDAuMTM5LDAuMDIxLDAuMjc4LDAuMDIxLDAuNDE3YzAsMS4wNDItMC4zNjksMi4wMTQtMS4xMDQsMi45MTVjLTAuODg5LDEuMDctMS45MTgsMS41NTYtMy4wODMsMS40NTkNCgkJQzkuNDY1LDUuNzcxLDkuNDU4LDUuNjM5LDkuNDU4LDUuNTAxYzAtMSwwLjM3Ni0xLjkzOCwxLjEyNi0yLjgxMmMwLjM3NS0wLjQ0MywwLjg1LTAuODEyLDEuNDI4LTEuMTA0DQoJCUMxMi41ODYsMS4yOTMsMTMuMTMxLDEuMTMzLDEzLjY0NSwxLjEwNXoiLz4NCjwvc3ZnPg0K) 50% 40% no-repeat;
+}
+
+
+.com-helps {
+	min-width: 640px;
+	padding-top: 30px;
+	margin: 0;
+	background: #F2F2F2;
+	font-family: "微软雅黑";
+}
+.com-helps-link {
+	display: block;
+	width: 190px;
+	height: 240px;
+	margin: 30px auto 0;
+}
+a.com-helps-link:hover {
+	text-decoration: none;
+}
+.com-helps-ico {
+	height: 47px;
+	width: 44px;
+	margin: 0 auto 15px;
+}
+.com-helps-ico-shop {
+	background: url(../images/shop.jpg) no-repeat;
+}
+.com-helps-ico-store {
+	background: url(../images/store.jpg) no-repeat;
+}
+.com-helps-ico-call {
+	background: url(../images/call.jpg) no-repeat;
+}
+.com-helps-ico-app {
+	background: url(../images/buystrip_app_large.jpg) no-repeat;
+}
+.com-helps-title {
+	height: 31px;
+	margin-bottom: 10px;
+	line-height: 31px;
+	font-size: 22px;
+	color: #515151;
+	text-align: center;
+}
+.com-helps-description {
+	margin-bottom: 10px;
+	line-height: 1.7;
+	font-size: 12px;
+	color: #515151;
+	text-align: center;
+}
+.com-helps-more {
+	color: ##08c;
+	font-size: 14px;
+	text-align: center;
+}
+.com-helps-bd {
+	width: 640px;
+	margin: 0 auto;
+}
+.com-helps-col {
+	width: 50%;
+	float: left;
+}
+/*最小宽度为980的尺寸*/
+@media only screen and (min-width: 980px) {
+	.com-helps-bd {
+		width: 980px;
+	}
+	.com-helps-col {
+		width: 25%;
+	}
+}
+
+
+.iphone-pros-wraper {
+	height: 160px;
+	min-width: 640px;
+	padding: 23px 0 0;
+	background: #eee;
+}
+.iphone-pros-lst {
+	height: 160px;
+	width: 725px;
+	padding: 0;
+	margin: 0 auto;
+	list-style: none;
+	text-align: center;
+}
+.iphone-pros-itm {
+	display: inline-block;
+	*display: inline;
+	margin: 0 23px;
+	zoom: 1;
+}
+.iphone-pros-pic {
+	text-align: center;
+}
+.iphone-pros-name {
+	padding: 15px 0 0;
+	line-height: 1.1667;
+	color: #666;
+	font-size: 12px;
+	text-align: center;
+}
+
+.iphone-6 {
+	min-width: 640px;
+	padding: 0;
+	background: #EAEAEA;
+}
+.iphone-6-link {
+	display: block;
+	height: 683px;
+	margin: 0;
+}
+.iphone-6-link:before,
+.iphone-6-link:after {
+	content: '';
+	display: table;
+	font-size: 0;
+}
+.iphone-6-intro {
+	height: 140px;
+	width: 337px;
+	margin: 115px auto 6px;
+	text-indent: -1000px;
+	background: url(../images/hero_iphone_title_large.png) no-repeat;
+}
+.iphone-6-pic {
+	width: 1022px;
+	height: 201px;
+	margin: 121px auto 118px;
+	background: url(../images/hero_xlarge.png);
+}
+.iphone-6-pic-small {
+	width: 725px;
+	height: 143px;
+	margin: 121px auto 118px;
+	background: url(../images/hero_medium.png);
+}
+
+
+.iphone-promos {
+	max-width: 1440px;
+	min-width: 640px;
+	margin: 0 auto;
+}
+.iphone-promos-item {
+	height: 280px;
+	padding: 2px 2px 0 0;
+}
+.iphone-promos-item a:before,
+.iphone-promos-item a:after {
+	content: '';
+	display: table;
+	font-size: 0;
+}
+.iphone-promos-item a {
+	display: block;
+	height: 100%;
+}
+.iphone-promos-ios8 {
+	background: url(../images/promo_tile_ios8_xlarge.jpg) center top no-repeat;
+}
+.iphone-promos-keynote {
+	background: url(../images/promo_tile_keynote_xlarge.jpg) center top no-repeat;
+}
+.iphone-promos-applepay {
+	background: url(../images/promo_tile_applepay_xlarge.jpg) center top no-repeat;
+}
+.iphone-promos-item h1 {
+	height: 66px;
+	margin: 175px 0 0;
+	background-repeat: no-repeat;
+	background-position: center center;
+	text-indent: -10000px;
+}
+.iphone-promos-ios8 h1 {
+	background-image: url(../images/promo_tile_ios8_title_large.png);
+}
+.iphone-promos-keynote h1 {
+	background-image: url(../images/promo_keynote_title_xlarge.png);
+}
+.iphone-promos-applepay h1 {
+	background-image: url(../images/promo_developers_title_large.png);
+}
+
+
+.iphone-description {
+	max-width: 1440px;
+	min-width: 640px;
+	margin: 0 auto;
+	font-family: "微软雅黑";
+	position: relative;
+}
+.iphone-description-item {
+	margin-top: 46px;
+	text-align: center;
+}
+.iphone-description-item a {
+	display: block;
+	color: #515151;
+}
+.iphone-description-item a:hover {
+	text-decoration: none;
+}
+.iphone-description-item a:before,
+.iphone-description-item a:after {
+	content: '';
+	display: table;
+	font-size: 0;
+}
+.iphone-description-item h2 {
+	margin: 0 0 10px;
+	line-height: 1.5;
+	font-size: 20px;
+	font-weight: normal;
+}
+.iphone-description-item p {
+	width: 310px;
+	margin: 0 auto;
+	line-height: 1.5;
+	font-size: 16px;
+}
+.iphone-description-item figure {
+	width: 318px;
+	height: 260px;
+}
+.iphone-description-pic-applecare {
+	margin: 22px auto 0;
+	background: url(../images/support_medium.jpg) no-repeat;
+}
+.iphone-description-pic-business {
+	margin: 104px auto 0;
+	background: url(../images/iphone_business_medium.png) no-repeat;
+}
+.iphone-description-line {
+	width: 1px;
+	background: #d6d6d6;
+	overflow: hidden;
+	position: absolute;
+	top: 50px;
+	bottom: 30px;
+	left: 50%;
+}
+
+
+.iphone-compare {
+	min-width: 640px;
+	padding: 32px 0 0;
+	margin: 0;
+	background: #f2f2f2;
+}
+.iphone-compare-bd {
+	display: block;
+	width: 740px;
+	margin: 0 auto;
+}
+.iphone-compare-pic {
+	width: 150px;
+	height: 158px;
+	margin: 0 30px 0 auto;
+	background: url(../images/buystrip_hero_medium.png);
+}
+.iphone-compare-pic-big {
+	width: 209px;
+	height: 220px;
+	margin: 0 30px 0 auto;
+	background: url(../images/buystrip_hero_large.png);
+}
+.iphone-compare-pro {
+	padding: 35px 0 0;
+	color: #666;
+}
+.iphone-compare-pro-title {
+	padding: 0 0 5px;
+	margin: 0;
+	font-size: 24px;
+}
+.iphone-compare-pro-price {
+	line-height: 28px;
+	font-size: 16px;
+}
