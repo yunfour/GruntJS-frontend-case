@@ -59,6 +59,10 @@ define(function(require) {
                 var that      = this,
                     widgetEle = that.getAttr('widgetEle');
                 
+                if(widgetEle.css('display') === 'none') {
+                    return that;
+                }
+                
                 widgetEle.show();
                 
                 return that;

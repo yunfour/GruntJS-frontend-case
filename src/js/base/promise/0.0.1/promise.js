@@ -24,9 +24,6 @@ define(function(require) {
     
     var Promise = createClass({
         superClass: PubSub,
-        init: function() {
-            
-        },
         methods: {
             then: function(onResolved, onRejected) {
                 
