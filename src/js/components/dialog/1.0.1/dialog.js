@@ -61,12 +61,16 @@ define(function(require, exports, module) {
                 var that = this;
                 
                 function onresize() {
-                    that.setPosition();
+                    
+                    if(that.getAttr('widgetEle').css('display') !== 'none') {
+                        that.setPosition();
+                    }
                 }
                 
                 $(window).on('resize', onresize);
                 
                 that.on('destroy', function() {
+                    
                     var isShowMask = that.getAttr('mask');
                     
                     $(window).off('resize', onresize);
