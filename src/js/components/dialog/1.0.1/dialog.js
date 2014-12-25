@@ -123,6 +123,10 @@ define(function(require, exports, module) {
                     isShowMask = that.getAttr('mask'),
                     widgetEle  = that.getAttr('widgetEle');
                 
+                if(widgetEle.css('display') === 'none') {
+                    return that;
+                }
+                
                 widgetEle.hide();
                 
                 if(isShowMask) {
@@ -133,6 +137,7 @@ define(function(require, exports, module) {
                 
                 return that;
             },
+            // 设置尺寸
             setSize: function(width, height) {
                 var that      = this,
                     widgetEle = that.getAttr('widgetEle');
