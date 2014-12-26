@@ -100,6 +100,8 @@ define(function (require, exports, module) {
             // 私有属性对象（集合）
             var attrs = {};
             
+            var __superClasses = [];
+            
             // 判断是否设置了父类
             if(superClasses && superClasses.constructor === Array) {
                 
@@ -109,7 +111,9 @@ define(function (require, exports, module) {
                     
                     // 继承父类的构造函数中的内容
                     if(typeof superClass === 'function') {
+                        
                         superClass.apply(that, arguments);
+                        __superClasses.push(superClass);
                     }
                 }
             }
@@ -187,6 +191,9 @@ define(function (require, exports, module) {
                 return attrVal;
             };
             
+            // 缓存超类列表
+            that.setAttr('__superClasses', __superClasses);
+            
             // 调用初始化方法
             if(typeof conf.init === 'function') {
                 conf.init.apply(that, arguments);
@@ -244,28 +251,28 @@ define(function (require, exports, module) {
             Constructor.prototype.superClass = Object;
         }
         
-        
-        /*
-         * 在每个构造函数原型链中添加instanceOf方法，用来判断继承关系
-         * 如果参数superClass存在于superClasses数组中是，该函数也会
-         * 返回true
-         */
-        Constructor.prototype.instanceOf = function(superClass) {
-            var that = this;
-            var result = that instanceof superClass;
+        if(typeof Constructor.prototype.instanceOf === 'undefined') {
             
-            if(!result && superClasses) {
+            Constructor.prototype.instanceOf = function(superClass) {
                 
-                for(var i = 0, l = superClasses.length; i < l; i++) {
+                var that = this;
+                var result = that instanceof superClass;
+                
+                var superClasses = this.getAttr('__superClasses');
+                
+                if(!result && superClasses) {
                     
-                    if(that instanceof superClasses[i]) {
-                        return true;
+                    for(var i = 0, l = superClasses.length; i < l; i++) {
+                        
+                        if(superClass === superClasses[i]) {
+                            return true;
+                        }
                     }
                 }
-            }
-            
-            return result;
-        };
+                
+                return result;
+            };
+        }
         
         if(methods && typeof methods === 'object') {
             
