@@ -83,7 +83,7 @@ define("components/toolTip/0.0.3/toolTip-debug", [ "$-debug", "base/createClass/
                         that.relocation();
                     }
                 }
-                that.superClass.prototype.bindUI.apply(that);
+                that._superClass.prototype.bindUI.apply(that);
                 if (trigger) {
                     $win.on("resize", resize);
                     that.on("destroy", function() {
@@ -252,7 +252,7 @@ define("components/toolTip/0.0.3/toolTip-debug", [ "$-debug", "base/createClass/
                     tipArrowPosition = arrowMapping[arrowPosition - 1];
                 }
                 that.setAttr("triggerArrowPosition", arrowPosition);
-                that.superClass.prototype.setArrowPosition.call(that, tipArrowPosition);
+                that._superClass.prototype.setArrowPosition.call(that, tipArrowPosition);
                 if (trigger && widgetEle.css("display") !== "none") {
                     that.relocation();
                 }

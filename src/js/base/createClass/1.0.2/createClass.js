@@ -237,12 +237,12 @@ define(function (require, exports, module) {
             }
             
             if(typeof superClasses[0] === 'function') {
-                Constructor.prototype.superClass = superClasses[0];
+                Constructor.prototype._superClass = superClasses[0];
             }
             
         } else {
             
-            Constructor.prototype.superClass = Object;
+            Constructor.prototype._superClass = Object;
         }
         
         

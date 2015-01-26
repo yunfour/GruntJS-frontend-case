@@ -74,14 +74,12 @@ define("pages/submitApp/1.0.0/setFrm-debug", [ "$-debug", "common/validateForm/0
         return false;
     });
 });
-
-define("pages/submitApp/1.0.0/submitApp-debug", [ "$-debug", "./uploadAppIco-debug", "gallery/upload/1.1.1/upload-debug", "components/ToolTip/0.0.3/ToolTip-debug", "./setFrm-debug", "common/validateForm/0.0.1/validateForm-debug" ], function(require) {
+;define("pages/submitApp/1.0.0/submitApp-debug", [ "$-debug", "./uploadAppIco-debug", "gallery/upload/1.1.1/upload-debug", "components/ToolTip/0.0.3/ToolTip-debug", "./setFrm-debug", "common/validateForm/0.0.1/validateForm-debug" ], function(require) {
     var $ = require("$-debug");
     require("./uploadAppIco-debug");
     require("./setFrm-debug");
 });
-
-define("pages/submitApp/1.0.0/uploadAppIco-debug", [ "$-debug", "gallery/upload/1.1.1/upload-debug", "components/ToolTip/0.0.3/ToolTip-debug" ], function(require) {
+;define("pages/submitApp/1.0.0/uploadAppIco-debug", [ "$-debug", "gallery/upload/1.1.1/upload-debug", "components/ToolTip/0.0.3/ToolTip-debug" ], function(require) {
     var $ = require("$-debug"), Upload = require("gallery/upload/1.1.1/upload-debug");
     var Tip = require("components/ToolTip/0.0.3/ToolTip-debug");
     var uploadIcoBtn = $("#J-uploadIcoBtn"), selectIcoBtn = $("#J-selectIcoBtn"), uploadExplain = $("#J-uploadExplain");

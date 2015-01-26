@@ -1,20 +1,2 @@
-define("pages/configMsg-add/1.0.0/configMsg-add", [ "$", "common/selectProvince/0.0.1/selectProvince" ], function(require) {
-    var $ = require("$");
-    var ProvinceTip = require("common/selectProvince/0.0.1/selectProvince");
-    var theFrm = $("#J-theFrm"), areaRadios = theFrm.find("input[name=area]"), areaOfProvince = areaRadios.eq(1);
-    var provinceTipObj = new ProvinceTip({
-        trigger: areaOfProvince
-    });
-    areaRadios.on("click", function() {
-        var radio = $(this);
-        if (radio.val() !== "all") {
-            provinceTipObj.show();
-        } else {
-            provinceTipObj.hide();
-        }
-    });
-    provinceTipObj.on("select", function() {
-        var provinces = provinceTipObj.getSelected();
-        areaOfProvince.val(provinces.join(","));
-    });
-});
+/*! gruntTest 2015-01-26 */
+define("pages/configMsg-add/1.0.0/configMsg-add",["$","common/selectProvince/0.0.1/selectProvince"],function(a){var b=a("$"),c=a("common/selectProvince/0.0.1/selectProvince"),d=b("#J-theFrm"),e=d.find("input[name=area]"),f=e.eq(1),g=new c({trigger:f});e.on("click",function(){var a=b(this);"all"!==a.val()?g.show():g.hide()}),g.on("select",function(){var a=g.getSelected();f.val(a.join(","))})});

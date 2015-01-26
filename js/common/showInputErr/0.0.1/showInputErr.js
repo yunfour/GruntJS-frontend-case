@@ -1,18 +1,2 @@
-define("common/showInputErr/0.0.1/showInputErr", [ "$" ], function(require) {
-    var $ = require("$");
-    var showInputErr = function(field, isShow, errTxt) {
-        var panel = field.closest("div.controls"), errEle = panel.find("span.com-form-err"), tipEle = panel.find("span.com-form-tip");
-        if (errEle.size() === 0) {
-            errEle = $('<span class="help-block com-form-err"></span>');
-            errEle.appendTo(panel);
-        }
-        if (isShow) {
-            errEle.show().text(errTxt);
-            tipEle.hide();
-        } else {
-            errEle.hide();
-            tipEle.show();
-        }
-    };
-    return showInputErr;
-});
+/*! gruntTest 2015-01-26 */
+define("common/showInputErr/0.0.1/showInputErr",["$"],function(a){var b=a("$"),c=function(a,c,d){var e=a.closest("div.controls"),f=e.find("span.com-form-err"),g=e.find("span.com-form-tip");0===f.size()&&(f=b('<span class="help-block com-form-err"></span>'),f.appendTo(e)),c?(f.show().text(d),g.hide()):(f.hide(),g.show())};return c});

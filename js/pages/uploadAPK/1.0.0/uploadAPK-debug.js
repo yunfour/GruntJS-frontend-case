@@ -2,8 +2,7 @@ define("pages/uploadAPK/1.0.0/template-debug", [], function(require) {
     var template = [ '<p class="upload-apk-progress-info">', "<span>$${fileName}</span>", "{@if !message}", '<span class="upload-apk-progress-percent">上传中 $${percent}%</span>', "{@/if}", "</p>", '<div class="com-progress {@if message} com-progress-grey {@/if}">', '<div class="com-progress-bd" style="width: ${percent}%;"></div>', "</div>", '<p class="upload-apk-progress-speed">', "{@if percent == 100}", '<span style="color:#4bc577">上传完成</span>', "{@else if speed}", "<span>$${uploaded}M/$${size}M $${speed}k/s</span>", "{@/if}", "{@if message}", '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #e52617;">$${message}</span>&nbsp;&nbsp;&nbsp;&nbsp;<a href="javascript:;" class="J-retryBtn">重试</a>', "{@/if}", "</p>" ].join("");
     return template;
 });
-
-define("pages/uploadAPK/1.0.0/uploadAPK-debug", [ "$-debug", "gallery/upload/1.1.1/upload-debug", "gallery/juicer/0.6.5/juicer-debug", "common/tools/0.0.1/tools-debug", "components/tip/0.0.1/tip-debug", "components/progress/0.0.1/progress-debug", "./template-debug" ], function(require) {
+;define("pages/uploadAPK/1.0.0/uploadAPK-debug", [ "$-debug", "gallery/upload/1.1.1/upload-debug", "gallery/juicer/0.6.5/juicer-debug", "common/tools/0.0.1/tools-debug", "components/tip/0.0.1/tip-debug", "components/progress/0.0.1/progress-debug", "./template-debug" ], function(require) {
     var $ = require("$-debug");
     var Upload = require("gallery/upload/1.1.1/upload-debug"), juicer = require("gallery/juicer/0.6.5/juicer-debug"), tools = require("common/tools/0.0.1/tools-debug"), Tip = require("components/tip/0.0.1/tip-debug"), Progress = require("components/progress/0.0.1/progress-debug");
     var template = require("./template-debug");

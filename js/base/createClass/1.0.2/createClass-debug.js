@@ -10,22 +10,23 @@
  * 
  * @Memo    : 提供一个创建类的构造函数的方法
  * 
- * @param   : conf
+ * @Param   : conf
  *      conf = {
  *         superClass: 所继承的超类（父类）的构造函数：可以设置多个超类，
- *                 为超类的时候需将该属性设为一个数组，数组每个元素为
- *                 需要创建的目标类类要继承的超类，在实现时，数组中第一个类
- *                 为目标类的直接父类，而目标类只继承类其他类的属性（和方法）
- *                 因此在使用instanceOf运算符判断和父类中的关系时，只有第
- *                 一个父类会得到true的结果；如果不需要多继承则可以将该属
- *                 性设置一个构造函数即可
+ *                     为超类的时候需将该属性设为一个数组，数组每个元素为
+ *                     需要创建的目标类类要继承的超类，在实现时，数组中第一个类
+ *                     为目标类的直接父类，而目标类只继承类其他类的属性（和方法）
+ *                     因此在使用instanceOf运算符判断和父类中的关系时，只有第
+ *                     一个父类会得到true的结果；如果不需要多继承则可以将该属
+ *                     性设置一个构造函数即可
  * 
- *         attrs    : 初始化的私有属性，对象类型
+ *         attrs     : 初始化的私有属性，对象类型
  * 
- *         init     : 构造函数的初始化方法（函数类型）
- *         methods  : 构造函数的实例拥有的方法（对象类型）
+ *         init      : 构造函数的初始化方法（函数类型）
+ *         methods   : 构造函数的实例拥有的方法（对象类型）
  *      }
- * @return  : 创建类对应的构造函数，通过该构造函数创建的实例（对象）默认包含
+ * 
+ * @Return  : 创建类对应的构造函数，通过该构造函数创建的实例（对象）默认包含
  *            有两个方法，getAttr(attrName), setAttr(attrName, attrVal)
  *            通过这两个方法去获取、设置私有属性的值，如果该类继承了 PubSub 类，
  *            在调用setAttr方法时会触发setAttrBefore 和 setAttr，分别在设置
@@ -36,7 +37,7 @@ define("base/createClass/1.0.2/createClass-debug", [], function(require, exports
     /*
      * @Memo    : 克隆对象，可以将obj的属性复制到目标对象targetObj，也可以
      *            也可以单独克隆一个对象
-     * @param   : 
+     * @Param   : 
      *      targetObj: 对象、数组类型；必填；如果只有这一个参数，则返回值为
      *          该对象的克隆版本的对象
      *      obj      : 对象；选填；如果设置了该参数，则会将该对象的属性复制
@@ -72,6 +73,7 @@ define("base/createClass/1.0.2/createClass-debug", [], function(require, exports
         return result;
     }
     function createClass(conf) {
+        conf = conf || {};
         // 所有的方法
         var methods = conf.methods, superClasses = conf.superClass;
         // 定义构造函数
@@ -97,10 +99,6 @@ define("base/createClass/1.0.2/createClass-debug", [], function(require, exports
             // 方法:添加属性
             that.setAttr = function(attrName, attrVal) {
                 var that = this, attrObj = {};
-                // 触发事件：setAttrBefore（设置attr之前触发）
-                if (typeof that.trigger === "function") {
-                    that.trigger("setAttrBefore", attrName, attrVal);
-                }
                 if (!attrs || typeof attrs !== "object") {
                     attrs = {};
                 }
@@ -112,13 +110,17 @@ define("base/createClass/1.0.2/createClass-debug", [], function(require, exports
                 if (attrObj) {
                     for (var k in attrObj) {
                         if (attrObj.hasOwnProperty(k)) {
+                            // 触发事件：setAttrBefore（设置attr之前触发）
+                            if (typeof that.trigger === "function") {
+                                that.trigger("setAttrBefore", k, attrObj[k]);
+                            }
                             attrs[k] = attrObj[k];
+                            // 触发事件：setAttr（设置attr之后触发）
+                            if (typeof that.trigger === "function") {
+                                that.trigger("setAttr", k, attrObj[k]);
+                            }
                         }
                     }
-                }
-                // 触发事件：setAttr（设置attr之后触发）
-                if (typeof that.trigger === "function") {
-                    that.trigger("setAttr", attrName, attrVal);
                 }
                 return that;
             };
@@ -175,10 +177,10 @@ define("base/createClass/1.0.2/createClass-debug", [], function(require, exports
                 }
             }
             if (typeof superClasses[0] === "function") {
-                Constructor.prototype.superClass = superClasses[0];
+                Constructor.prototype._superClass = superClasses[0];
             }
         } else {
-            Constructor.prototype.superClass = Object;
+            Constructor.prototype._superClass = Object;
         }
         if (methods && typeof methods === "object") {
             // 遍历：methods，将遍历得到的函数，追加至构造函数的原型对象中

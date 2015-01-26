@@ -4,8 +4,7 @@ define("pages/configSpread/1.0.0/configSpread-debug", [ "$-debug", "./uploadScre
     require("./setDeadline-debug");
     require("./setFrm-debug");
 });
-
-// 设置“推广截止点”切换效果
+;// 设置“推广截止点”切换效果
 define("pages/configSpread/1.0.0/setDeadline-debug", [ "$-debug", "components/tab/1.0.1/tab-debug", "gallery/jquery-ui/1.9.2/jquery-ui-debug-debug" ], function(require) {
     var $ = require("$-debug");
     var Tab = require("components/tab/1.0.1/tab-debug");
@@ -30,8 +29,7 @@ define("pages/configSpread/1.0.0/setDeadline-debug", [ "$-debug", "components/ta
         }
     });
 });
-
-// 设置表单的验证、提交切换效果
+;// 设置表单的验证、提交切换效果
 define("pages/configSpread/1.0.0/setFrm-debug", [ "$-debug", "components/tab/1.0.1/tab-debug", "common/validateForm/0.0.1/validateForm-debug" ], function(require) {
     var $ = require("$-debug");
     var Tab = require("components/tab/1.0.1/tab-debug"), validateFrm = require("common/validateForm/0.0.1/validateForm-debug");
@@ -170,8 +168,7 @@ define("pages/configSpread/1.0.0/setFrm-debug", [ "$-debug", "components/tab/1.0
         return false;
     });
 });
-
-// 设置上传应用截图效果
+;// 设置上传应用截图效果
 define("pages/configSpread/1.0.0/uploadScreenshot-debug", [ "$-debug", "gallery/upload/1.1.1/upload-debug", "components/tip/0.0.1/tip-debug", "components/progress/0.0.1/progress-debug", "common/tools/0.0.1/tools-debug" ], function(require) {
     var $ = require("$-debug");
     var Upload = require("gallery/upload/1.1.1/upload-debug"), Tip = require("components/tip/0.0.1/tip-debug"), Progress = require("components/progress/0.0.1/progress-debug"), tools = require("common/tools/0.0.1/tools-debug");

@@ -56,7 +56,9 @@ define("components/dialog/1.0.1/dialog-debug", [ "$-debug", "base/createClass/1.
             bindUI: function() {
                 var that = this;
                 function onresize() {
-                    that.setPosition();
+                    if (that.getAttr("widgetEle").css("display") !== "none") {
+                        that.setPosition();
+                    }
                 }
                 $(window).on("resize", onresize);
                 that.on("destroy", function() {
@@ -93,6 +95,9 @@ define("components/dialog/1.0.1/dialog-debug", [ "$-debug", "base/createClass/1.
             // 关闭对话框
             hide: function() {
                 var that = this, isShowMask = that.getAttr("mask"), widgetEle = that.getAttr("widgetEle");
+                if (widgetEle.css("display") === "none") {
+                    return that;
+                }
                 widgetEle.hide();
                 if (isShowMask) {
                     mask.hide();
@@ -100,6 +105,7 @@ define("components/dialog/1.0.1/dialog-debug", [ "$-debug", "base/createClass/1.
                 that.on("hide");
                 return that;
             },
+            // 设置尺寸
             setSize: function(width, height) {
                 var that = this, widgetEle = that.getAttr("widgetEle");
                 widgetEle.css({

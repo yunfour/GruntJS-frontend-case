@@ -206,17 +206,21 @@ define(function (require, exports, module) {
                 events[eventName].length = 0;
             }
         } else {
+            
             if(typeof eventName !== 'string') {
                 throw new Error('方法 unbind(eventName, callback) 的参数 eventName 必须为字符串');
             }
             
             if(events && events[eventName] instanceof Array) {
+                
                 if(typeof callback === 'function') {
-                    var _eventArr = events[eventName];
                     
-                    for(var i = _eventArr.length - 1; i >= 0; i --) {
-                        if(_eventArr[i] === callback) {
-                            _eventArr.splice(i, 1);
+                    var eventArr = events[eventName];
+                    
+                    for(var i = eventArr.length - 1; i >= 0; i --) {
+                        
+                        if(eventArr[i] === callback) {
+                            eventArr[i] = null;
                         }
                     }
                 } else {
@@ -231,9 +235,14 @@ define(function (require, exports, module) {
     }
     
     function trigger(eventName) {
+        
         var that    = this,
             events  = that.getAttr('events'),
-            args    = Array.prototype.slice.apply(arguments);
+            args    = Array.prototype.slice.apply(arguments),
+            eventsFn;
+        
+        // 记录无效事件会点函数的索引
+        var invalidEventFnIndexArr = [];
         
         eventName = args.shift();
         
@@ -243,19 +252,39 @@ define(function (require, exports, module) {
         
         if(events && events[eventName] instanceof Array) {
             
+            eventsFn = events[eventName];
+            
             // 变量事件数组中的所有回调函数并触发
-            for(var i = 0, l = events[eventName].length; i < l; i ++) {
+            for(var i = 0, l = eventsFn.length; i < l; i ++) {
                 
-                if(typeof events[eventName][i] === 'function') {
+                if(typeof eventsFn[i] === 'function') {
                     
-                    var result = events[eventName][i].apply(that, args);
+                    var result = eventsFn[i].apply(that, args);
                     
                     // 绑定的函数中有返回false的，则中止其后绑定的函数
                     if(result === false) {
                         break;
                     }
+                } else {
+                    
+                    /*
+                     * 判断回调函数数组中的元素是否为function类型,如果
+                     * 不是function类型,则为无效回调函数,将该无效回调
+                     * 函数的索引记录到invalidEventFnIndexArr数组中
+                     * 等事件触发完毕后,将无效回调函数清理掉
+                     */
+                    invalidEventFnIndexArr.push(i);
                 }
             }
+            
+            
+            // 清理无效回调函数,从后往前依次清理回调函数数组eventsFn中的无效回调函数
+            for(i = invalidEventFnIndexArr.length - 1; i >= 0; i --) {
+                
+                eventsFn.splice(i, 1);
+            }
+            
+            that.setAttr('events', events);
         }
         
         return that;

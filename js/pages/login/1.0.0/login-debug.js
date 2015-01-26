@@ -42,8 +42,7 @@ define("pages/login/1.0.0/login-debug", [ "$-debug", "components/vScroll/0.0.1/v
     setRate($("#J-spreaderRate"));
     require("./setLogin-debug");
 });
-
-define("pages/login/1.0.0/setLogin-debug", [ "pages/config/1.0.0/config-debug", "$-debug", "gallery/store/1.3.16/store-debug", "components/timeout/0.0.1/timeout-debug", "components/tip/0.0.1/tip-debug" ], function(require) {
+;define("pages/login/1.0.0/setLogin-debug", [ "pages/config/1.0.0/config-debug", "$-debug", "gallery/store/1.3.16/store-debug", "components/timeout/0.0.1/timeout-debug", "components/tip/0.0.1/tip-debug" ], function(require) {
     var CONFIG_DATA = require("pages/config/1.0.0/config-debug");
     var $ = require("$-debug"), store = require("gallery/store/1.3.16/store-debug"), Timeout = require("components/timeout/0.0.1/timeout-debug"), Tip = require("components/tip/0.0.1/tip-debug");
     var loginFrm = $("#J-loginFrm"), userEmail = loginFrm.find("input[name=userEmail]"), password = loginFrm.find("input[name=password]"), checkCode = loginFrm.find("input[name=checkCode]"), checkCodeImg = $("#J-loginFrmChkCode"), loginBtn = $("#J-loginBtn"), loginLoading = false;

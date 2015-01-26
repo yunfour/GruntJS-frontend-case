@@ -1,2 +1,2 @@
-/*! gruntTest 2014-11-05 */
+/*! gruntTest 2015-01-26 */
 define("components/tab/1.0.0/tab",["$","base/createClass/1.0.0/createClass","base/pubSub/1.0.0/pubSub"],function(a){var b=a("$"),c=a("base/createClass/1.0.0/createClass"),d=a("base/pubSub/1.0.0/pubSub"),e=c({superClass:d,init:function(a){var c=this,d=b(a.tabItems),e=a.event||"click",f=a.selectedClass||"";c.setAttr("tabItems",d),c.setAttr("selectedClass",f),d.each(function(a){var g=b(this);g.bind(e,function(){d.removeClass(f),g.addClass(f),c.setAttr("index",a),c.on("change")})})},methods:{}});return e});

@@ -248,7 +248,7 @@ define(function (require, exports, module) {
             }
         } else {
             
-            Constructor.prototype.superClass = Object;
+            Constructor.prototype._superClass = Object;
         }
         
         if(typeof Constructor.prototype.instanceOf === 'undefined') {

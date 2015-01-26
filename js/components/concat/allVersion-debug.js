@@ -119,11 +119,12 @@
  *          描述: 选择月份列表的月份按钮时触发该事件，会把选择的月份的值导入到回调函数的参数；
  * 
  *          其他事件可能在父类的某些行为中触发，请参考父类
+ * 
  */
-define("components/calendar/0.0.1/calendar-debug", [ "$-debug", "base/createClass/1.0.2/createClass-debug", "base/dateFormat/0.0.1/dateFormat-debug", "components/widget/0.0.1/widget-debug" ], function(require) {
+define("components/calendar/0.0.1/calendar-debug", [ "$-debug", "base/createClass/1.0.2/createClass-debug", "base/dateFormat/0.0.1/dateFormat-debug", "components/widget/0.0.1/widget-debug", "./calendarStyle-debug.css" ], function(require) {
     var $ = require("$-debug"), createClass = require("base/createClass/1.0.2/createClass-debug"), dateFormat = require("base/dateFormat/0.0.1/dateFormat-debug"), Widget = require("components/widget/0.0.1/widget-debug");
     // 日历模板
-    var TEMPLATE = [ '<div class="sea-calendar" style="display:none;">', '<h6 class="sea-calendar-title">', '<a class="J-operate pre-year" href="javascript:;" title="上一年">&lt;&lt;</a>', '<a class="J-operate pre-month" href="javascript:;" title="上一月">&lt;</a>', '<a class="month" href="javascript:;"></a>', '<a class="year" href="javascript:;"></a>', '<a class="J-operate next-month" href="javascript:;" title="下一月">&gt;</a>', '<a class="J-operate next-year" href="javascript:;" title="下一年">&gt;&gt;</a>', "</h6>", '<div class="sea-calendar-date">', '<ul class="sea-calendar-week"></ul>', '<ul class="sea-calendar-day clearfix"></ul>', "</div>", '<ul class="sea-calendar-years"></ul>', '<ul class="sea-calendar-monthes"></ul>', "</div>" ].join("");
+    var TEMPLATE = [ '<div class="sea-calendar" style="display:none;">', '<h6 class="sea-calendar-title">', '<a class="J-operate pre-year" href="javascript:;" title="上一年">&lt;&lt;</a>', '<a class="J-operate pre-month" href="javascript:;" title="上一月">&lt;</a>', '<a class="year" href="javascript:;"></a>', '<a class="month" href="javascript:;"></a>', '<a class="J-operate next-month" href="javascript:;" title="下一月">&gt;</a>', '<a class="J-operate next-year" href="javascript:;" title="下一年">&gt;&gt;</a>', "</h6>", '<div class="sea-calendar-date">', '<ul class="sea-calendar-week"></ul>', '<ul class="sea-calendar-day clearfix"></ul>', "</div>", '<ul class="sea-calendar-years"></ul>', '<ul class="sea-calendar-monthes"></ul>', "</div>" ].join("");
     // 每月的天数对照表（1、3、5、7、8、10、12月为31天，默认2月为28天，闰年2月29天，其他均为30天）
     var DAYS_MAPPING = [ 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 ];
     // 月份名称对照表
@@ -330,7 +331,7 @@ define("components/calendar/0.0.1/calendar-debug", [ "$-debug", "base/createClas
             selectDate: function(theDate) {
                 var that = this;
                 theDate = parseDate(theDate);
-                renderCalendar.apply(that, [ theDate ]);
+                renderCalendar.call(that, theDate);
                 that.setAttr("selectedDate", theDate);
                 return that;
             },
@@ -338,7 +339,7 @@ define("components/calendar/0.0.1/calendar-debug", [ "$-debug", "base/createClas
             show: function() {
                 var that = this, trigger = that.getAttr("trigger"), widgetEle = that.getAttr("widgetEle");
                 if (trigger) {
-                    positionByTrigger.apply(that);
+                    positionByTrigger.call(that);
                 }
                 widgetEle.show();
                 that.trigger("show");
@@ -366,7 +367,7 @@ define("components/calendar/0.0.1/calendar-debug", [ "$-debug", "base/createClas
             range: function(range) {
                 var that = this, selectedDate = that.getAttr("selectedDate");
                 that.setAttr("range", range);
-                renderCalendar.apply(that, [ selectedDate ]);
+                renderCalendar.call(that, selectedDate);
                 return that;
             },
             // 方法: 定位坐标
@@ -398,7 +399,7 @@ define("components/calendar/0.0.1/calendar-debug", [ "$-debug", "base/createClas
                 monthEle.off();
                 trigger.off();
                 // 调用父类的销毁方法
-                that.superClass.prototype.destroy.call(that);
+                that._superClass.prototype.destroy.call(that);
                 return that;
             }
         }
@@ -611,8 +612,7 @@ define("components/calendar/0.0.1/calendar-debug", [ "$-debug", "base/createClas
     require("./calendarStyle-debug.css");
     return Calendar;
 });
-
-/**
+;/**
  * @Author     : 陈海云
  * @Date       : 2014-05-15
  * @SuperClass : PubSub
@@ -847,8 +847,7 @@ define("components/dialog/1.0.0/dialog-debug", [ "$-debug", "base/createClass/1.
     }));
     return Dialog;
 });
-
-/**
+;/**
  * @Author : 陈海云
  * @Date   : 2014-05-15
  * @Memo   : 实现一个生成、控制页面遮罩层的对象，在实现弹出层或其他效果是可以遮挡页面
@@ -901,8 +900,7 @@ define("components/dialog/1.0.0/mask-debug", [ "$-debug" ], function(require, ex
     });
     return maskObj;
 });
-
-/**
+;/**
  * @Author     : 陈海云
  * @Date       : 2014-06-25
  * @SuperClass : Widget
@@ -960,7 +958,9 @@ define("components/dialog/1.0.1/dialog-debug", [ "$-debug", "base/createClass/1.
             bindUI: function() {
                 var that = this;
                 function onresize() {
-                    that.setPosition();
+                    if (that.getAttr("widgetEle").css("display") !== "none") {
+                        that.setPosition();
+                    }
                 }
                 $(window).on("resize", onresize);
                 that.on("destroy", function() {
@@ -997,6 +997,9 @@ define("components/dialog/1.0.1/dialog-debug", [ "$-debug", "base/createClass/1.
             // 关闭对话框
             hide: function() {
                 var that = this, isShowMask = that.getAttr("mask"), widgetEle = that.getAttr("widgetEle");
+                if (widgetEle.css("display") === "none") {
+                    return that;
+                }
                 widgetEle.hide();
                 if (isShowMask) {
                     mask.hide();
@@ -1004,6 +1007,7 @@ define("components/dialog/1.0.1/dialog-debug", [ "$-debug", "base/createClass/1.
                 that.on("hide");
                 return that;
             },
+            // 设置尺寸
             setSize: function(width, height) {
                 var that = this, widgetEle = that.getAttr("widgetEle");
                 widgetEle.css({
@@ -1049,8 +1053,7 @@ define("components/dialog/1.0.1/dialog-debug", [ "$-debug", "base/createClass/1.
     });
     return Dialog;
 });
-
-/**
+;/**
  * @Author : 陈海云
  * @Date   : 2014-06-25
  * @Memo   : 实现一个生成、控制页面遮罩层的对象，在实现弹出层或其他效果是可以遮挡页面
@@ -1140,8 +1143,7 @@ define("components/dialog/1.0.1/mask-debug", [ "$-debug", "components/layer/0.0.
     });
     return maskObj;
 });
-
-/**
+;/**
  * @Author     : 陈海云
  * @Date       : 2014-06-25
  * @SuperClass : Widget
@@ -1169,6 +1171,13 @@ define("components/dialog/1.0.1/mask-debug", [ "$-debug", "components/layer/0.0.
  *              top——弹出层跟解答的垂直方向坐标；
  *          返回值: 当前对象；
  * 
+ *      setSize:
+ *          描述: 设置tip尺寸；
+ *          参数: 
+ *              width——tip宽度；选填；默认为auto；
+ *              height——tip高度；选填；默认为auto；
+ *          返回值: 当前对象；
+ * 
  *      
  *      部分方法继承自父类 Widget，请参考父类 Widget
  * 
@@ -1187,6 +1196,9 @@ define("components/layer/0.0.1/layer-debug", [ "$-debug", "base/createClass/1.0.
         methods: {
             show: function() {
                 var that = this, widgetEle = that.getAttr("widgetEle");
+                if (widgetEle.css("display") !== "none") {
+                    return that;
+                }
                 widgetEle.show();
                 return that;
             },
@@ -1214,20 +1226,29 @@ define("components/layer/0.0.1/layer-debug", [ "$-debug", "base/createClass/1.0.
                     top: top
                 });
                 return that;
+            },
+            setSize: function(width, height) {
+                var that = this, widgetEle = that.getAttr("widgetEle");
+                width = width || "auto";
+                height = height || "auto";
+                widgetEle.css({
+                    height: height,
+                    width: width
+                });
+                return that;
             }
         }
     });
     return Layer;
 });
-
-/**
+;/**
  * @Author      : 陈海云
  * @Date        : 2014-06-12
  * @Memo        : 实现一个模拟进度的过程（可用于ajax请求等场景，模拟进度条），
  *                进度的值都是模拟实现，并非任务准确的进度
- * @superClass  : PubSub，继承该类，为了实现其事件处理的机制，
- * @param       : 无
- * @methods: 
+ * @SuperClass  : PubSub，继承该类，为了实现其事件处理的机制，
+ * @Param       : 无
+ * @Methods: 
  *      start:
  *          描述       : 启动进度，当任务开始的时候调用此方法
  *          参数       : 无
@@ -1255,13 +1276,14 @@ define("components/layer/0.0.1/layer-debug", [ "$-debug", "base/createClass/1.0.
  *          返回值    : 当前进度的值，0-100的一个数字
  * 
  *      其他方法：其他方法继承自超类：PubSub，请参考该类的方法
- * @events：
- *      start   : 启动时触发
- *      finish  : 进度完成时触发
- *      pause   : 进度暂停时触发
- *      stop    : 进度停止时触发
- *      restart : 进度重启
- *      progress: 进度进行中时触发（进度每次发生变化都会触发）
+ * @Events:
+ *      start      : 启动时触发
+ *      finish     : 进度完成时触发
+ *      pause      : 进度暂停时触发
+ *      stop       : 进度停止时触发
+ *      restart    : 进度重启
+ *      progress   : 进度进行中时触发（进度每次发生变化都会触发）
+ * 
  */
 define("components/progress/0.0.1/progress-debug", [ "base/createClass/1.0.1/createClass-debug", "base/pubSub/1.0.0/pubSub-debug" ], function(require) {
     var createClass = require("base/createClass/1.0.1/createClass-debug"), PubSub = require("base/pubSub/1.0.0/pubSub-debug");
@@ -1347,8 +1369,7 @@ define("components/progress/0.0.1/progress-debug", [ "base/createClass/1.0.1/cre
     });
     return Progress;
 });
-
-/**
+;/**
  * @Author：陈海云
  * @Date：2014-5-15
  * @SuperClass：SubPub(继承订阅-发布模式的实现，以实现事件处理的功能)
@@ -1385,8 +1406,7 @@ define("components/tab/1.0.0/tab-debug", [ "$-debug", "base/createClass/1.0.0/cr
     });
     return Tab;
 });
-
-/**
+;/**
  * @Author：陈海云
  * @Date：2014-5-15
  * @SuperClass：SubPub(继承订阅-发布模式的实现，以实现事件处理的功能)
@@ -1433,8 +1453,7 @@ define("components/tab/1.0.1/tab-debug", [ "$-debug", "base/createClass/1.0.0/cr
     });
     return Tab;
 });
-
-/**
+;/**
  * @Author：陈海云
  * @Date：2014-05-16
  * @Memo：提供一个记录超时时间的构造函数，使用场景：一个操作需要
@@ -1525,8 +1544,7 @@ define("components/timeout/0.0.1/timeout-debug", [ "base/createClass/1.0.2/creat
     });
     return Timeout;
 });
-
-define("components/tip/0.0.1/tip-debug", [ "$-debug", "base/createClass/1.0.2/createClass-debug", "base/pubSub/1.0.0/pubSub-debug" ], function(require) {
+;define("components/tip/0.0.1/tip-debug", [ "$-debug", "base/createClass/1.0.2/createClass-debug", "base/pubSub/1.0.0/pubSub-debug" ], function(require) {
     seajs.importStyle([ '.sea-tip{ padding: 5px 10px; border-radius: 5px; line-height: 1.7; background: #000; color: #fff; font-family: "microsoft yahei", "微软雅黑"; overflow: visible; position: absolute; z-index: 10010;}', ".sea-tip-content{ height: auto;}", '.sea-tip-pointer{ display: block; height: 12px; width: 12px; line-height: 12px; color: #000; font-style: normal; font-family: "宋体"; font-size: 12px; position: absolute;}', ".sea-tip-pointer-1{ left: 70%; top: -6px; margin-left: -6px;}", ".sea-tip-pointer-2{ top: 30%; right: -6px; margin-top: -6px;}", ".sea-tip-pointer-3{ top: 50%; right: -6px; margin-top: -6px;}", ".sea-tip-pointer-4{ top: 70%; right: -6px; margin-top: -6px;}", ".sea-tip-pointer-5{ left: 70%; bottom: -7px; margin-left: -6px;}", ".sea-tip-pointer-6{ left: 50%; bottom: -7px; margin-left: -6px;}", ".sea-tip-pointer-7{ left: 30%; bottom: -7px; margin-left: -6px;}", ".sea-tip-pointer-8{ top: 70%; left: -6px; margin-top: -6px;}", ".sea-tip-pointer-9{ top: 50%; left: -6px; margin-top: -6px;}", ".sea-tip-pointer-10{ top: 30%; left: -6px; margin-top: -6px;}", ".sea-tip-pointer-11{ left: 30%; top: -6px; margin-left: -6px;}", ".sea-tip-pointer-12{ left: 50%; top: -6px; margin-left: -6px;}", ".sea-tip-theme-red{ background: #f28c77; color: #fff;}", ".sea-tip-theme-red .sea-tip-pointer{ color: #f28c77;}", ".sea-tip-theme-blue{ background: #71c6f7; color: #fff;}", ".sea-tip-theme-blue .sea-tip-pointer{ color: #71c6f7;}", ".sea-tip-theme-green{ background: #4bc577; color: #fff;}", ".sea-tip-theme-green .sea-tip-pointer{ color: #4bc577;}", ".sea-tip-theme-white{ background: #eee; color: #333;}", ".sea-tip-theme-white .sea-tip-pointer{ color: #eee;}" ].join(""));
     var $ = require("$-debug"), createClass = require("base/createClass/1.0.2/createClass-debug"), PubSub = require("base/pubSub/1.0.0/pubSub-debug");
     var Tip = createClass({
@@ -1637,8 +1655,7 @@ define("components/tip/0.0.1/tip-debug", [ "$-debug", "base/createClass/1.0.2/cr
     });
     return Tip;
 });
-
-/**
+;/**
  * @Author      : 陈海云
  * @Date        : 2014-06-26
  * @SuperClass  : Layer
@@ -1685,7 +1702,7 @@ define("components/tip/0.0.1/tip-debug", [ "$-debug", "base/createClass/1.0.2/cr
  *             设置成100，而此时的效果则是：箭头的顶端坐标正好在(100, 100)的位置；
  *          参数: 
  *              left——箭头水平坐标；
- *              top——箭头垂直坐标
+ *              top ——箭头垂直坐标
  * 
  *          返回值: 当前对象
  * 
@@ -1695,7 +1712,7 @@ define("components/tip/0.0.1/tip-debug", [ "$-debug", "base/createClass/1.0.2/cr
  * @Events: 无；
  * 
  */
-define("components/tip/0.0.2/tip-debug", [ "$-debug", "base/createClass/1.0.2/createClass-debug", "components/layer/0.0.1/layer-debug" ], function(require) {
+define("components/tip/0.0.2/tip-debug", [ "$-debug", "base/createClass/1.0.2/createClass-debug", "components/layer/0.0.1/layer-debug", "./css/tipStyle-debug.css" ], function(require) {
     var $ = require("$-debug"), createClass = require("base/createClass/1.0.2/createClass-debug"), Layer = require("components/layer/0.0.1/layer-debug");
     var template = [ '<div class="sea-tip2-content"></div>', '<i class="sea-tip2-pointer sea-tip2-pointer-11">◆</i>' ].join("");
     var Tip = createClass({
@@ -1813,8 +1830,7 @@ define("components/tip/0.0.2/tip-debug", [ "$-debug", "base/createClass/1.0.2/cr
     require("./css/tipStyle-debug.css");
     return Tip;
 });
-
-define("components/toolTip/0.0.1/toolTip-debug", [ "$-debug", "base/createClass/1.0.1/createClass-debug", "components/tip/0.0.1/tip-debug" ], function(require) {
+;define("components/toolTip/0.0.1/toolTip-debug", [ "$-debug", "base/createClass/1.0.1/createClass-debug", "components/tip/0.0.1/tip-debug" ], function(require) {
     var $ = require("$-debug"), createClass = require("base/createClass/1.0.1/createClass-debug"), Tip = require("components/tip/0.0.1/tip-debug");
     var ToolTip = createClass({
         init: function(conf) {
@@ -1996,8 +2012,7 @@ define("components/toolTip/0.0.1/toolTip-debug", [ "$-debug", "base/createClass/
     });
     return ToolTip;
 });
-
-define("components/toolTip/0.0.2/toolTip-debug", [ "$-debug", "base/createClass/1.0.2/createClass-debug", "base/pubSub/1.0.0/pubSub-debug", "components/tip/0.0.1/tip-debug" ], function(require) {
+;define("components/toolTip/0.0.2/toolTip-debug", [ "$-debug", "base/createClass/1.0.2/createClass-debug", "base/pubSub/1.0.0/pubSub-debug", "components/tip/0.0.1/tip-debug" ], function(require) {
     var $ = require("$-debug"), createClass = require("base/createClass/1.0.2/createClass-debug"), PubSub = require("base/pubSub/1.0.0/pubSub-debug"), Tip = require("components/tip/0.0.1/tip-debug");
     var ToolTip = createClass({
         superClass: [ Tip, PubSub ],
@@ -2131,8 +2146,7 @@ define("components/toolTip/0.0.2/toolTip-debug", [ "$-debug", "base/createClass/
     });
     return ToolTip;
 });
-
-/**
+;/**
  * @Author      : 陈海云
  * @Date        : 2014-06-26
  * @SuperClass  : Tip（components/tip/0.0.2/tip）
@@ -2217,7 +2231,7 @@ define("components/toolTip/0.0.3/toolTip-debug", [ "$-debug", "base/createClass/
                         that.relocation();
                     }
                 }
-                that.superClass.prototype.bindUI.apply(that);
+                that._superClass.prototype.bindUI.apply(that);
                 if (trigger) {
                     $win.on("resize", resize);
                     that.on("destroy", function() {
@@ -2386,7 +2400,7 @@ define("components/toolTip/0.0.3/toolTip-debug", [ "$-debug", "base/createClass/
                     tipArrowPosition = arrowMapping[arrowPosition - 1];
                 }
                 that.setAttr("triggerArrowPosition", arrowPosition);
-                that.superClass.prototype.setArrowPosition.call(that, tipArrowPosition);
+                that._superClass.prototype.setArrowPosition.call(that, tipArrowPosition);
                 if (trigger && widgetEle.css("display") !== "none") {
                     that.relocation();
                 }
@@ -2406,8 +2420,7 @@ define("components/toolTip/0.0.3/toolTip-debug", [ "$-debug", "base/createClass/
     };
     return ToolTip;
 });
-
-/**
+;/**
  * @Author：陈海云
  * @Date：2014-5-15
  * @SuperClass：SubPub(继承订阅-发布模式的实现，以实现事件处理的功能)
@@ -2494,8 +2507,7 @@ define("components/vScroll/0.0.1/vScroll-debug", [ "$-debug", "base/createClass/
     });
     return Vscroll;
 });
-
-/**
+;/**
  * @Author      : 陈海云
  * @Date        : 2014-06-23
  * @SuperClass  : PubSub

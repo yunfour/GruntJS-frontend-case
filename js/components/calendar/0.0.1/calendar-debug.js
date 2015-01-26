@@ -119,11 +119,12 @@
  *          描述: 选择月份列表的月份按钮时触发该事件，会把选择的月份的值导入到回调函数的参数；
  * 
  *          其他事件可能在父类的某些行为中触发，请参考父类
+ * 
  */
-define("components/calendar/0.0.1/calendar-debug", [ "$-debug", "base/createClass/1.0.2/createClass-debug", "base/dateFormat/0.0.1/dateFormat-debug", "components/widget/0.0.1/widget-debug" ], function(require) {
+define("components/calendar/0.0.1/calendar-debug", [ "$-debug", "base/createClass/1.0.2/createClass-debug", "base/dateFormat/0.0.1/dateFormat-debug", "components/widget/0.0.1/widget-debug", "./calendarStyle-debug.css" ], function(require) {
     var $ = require("$-debug"), createClass = require("base/createClass/1.0.2/createClass-debug"), dateFormat = require("base/dateFormat/0.0.1/dateFormat-debug"), Widget = require("components/widget/0.0.1/widget-debug");
     // 日历模板
-    var TEMPLATE = [ '<div class="sea-calendar" style="display:none;">', '<h6 class="sea-calendar-title">', '<a class="J-operate pre-year" href="javascript:;" title="上一年">&lt;&lt;</a>', '<a class="J-operate pre-month" href="javascript:;" title="上一月">&lt;</a>', '<a class="month" href="javascript:;"></a>', '<a class="year" href="javascript:;"></a>', '<a class="J-operate next-month" href="javascript:;" title="下一月">&gt;</a>', '<a class="J-operate next-year" href="javascript:;" title="下一年">&gt;&gt;</a>', "</h6>", '<div class="sea-calendar-date">', '<ul class="sea-calendar-week"></ul>', '<ul class="sea-calendar-day clearfix"></ul>', "</div>", '<ul class="sea-calendar-years"></ul>', '<ul class="sea-calendar-monthes"></ul>', "</div>" ].join("");
+    var TEMPLATE = [ '<div class="sea-calendar" style="display:none;">', '<h6 class="sea-calendar-title">', '<a class="J-operate pre-year" href="javascript:;" title="上一年">&lt;&lt;</a>', '<a class="J-operate pre-month" href="javascript:;" title="上一月">&lt;</a>', '<a class="year" href="javascript:;"></a>', '<a class="month" href="javascript:;"></a>', '<a class="J-operate next-month" href="javascript:;" title="下一月">&gt;</a>', '<a class="J-operate next-year" href="javascript:;" title="下一年">&gt;&gt;</a>', "</h6>", '<div class="sea-calendar-date">', '<ul class="sea-calendar-week"></ul>', '<ul class="sea-calendar-day clearfix"></ul>', "</div>", '<ul class="sea-calendar-years"></ul>', '<ul class="sea-calendar-monthes"></ul>', "</div>" ].join("");
     // 每月的天数对照表（1、3、5、7、8、10、12月为31天，默认2月为28天，闰年2月29天，其他均为30天）
     var DAYS_MAPPING = [ 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 ];
     // 月份名称对照表
@@ -330,7 +331,7 @@ define("components/calendar/0.0.1/calendar-debug", [ "$-debug", "base/createClas
             selectDate: function(theDate) {
                 var that = this;
                 theDate = parseDate(theDate);
-                renderCalendar.apply(that, [ theDate ]);
+                renderCalendar.call(that, theDate);
                 that.setAttr("selectedDate", theDate);
                 return that;
             },
@@ -338,7 +339,7 @@ define("components/calendar/0.0.1/calendar-debug", [ "$-debug", "base/createClas
             show: function() {
                 var that = this, trigger = that.getAttr("trigger"), widgetEle = that.getAttr("widgetEle");
                 if (trigger) {
-                    positionByTrigger.apply(that);
+                    positionByTrigger.call(that);
                 }
                 widgetEle.show();
                 that.trigger("show");
@@ -366,7 +367,7 @@ define("components/calendar/0.0.1/calendar-debug", [ "$-debug", "base/createClas
             range: function(range) {
                 var that = this, selectedDate = that.getAttr("selectedDate");
                 that.setAttr("range", range);
-                renderCalendar.apply(that, [ selectedDate ]);
+                renderCalendar.call(that, selectedDate);
                 return that;
             },
             // 方法: 定位坐标
@@ -398,7 +399,7 @@ define("components/calendar/0.0.1/calendar-debug", [ "$-debug", "base/createClas
                 monthEle.off();
                 trigger.off();
                 // 调用父类的销毁方法
-                that.superClass.prototype.destroy.call(that);
+                that._superClass.prototype.destroy.call(that);
                 return that;
             }
         }

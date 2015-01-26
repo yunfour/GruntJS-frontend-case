@@ -1,11 +1,19 @@
 (function() {
-    var isDebug = location.href.indexOf('debug=true') !== -1;
+    var isDebug = false;
     
     var staticHost = seajs.resolve('../'),
         jsRootPath = staticHost + 'js/',
         jsSrcRootPath = staticHost + 'src/js/';
     
     var plugins = ['style'];
+    
+    if(
+        location.href.indexOf('?debug=true') !== -1 ||
+        location.href.indexOf('&debug=true') !== -1
+    ) {
+        
+        isDebug = true;
+    }
     
     if(isDebug) {
         

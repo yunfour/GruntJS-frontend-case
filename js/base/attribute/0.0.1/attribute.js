@@ -1,2 +1,2 @@
-/*! gruntTest 2014-11-05 */
-define("base/attribute/0.0.1/attribute",["base/createClass/1.0.2/createClass"],function(a){{var b=a("base/createClass/1.0.2/createClass");b({init:function(){}})}});
+/*! gruntTest 2015-01-26 */
+define("base/attribute/0.0.1/attribute",["base/createClass/1.0.2/createClass","base/pubSub/1.0.3/pubSub"],function(a){{var b=a("base/createClass/1.0.2/createClass"),c=a("base/pubSub/1.0.3/pubSub");b({superClass:[c],init:function(){},methods:{getAttr:function(){},setAttr:function(){}}})}});

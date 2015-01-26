@@ -59,7 +59,7 @@ define(function(require) {
                 var that      = this,
                     widgetEle = that.getAttr('widgetEle');
                 
-                if(widgetEle.css('display') === 'none') {
+                if(widgetEle.css('display') !== 'none') {
                     return that;
                 }
                 

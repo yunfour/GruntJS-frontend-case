@@ -119,11 +119,12 @@
  *          描述: 选择月份列表的月份按钮时触发该事件，会把选择的月份的值导入到回调函数的参数；
  * 
  *          其他事件可能在父类的某些行为中触发，请参考父类
+ * 
  */
-define("components/calendar/0.0.1/calendar-debug", [ "$-debug", "base/createClass/1.0.2/createClass-debug", "base/dateFormat/0.0.1/dateFormat-debug", "components/widget/0.0.1/widget-debug" ], function(require) {
+define("components/calendar/0.0.1/calendar-debug", [ "$-debug", "base/createClass/1.0.2/createClass-debug", "base/dateFormat/0.0.1/dateFormat-debug", "components/widget/0.0.1/widget-debug", "./calendarStyle-debug.css" ], function(require) {
     var $ = require("$-debug"), createClass = require("base/createClass/1.0.2/createClass-debug"), dateFormat = require("base/dateFormat/0.0.1/dateFormat-debug"), Widget = require("components/widget/0.0.1/widget-debug");
     // 日历模板
-    var TEMPLATE = [ '<div class="sea-calendar" style="display:none;">', '<h6 class="sea-calendar-title">', '<a class="J-operate pre-year" href="javascript:;" title="上一年">&lt;&lt;</a>', '<a class="J-operate pre-month" href="javascript:;" title="上一月">&lt;</a>', '<a class="month" href="javascript:;"></a>', '<a class="year" href="javascript:;"></a>', '<a class="J-operate next-month" href="javascript:;" title="下一月">&gt;</a>', '<a class="J-operate next-year" href="javascript:;" title="下一年">&gt;&gt;</a>', "</h6>", '<div class="sea-calendar-date">', '<ul class="sea-calendar-week"></ul>', '<ul class="sea-calendar-day clearfix"></ul>', "</div>", '<ul class="sea-calendar-years"></ul>', '<ul class="sea-calendar-monthes"></ul>', "</div>" ].join("");
+    var TEMPLATE = [ '<div class="sea-calendar" style="display:none;">', '<h6 class="sea-calendar-title">', '<a class="J-operate pre-year" href="javascript:;" title="上一年">&lt;&lt;</a>', '<a class="J-operate pre-month" href="javascript:;" title="上一月">&lt;</a>', '<a class="year" href="javascript:;"></a>', '<a class="month" href="javascript:;"></a>', '<a class="J-operate next-month" href="javascript:;" title="下一月">&gt;</a>', '<a class="J-operate next-year" href="javascript:;" title="下一年">&gt;&gt;</a>', "</h6>", '<div class="sea-calendar-date">', '<ul class="sea-calendar-week"></ul>', '<ul class="sea-calendar-day clearfix"></ul>', "</div>", '<ul class="sea-calendar-years"></ul>', '<ul class="sea-calendar-monthes"></ul>', "</div>" ].join("");
     // 每月的天数对照表（1、3、5、7、8、10、12月为31天，默认2月为28天，闰年2月29天，其他均为30天）
     var DAYS_MAPPING = [ 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 ];
     // 月份名称对照表
@@ -330,7 +331,7 @@ define("components/calendar/0.0.1/calendar-debug", [ "$-debug", "base/createClas
             selectDate: function(theDate) {
                 var that = this;
                 theDate = parseDate(theDate);
-                renderCalendar.apply(that, [ theDate ]);
+                renderCalendar.call(that, theDate);
                 that.setAttr("selectedDate", theDate);
                 return that;
             },
@@ -338,7 +339,7 @@ define("components/calendar/0.0.1/calendar-debug", [ "$-debug", "base/createClas
             show: function() {
                 var that = this, trigger = that.getAttr("trigger"), widgetEle = that.getAttr("widgetEle");
                 if (trigger) {
-                    positionByTrigger.apply(that);
+                    positionByTrigger.call(that);
                 }
                 widgetEle.show();
                 that.trigger("show");
@@ -366,7 +367,7 @@ define("components/calendar/0.0.1/calendar-debug", [ "$-debug", "base/createClas
             range: function(range) {
                 var that = this, selectedDate = that.getAttr("selectedDate");
                 that.setAttr("range", range);
-                renderCalendar.apply(that, [ selectedDate ]);
+                renderCalendar.call(that, selectedDate);
                 return that;
             },
             // 方法: 定位坐标
@@ -398,7 +399,7 @@ define("components/calendar/0.0.1/calendar-debug", [ "$-debug", "base/createClas
                 monthEle.off();
                 trigger.off();
                 // 调用父类的销毁方法
-                that.superClass.prototype.destroy.call(that);
+                that._superClass.prototype.destroy.call(that);
                 return that;
             }
         }
@@ -611,18 +612,39 @@ define("components/calendar/0.0.1/calendar-debug", [ "$-debug", "base/createClas
     require("./calendarStyle-debug.css");
     return Calendar;
 });
-
-/**
+;/**
  * @Author     : 陈海云
- * @Date       : 2014-06-25
- * @SuperClass : Widget
- * @Memo       : 提供一个实现弹出层的类，提供一些组件常用的接口，实现了“显示”（show()）、
- *               “隐藏”（hide()）、“定位”（position()）方法；该类实现的方法比较简单，主
- *               要为了方便封装和提供一个标准的弹出层接口
+ * @Date       : 2014-05-15
+ * @SuperClass : PubSub
+ * @Memo       : 实现一个对话框，并提供两个静态方法：confirm()、alert() 来模
+ *               拟系统的确认对话框和警告对话框；不易于封装，所以不推荐使用，现
+ *               在已经有升级版本1.0.1的实现，推荐使用新版本
  * 
- * @param      : 无
+ * @param:
+ *      conf:
+ *          描述: 初始化配置对象，可配置项如下：
+ *             {
+ *                  width       : 对话框宽度，默认400px
+ *                  title       : 对话框标题栏文案，默认为"弹出窗"
+ *                  position    : 对话框定位方式，默认为"fixed"，支持: fixed、absolute两种方式
+ *                  isShowClose : 是否显示关闭按钮，布尔值，默认为true——显示关闭按钮
+ *                  mask        : 是否显示遮罩背景，布尔值，默认为true——显示遮罩层 
+ *             }
+ * 
  * 
  * @Methods:
+ *      setTitle:
+ *          描述: 设置标题栏文案；
+ *          参数: 
+ *              title——标题栏文案；字符串；
+ *          返回值: 当前对象；
+ * 
+ *      setWidth:
+ *          描述: 设置对话框宽度；
+ *          参数: 
+ *              width——对话框的宽度；数字、字符串皆可；
+ *          返回值: 当前对象；
+ * 
  *      show:
  *          描述: 显示弹出层；
  *          参数: 无；
@@ -633,72 +655,102 @@ define("components/calendar/0.0.1/calendar-debug", [ "$-debug", "base/createClas
  *          参数: 无；
  *          返回值: 当前对象；
  * 
- *      position:
+ *      setPosition:
  *          描述: 定位弹出层，弹出层根节点是绝对定位，该方法设置其left、top 两个坐标；
  *          参数: 
- *              left——弹出层根节点的水平方向坐标，
- *              top——弹出层跟解答的垂直方向坐标；
+ *              x——弹出层根节点的水平方向坐标，
+ *              y——弹出层跟解答的垂直方向坐标；
  *          返回值: 当前对象；
  * 
  *      
- *      部分方法继承自父类 Widget，请参考父类 Widget
+ *      部分方法继承自父类 PubSub，请参考父类 PubSub
  * 
  * 
  * @Events: 
- *      无
+ *      setTitle——设置对话框标题文案时触发
+ *      
+ *      setWidth——设置对话框宽度时触发
+ * 
+ *      show——对话框显示时触发
+ * 
+ *      hide——对话框隐藏时触发
  * 
  */
-define("components/dialog/1.0.1/dialog-debug", [ "$-debug", "base/createClass/1.0.2/createClass-debug", "components/widget/0.0.1/widget-debug", "./mask-debug", "components/layer/0.0.1/layer-debug" ], function(require, exports, module) {
+define("components/dialog/1.0.0/dialog-debug", [ "$-debug", "base/createClass/1.0.0/createClass-debug", "base/singleton/1.0.0/singleton-debug", "base/pubSub/1.0.0/pubSub-debug", "./mask-debug" ], function(require, exports, module) {
+    // 添加样式
+    seajs.importStyle([ ".sea-dialog{ padding: 7px; background: #999; position: absolute; top: 0; left: 0; z-index: 10000;}", ".sea-dialog-panel{ background: #fff; position: relative;}", ".sea-dialog-title{ height: 30px; padding: 0 5px; margin: 0; line-height: 30px; border-bottom: 1px solid #eee; font-size: 13px; font-weight: bold; color: #333; position: relative;}", ".sea-dialog-bd{ padding: 10px;}", ".sea-dialog-close{ display: block; height: 14px; width: 14px; font-size: 14px; font-weight: bold; line-height: 14px; color: #333; text-align: center; font-family: Dotum; text-decoration: none; overflow: hidden; position: absolute; top: 6px; right: 6px;}", ".sea-dialog-close:hover{ color: #333; text-decoration: none;}" ].join(""));
     var $ = require("$-debug");
-    var createClass = require("base/createClass/1.0.2/createClass-debug"), Widget = require("components/widget/0.0.1/widget-debug"), mask = require("./mask-debug");
+    var dialogHtml = [ '<div class="sea-dialog">', '<div class="sea-dialog-panel">', '<h4 class="sea-dialog-title"></h4>', '<div class="sea-dialog-bd"></div>', '<a class="sea-dialog-close" href="javascript:;" title="点击关闭窗口">x</a>', "</div>", "</div>" ].join("");
+    var createClass = require("base/createClass/1.0.0/createClass-debug"), singleton = require("base/singleton/1.0.0/singleton-debug"), PubSub = require("base/pubSub/1.0.0/pubSub-debug"), mask = require("./mask-debug");
     var Dialog = createClass({
-        superClass: Widget,
+        // 继承观察者模式的实现,处理事件
+        superClass: PubSub,
         init: function(conf) {
-            var that = this;
+            var that = this, dialogEle = $(dialogHtml), dialogCloseEle = dialogEle.find("a.sea-dialog-close");
             conf = $.extend({
                 width: 400,
                 // 窗口宽度
-                height: "auto",
-                // 窗口宽度
+                title: "弹出窗",
+                // 对话框标题
                 position: "fixed",
                 // 窗口定位方式
-                mask: false
+                isShowClose: true,
+                // 是否显示关闭按钮
+                mask: true
             }, conf);
-            that.setAttr(conf);
+            that.setAttr({
+                conf: conf,
+                dialogEle: dialogEle,
+                dialogTitleEle: dialogEle.find("h4.sea-dialog-title"),
+                dialogBdEle: dialogEle.find("div.sea-dialog-bd"),
+                dialogCloseEle: dialogCloseEle
+            });
+            if (conf.title) {
+                that.setTitle(conf.title);
+            }
+            if (!conf.isShowClose) {
+                dialogCloseEle.hide();
+            }
+            dialogCloseEle.on("click", function() {
+                that.hide();
+            });
+            if (conf.content) {
+                that.getAttr("dialogBdEle").append($(conf.content));
+            }
+            that.setWidth(conf.width);
+            dialogEle.appendTo(document.body).hide();
         },
         methods: {
-            bindUI: function() {
+            // 设置对话框标题内容
+            setTitle: function(title) {
                 var that = this;
-                function onresize() {
-                    that.setPosition();
-                }
-                $(window).on("resize", onresize);
-                that.on("destroy", function() {
-                    var isShowMask = that.getAttr("mask");
-                    $(window).off("resize", onresize);
-                    if (isShowMask) {
-                        mask.hide();
-                    }
-                });
+                that.getAttr("dialogTitleEle").html(title);
+                that.on("setTitle");
+                return this;
             },
-            renderUI: function() {
-                var that = this, template = that.getAttr("template"), width = that.getAttr("width"), height = that.getAttr("height"), widgetEle = that.getAttr("widgetEle") || $(template);
-                widgetEle.css({
-                    width: width,
-                    height: height,
-                    display: "none",
-                    background: "#000",
-                    "z-index": "10000"
+            // 设置对话框宽度
+            setWidth: function(width) {
+                var that = this;
+                if (isNaN(width) || width < 0) {
+                    throw new Error("方法:setWidth() 的参数  width 需为大于0的数字");
+                }
+                width = Math.floor(width) - 20;
+                if (width < 0) {
+                    width = 0;
+                }
+                that.getAttr("dialogEle").css({
+                    width: width
                 });
-                that.setAttr("widgetEle", widgetEle);
+                that.on("setWidth");
                 return that;
             },
             // 显示对话框
             show: function() {
-                var that = this, isShowMask = that.getAttr("mask"), widgetEle = that.getAttr("widgetEle");
-                widgetEle.show();
+                var that = this, conf = that.getAttr("conf");
+                var dialogEle = that.getAttr("dialogEle");
+                dialogEle.show();
                 that.setPosition();
-                if (isShowMask) {
+                if (conf.mask) {
                     mask.show();
                 }
                 that.on("show");
@@ -706,38 +758,30 @@ define("components/dialog/1.0.1/dialog-debug", [ "$-debug", "base/createClass/1.
             },
             // 关闭对话框
             hide: function() {
-                var that = this, isShowMask = that.getAttr("mask"), widgetEle = that.getAttr("widgetEle");
-                widgetEle.hide();
-                if (isShowMask) {
+                var that = this, conf = that.getAttr("conf");
+                var dialogEle = that.getAttr("dialogEle");
+                dialogEle.hide();
+                if (conf.mask) {
                     mask.hide();
                 }
                 that.on("hide");
                 return that;
             },
-            setSize: function(width, height) {
-                var that = this, widgetEle = that.getAttr("widgetEle");
-                widgetEle.css({
-                    width: width || that.getAttr("width"),
-                    height: height || that.getAttr("height")
-                });
-                return that;
-            },
             // 设置窗口位置,参数可选,不设置参数的时候,对话框位置在页面可视区域中央
             setPosition: function(x, y) {
-                var that = this, pos = that.getAttr("position");
-                var $win = $(window), widgetEle = that.getAttr("widgetEle");
+                var that = this, conf = that.getAttr("conf");
+                var $win = $(window), dialogEle = that.getAttr("dialogEle");
                 var left, top;
-                left = ($win.width() - widgetEle.width()) / 2;
+                left = ($win.width() - dialogEle.width()) / 2;
                 // top在垂直方向的黄金分割点上（0.618）
-                top = $win.height() * 618 / (1e3 + 618) - widgetEle.height() / 2;
-                if (pos === "absolute") {
-                    top = top + $win.scrollTop();
+                top = $win.height() * 618 / (1e3 + 618) - dialogEle.height() / 2;
+                if (conf.position === "absolute") {
+                    top += $win.scrollTop();
                 } else {
                     if ($.browser.msie && $.browser.version == "6.0") {
                         // ie6不支持fixed定位,所以强制设定为absolute定位
-                        top = top + $win.scrollTop();
-                        pos = "absolute";
-                        that.setAttr("position", pos);
+                        top += $win.scrollTop();
+                        conf.position = "absolute";
                     }
                 }
                 if (left < 0) {
@@ -748,25 +792,66 @@ define("components/dialog/1.0.1/dialog-debug", [ "$-debug", "base/createClass/1.
                 }
                 x = x || left;
                 y = y || top;
-                widgetEle.css({
+                dialogEle.css({
                     left: x,
                     top: y,
-                    position: pos
+                    position: conf.position
                 });
                 return that;
             }
         }
     });
+    // 添加静态方法
+    Dialog.confirm = function(tipTxt, callback) {
+        var contentEle = $([ '<p style="padding:15px 0 0;margin:0;font-size:14px;color:#666;line-height:1.5;text-align:center;">' + tipTxt + "</p>", '<div style="padding:15px 0;text-align:center;font-size:13px;">', '<a class="J-confirmBtn" href="javascript:;" style="color:#333;">确定</a>&nbsp;&nbsp;&nbsp;&nbsp;', '<a class="J-cancelBtn" href="javascript:;" style="color:#999;">取消</a>', "</div>" ].join(""));
+        var dialog = Dialog.confirm._getConfirmDialogObj();
+        var closeBtn = dialog.getAttr("dialogCloseEle"), confirmBtn = contentEle.find("a.J-confirmBtn"), cancelBtn = contentEle.find("a.J-cancelBtn");
+        var _callback = function(isConfirm) {
+            dialog.hide();
+            if (typeof callback === "function") {
+                callback(isConfirm);
+            }
+        };
+        dialog.getAttr("dialogBdEle").empty().append(contentEle);
+        confirmBtn.on("click", function() {
+            _callback(true);
+        });
+        closeBtn.on("click", function() {
+            _callback(false);
+        });
+        cancelBtn.on("click", function() {
+            _callback(false);
+        });
+        dialog.show();
+        return this;
+    };
+    Dialog.confirm._getConfirmDialogObj = singleton(new Dialog({
+        width: 400,
+        title: "提示"
+    }));
+    // 添加静态方法
+    Dialog.alter = function(tipTxt) {
+        var contentEle = $([ '<p style="padding:15px 0 0;margin:0;font-size:14px;color:#666;line-height:1.5;text-align:center;">' + tipTxt + "</p>", '<div style="padding:15px 0;text-align:center;font-size:13px;">', '<a class="J-confirmBtn" href="javascript:;" style="color:#333;">确定</a>', "</div>" ].join(""));
+        var dialog = Dialog.alter._getAlterDialogObj();
+        var confirmBtn = contentEle.find("a.J-confirmBtn"), closeBtn = dialog.getAttr("dialogCloseEle");
+        dialog.getAttr("dialogBdEle").empty().append(contentEle);
+        confirmBtn.on("click", function() {
+            dialog.hide();
+        });
+        dialog.show();
+        return this;
+    };
+    Dialog.alter._getAlterDialogObj = singleton(new Dialog({
+        width: 400,
+        title: "提示"
+    }));
     return Dialog;
 });
-
-/**
+;/**
  * @Author : 陈海云
- * @Date   : 2014-06-25
+ * @Date   : 2014-05-15
  * @Memo   : 实现一个生成、控制页面遮罩层的对象，在实现弹出层或其他效果是可以遮挡页面
- *           该类控制一个mask可对象，mask对象为Layer（components/layer/0.0.1/layer）
- *           的实例，切该对象为一个单例对象，不管在页面中有多少地方需要显示遮罩，调用
- *           的对象均为同一个对象指针
+ * 
  * 
  * @Methods:
  *      show:
@@ -784,74 +869,38 @@ define("components/dialog/1.0.1/dialog-debug", [ "$-debug", "base/createClass/1.
  *          参数: 无；
  *          返回值: 当前对象；
  * 
- *      setStyle:
- *          描述: 设置遮罩层样式，只支持设置 background(背景，默认为#000——黑色)、opacity(透明度，默认为0.7——70%的透明度)两个样式；
- *          参数: 
- *              propName——样式属性名称；必填；字符串、对象；当为对象时，不会读取value参
- *                        数的值，而是提取该对象的 background、opacity两个属性值，来设
- *                        置对应的样式
- *              value——样式值
- *          返回值: 当前对象；
- * 
  */
-define("components/dialog/1.0.1/mask-debug", [ "$-debug", "components/layer/0.0.1/layer-debug" ], function(require, exports, module) {
-    var $ = require("$-debug"), Layer = require("components/layer/0.0.1/layer-debug");
-    var body = $(document.body), mask = new Layer().render();
-    var maskEle = mask.getAttr("widgetEle");
-    maskEle.css({
-        height: body.outerHeight(true),
-        width: body.outerWidth(true),
-        background: "#000",
-        opacity: "0.7",
-        position: "absolute",
-        left: 0,
-        top: 0,
-        zIndex: "9999"
-    });
+define("components/dialog/1.0.0/mask-debug", [ "$-debug" ], function(require, exports, module) {
+    var $ = require("$-debug");
+    var maskEleHtml = [ '<div style="display: none; background: #000; opacity:0.2; filter:Alpha(opacity=20); position: absolute; left: 0; top: 0; z-index: 9999;"></div>' ].join("");
     var maskObj = {
+        maskEle: $(maskEleHtml),
         show: function() {
-            var that = this;
-            maskEle.css({
-                height: body.outerHeight(true),
-                width: body.outerWidth(true)
-            });
-            mask.show();
-            return that;
+            this.setSize();
+            this.maskEle.show();
+            return this;
         },
         hide: function() {
-            var that = this;
-            mask.hide();
-            return that;
+            this.maskEle.hide();
+            return this;
         },
         setSize: function() {
-            var that = this;
-            maskEle.css({
-                height: body.outerHeight(true),
-                width: body.outerWidth(true)
+            var $doc = $(document);
+            this.maskEle.css({
+                width: $doc.width(),
+                height: $doc.height()
             });
-            return that;
-        },
-        setStyle: function(propName, value) {
-            var styleObj = {};
-            if (typeof propName === "object" && propName.constructor === Object) {
-                styleObj.opacity = propName.opacity || "0.2";
-                styleObj.background = propName.background || "#000";
-            } else if (typeof propName === "string" && value) {
-                if (propName === "opacity" || propName === "background") {
-                    styleObj[propName] = value;
-                }
-            }
-            maskEle.css(styleObj);
             return this;
         }
     };
+    maskObj.maskEle.appendTo(document.body);
+    // 监听浏览器窗口的resize（改变窗口大小）事件，同时调整遮罩层的尺寸
     $(window).on("resize", function() {
         maskObj.setSize();
     });
     return maskObj;
 });
-
-/**
+;/**
  * @Author     : 陈海云
  * @Date       : 2014-06-25
  * @SuperClass : Widget
@@ -877,6 +926,13 @@ define("components/dialog/1.0.1/mask-debug", [ "$-debug", "components/layer/0.0.
  *          参数: 
  *              left——弹出层根节点的水平方向坐标，
  *              top——弹出层跟解答的垂直方向坐标；
+ *          返回值: 当前对象；
+ * 
+ *      setSize:
+ *          描述: 设置tip尺寸；
+ *          参数: 
+ *              width——tip宽度；选填；默认为auto；
+ *              height——tip高度；选填；默认为auto；
  *          返回值: 当前对象；
  * 
  *      
@@ -897,6 +953,9 @@ define("components/layer/0.0.1/layer-debug", [ "$-debug", "base/createClass/1.0.
         methods: {
             show: function() {
                 var that = this, widgetEle = that.getAttr("widgetEle");
+                if (widgetEle.css("display") !== "none") {
+                    return that;
+                }
                 widgetEle.show();
                 return that;
             },
@@ -924,20 +983,29 @@ define("components/layer/0.0.1/layer-debug", [ "$-debug", "base/createClass/1.0.
                     top: top
                 });
                 return that;
+            },
+            setSize: function(width, height) {
+                var that = this, widgetEle = that.getAttr("widgetEle");
+                width = width || "auto";
+                height = height || "auto";
+                widgetEle.css({
+                    height: height,
+                    width: width
+                });
+                return that;
             }
         }
     });
     return Layer;
 });
-
-/**
+;/**
  * @Author      : 陈海云
  * @Date        : 2014-06-12
  * @Memo        : 实现一个模拟进度的过程（可用于ajax请求等场景，模拟进度条），
  *                进度的值都是模拟实现，并非任务准确的进度
- * @superClass  : PubSub，继承该类，为了实现其事件处理的机制，
- * @param       : 无
- * @methods: 
+ * @SuperClass  : PubSub，继承该类，为了实现其事件处理的机制，
+ * @Param       : 无
+ * @Methods: 
  *      start:
  *          描述       : 启动进度，当任务开始的时候调用此方法
  *          参数       : 无
@@ -965,13 +1033,14 @@ define("components/layer/0.0.1/layer-debug", [ "$-debug", "base/createClass/1.0.
  *          返回值    : 当前进度的值，0-100的一个数字
  * 
  *      其他方法：其他方法继承自超类：PubSub，请参考该类的方法
- * @events：
- *      start   : 启动时触发
- *      finish  : 进度完成时触发
- *      pause   : 进度暂停时触发
- *      stop    : 进度停止时触发
- *      restart : 进度重启
- *      progress: 进度进行中时触发（进度每次发生变化都会触发）
+ * @Events:
+ *      start      : 启动时触发
+ *      finish     : 进度完成时触发
+ *      pause      : 进度暂停时触发
+ *      stop       : 进度停止时触发
+ *      restart    : 进度重启
+ *      progress   : 进度进行中时触发（进度每次发生变化都会触发）
+ * 
  */
 define("components/progress/0.0.1/progress-debug", [ "base/createClass/1.0.1/createClass-debug", "base/pubSub/1.0.0/pubSub-debug" ], function(require) {
     var createClass = require("base/createClass/1.0.1/createClass-debug"), PubSub = require("base/pubSub/1.0.0/pubSub-debug");
@@ -1057,26 +1126,20 @@ define("components/progress/0.0.1/progress-debug", [ "base/createClass/1.0.1/cre
     });
     return Progress;
 });
-
-/**
+;/**
  * @Author：陈海云
  * @Date：2014-5-15
  * @SuperClass：SubPub(继承订阅-发布模式的实现，以实现事件处理的功能)
+ * @Update: 增加方法select(index)，选中父类
  * @Memo：实现一个选项卡切换功能（tab）
  * @param: conf = {
- *      tabItems: 所有Tab项的节点列表
- *      event: 触发切换的时间
- *      selectedClass: 选中tab项样式的className
+ *     tabItems: 所有Tab项的节点列表
+ *     event: 触发切换的时间
+ *     selectedClass: 选中tab项样式的className
  * }
- * @methods: 
- *      select(index)——选中index对应的tab项
- *      （说明：有些方法继承自父类或者通过createClass实现，请参考父类和createClass函数）
- * 
- * @private: 
- *      inedx——当前选中的的tab项的索引
- *      （说明：私有属性可以通过setAttr(name, value) 和  getAttr(name)设置和获取）
+ * @methods: 无（有些方法继承自父类或者通过createClass实现，请参考父类和createClass函数）
  */
-define("components/tab/1.0.1/tab-debug", [ "$-debug", "base/createClass/1.0.0/createClass-debug", "base/pubSub/1.0.0/pubSub-debug" ], function(require, exports, module) {
+define("components/tab/1.0.0/tab-debug", [ "$-debug", "base/createClass/1.0.0/createClass-debug", "base/pubSub/1.0.0/pubSub-debug" ], function(require, exports, module) {
     var $ = require("$-debug");
     var createClass = require("base/createClass/1.0.0/createClass-debug"), PubSub = require("base/pubSub/1.0.0/pubSub-debug");
     var Tab = createClass({
@@ -1089,24 +1152,18 @@ define("components/tab/1.0.1/tab-debug", [ "$-debug", "base/createClass/1.0.0/cr
             tabItems.each(function(index) {
                 var tabItm = $(this);
                 tabItm.bind(eventName, function() {
-                    that.select(index);
+                    tabItems.removeClass(selectedClass);
+                    tabItm.addClass(selectedClass);
+                    that.setAttr("index", index);
+                    that.on("change");
                 });
             });
         },
-        methods: {
-            select: function(index) {
-                var that = this, tabItems = this.getAttr("tabItems"), selectedClass = this.getAttr("selectedClass");
-                tabItems.removeClass(selectedClass);
-                tabItems.eq(index).addClass(selectedClass);
-                that.setAttr("index", index);
-                that.on("change");
-            }
-        }
+        methods: {}
     });
     return Tab;
 });
-
-/**
+;/**
  * @Author：陈海云
  * @Date：2014-05-16
  * @Memo：提供一个记录超时时间的构造函数，使用场景：一个操作需要
@@ -1197,137 +1254,74 @@ define("components/timeout/0.0.1/timeout-debug", [ "base/createClass/1.0.2/creat
     });
     return Timeout;
 });
-
-/**
- * @Author      : 陈海云
- * @Date        : 2014-06-26
- * @SuperClass  : Layer
- * @Memo        : 提供一个具有基本功能气泡形状提示功能的组件
- * 
- * @param: 
- *      conf——实例化时初始配置对象，该对象的可配置想如下
- *              {
- *                  fadeOutHide   : 是否以淡出的方式隐藏
- *                  theme         : 提示框的主题，可选，（样式，默认为黑色主题）；
- *                  tipText       : 提示文案，可选，默认为空字符串；
- *                  arrowPosition : 箭头方向（以组件根节点的时钟方向为参考），默认为11点钟方向；
- *              }
- * 
- * @Methods:
- *      bindUI:
- *          描述: 重写了基类 Widget 的方法，绑定一些事件；
- *          参数: 无
- *          返回值: 当前对象
- * 
- *      setArrowPosition:
- *          描述: 设置提示框的箭头的方位；
- *          参数: 
- *              arrowPosition——箭头的时钟方向；数字，1-12之间；
- *          返回值: 当前对象
- * 
- *      setTheme:
- *          描述: 设置提示框的主题样式；
- *          参数: 
- *              theme——主题名称，当前支持6中样式，默认（值为空即可）、红色（red）、蓝
- *                     色（blue）、绿色（green）、白色（white）、橙色（orange）
- *          返回值: 当前对象
- * 
- *      setTipText:
- *          描述: 设置提示文案；
- *          参数: 
- *              tipText——提示文案，字符串
- *          返回值: 当前对象
- * 
- *      position:
- *          描述: 
- *             设置提示的坐标，其坐标不是直接设置组件根节点，而是根据计算设置成提示组
- *             件箭头顶端的坐标，比如：通过该方法position(100, 100)将x、y坐标分别
- *             设置成100，而此时的效果则是：箭头的顶端坐标正好在(100, 100)的位置；
- *          参数: 
- *              left——箭头水平坐标；
- *              top——箭头垂直坐标
- * 
- *          返回值: 当前对象
- * 
- *          部分方法继承自父类，请参考父类
- * 
- * 
- * @Events: 无；
- * 
- */
-define("components/tip/0.0.2/tip-debug", [ "$-debug", "base/createClass/1.0.2/createClass-debug", "components/layer/0.0.1/layer-debug" ], function(require) {
-    var $ = require("$-debug"), createClass = require("base/createClass/1.0.2/createClass-debug"), Layer = require("components/layer/0.0.1/layer-debug");
-    var template = [ '<div class="sea-tip2-content"></div>', '<i class="sea-tip2-pointer sea-tip2-pointer-11">◆</i>' ].join("");
+;define("components/tip/0.0.1/tip-debug", [ "$-debug", "base/createClass/1.0.2/createClass-debug", "base/pubSub/1.0.0/pubSub-debug" ], function(require) {
+    seajs.importStyle([ '.sea-tip{ padding: 5px 10px; border-radius: 5px; line-height: 1.7; background: #000; color: #fff; font-family: "microsoft yahei", "微软雅黑"; overflow: visible; position: absolute; z-index: 10010;}', ".sea-tip-content{ height: auto;}", '.sea-tip-pointer{ display: block; height: 12px; width: 12px; line-height: 12px; color: #000; font-style: normal; font-family: "宋体"; font-size: 12px; position: absolute;}', ".sea-tip-pointer-1{ left: 70%; top: -6px; margin-left: -6px;}", ".sea-tip-pointer-2{ top: 30%; right: -6px; margin-top: -6px;}", ".sea-tip-pointer-3{ top: 50%; right: -6px; margin-top: -6px;}", ".sea-tip-pointer-4{ top: 70%; right: -6px; margin-top: -6px;}", ".sea-tip-pointer-5{ left: 70%; bottom: -7px; margin-left: -6px;}", ".sea-tip-pointer-6{ left: 50%; bottom: -7px; margin-left: -6px;}", ".sea-tip-pointer-7{ left: 30%; bottom: -7px; margin-left: -6px;}", ".sea-tip-pointer-8{ top: 70%; left: -6px; margin-top: -6px;}", ".sea-tip-pointer-9{ top: 50%; left: -6px; margin-top: -6px;}", ".sea-tip-pointer-10{ top: 30%; left: -6px; margin-top: -6px;}", ".sea-tip-pointer-11{ left: 30%; top: -6px; margin-left: -6px;}", ".sea-tip-pointer-12{ left: 50%; top: -6px; margin-left: -6px;}", ".sea-tip-theme-red{ background: #f28c77; color: #fff;}", ".sea-tip-theme-red .sea-tip-pointer{ color: #f28c77;}", ".sea-tip-theme-blue{ background: #71c6f7; color: #fff;}", ".sea-tip-theme-blue .sea-tip-pointer{ color: #71c6f7;}", ".sea-tip-theme-green{ background: #4bc577; color: #fff;}", ".sea-tip-theme-green .sea-tip-pointer{ color: #4bc577;}", ".sea-tip-theme-white{ background: #eee; color: #333;}", ".sea-tip-theme-white .sea-tip-pointer{ color: #eee;}" ].join(""));
+    var $ = require("$-debug"), createClass = require("base/createClass/1.0.2/createClass-debug"), PubSub = require("base/pubSub/1.0.0/pubSub-debug");
     var Tip = createClass({
-        superClass: Layer,
         init: function(conf) {
-            var that = this;
-            conf = $.extend({
-                theme: "",
-                tipText: "",
-                arrowPosition: 11
-            }, conf);
-            that.setAttr(conf);
+            var _conf = conf || {};
+            var that = this, template = [ '<div class="sea-tip sea-tip-theme-white">', '<div class="sea-tip-content"></div>', '<i class="sea-tip-pointer">◆</i>', "</div>" ].join("");
+            var tipEle = $(template), contentEle = tipEle.children("div.sea-tip-content"), arrowEle = tipEle.children("i.sea-tip-pointer"), theme = _conf.theme || "", tipText = _conf.tipText || "", arrowPosition = _conf.arrowPosition || 10;
+            that.setAttr({
+                template: template,
+                theme: theme,
+                tipText: tipText,
+                arrowPosition: arrowPosition,
+                tipEle: tipEle,
+                contentEle: contentEle,
+                arrowEle: arrowEle
+            });
+            that.setTipText(tipText).setTheme(theme).setArrowPosition(arrowPosition);
+            tipEle.appendTo(document.body).hide();
         },
         methods: {
-            bindUI: function() {
-                var that = this, widgetEle = that.getAttr("widgetEle");
-                that.on("render", function() {
-                    widgetEle.addClass("sea-tip2").html(template);
-                    that.setAttr({
-                        contentEle: widgetEle.find("div.sea-tip2-content"),
-                        arrowEle: widgetEle.find("i.sea-tip2-pointer")
-                    });
-                    that.setArrowPosition(that.getAttr("arrowPosition"));
-                    that.setTheme(that.getAttr("theme"));
-                    that.setTipText(that.getAttr("tipText"));
-                });
+            show: function() {
+                var that = this, tipEle = that.getAttr("tipEle");
+                tipEle.show();
+                return that;
             },
-            // 设置箭头方向
+            hide: function() {
+                var that = this, tipEle = that.getAttr("tipEle");
+                tipEle.hide();
+                return that;
+            },
             setArrowPosition: function(arrowPosition) {
-                var that = this, arrowEle = that.getAttr("arrowEle"), arrowClass = "sea-tip2-pointer sea-tip2-pointer-";
+                var that = this, arrowEle = that.getAttr("arrowEle"), arrowClass = "sea-tip-pointer-";
                 arrowPosition = parseInt(arrowPosition, 10);
-                if (arrowPosition < 1 || arrowPosition > 12 || !arrowPosition) {
-                    arrowPosition = that.getAttr("arrowPosition");
+                if (arrowPosition < 1 || arrowPosition > 12) {
+                    arrowPosition = 11;
                 }
                 arrowClass = arrowClass + arrowPosition;
-                arrowEle.removeClass().addClass(arrowClass);
+                arrowEle.removeClass().addClass("sea-tip-pointer " + arrowClass);
                 that.setAttr("arrowPosition", arrowPosition);
                 return that;
             },
-            // 设置主题
             setTheme: function(theme) {
-                var that = this, widgetEle = that.getAttr("widgetEle"), oldTheme = that.getAttr("theme"), newThemeClass = "";
-                if (!theme) {
-                    theme = oldTheme;
+                var that = this, tipEle = that.getAttr("tipEle"), oldThemeClass = that.getAttr("theme"), newThemeClass = "";
+                if (theme !== "") {
+                    newThemeClass = "sea-tip-theme-" + theme;
                 }
-                if (theme === "") {
-                    newThemeClass = "";
-                } else {
-                    newThemeClass = "sea-tip2-theme-" + theme;
-                }
-                widgetEle.removeClass().addClass("sea-tip2 " + newThemeClass);
+                tipEle.removeClass().addClass("sea-tip " + newThemeClass);
                 that.setAttr("theme", theme);
                 return that;
             },
-            // 设置提示文本（支持html）
             setTipText: function(tipText) {
-                var contentEle = this.getAttr("contentEle");
+                var that = this, tipEle = that.getAttr("tipEle"), contentEle = that.getAttr("contentEle");
                 contentEle.html(tipText);
-                return this;
+                that.setAttr("tipText", tipText);
+                return that;
             },
-            // 定位（定位目标为箭头），重写父类方法
-            position: function(left, top) {
-                var that = this, widgetEle = that.getAttr("widgetEle"), arrowEle = that.getAttr("arrowEle"), arrowPosition = that.getAttr("arrowPosition");
+            setPosition: function(left, top) {
+                var that = this, tipEle = that.getAttr("tipEle"), arrowEle = that.getAttr("arrowEle"), arrowPosition = that.getAttr("arrowPosition");
                 var tipEleOffset, arrowEleOffset;
-                var tipIsShow = widgetEle.css("display") === "block";
+                var tipIsShow = tipEle.css("display") === "block";
                 if (!tipIsShow) {
-                    widgetEle.css("display", "block");
+                    tipEle.css("display", "block");
                 }
-                tipEleOffset = widgetEle.offset();
+                tipEleOffset = tipEle.offset();
                 arrowEleOffset = arrowEle.offset();
-                left = parseInt(left, 10);
-                top = parseInt(top, 10);
+                left = parseInt(left, 10) || tipEleOffset.left;
+                top = parseInt(top, 10) || tipEleOffset.top;
                 left = left - (arrowEleOffset.left - tipEleOffset.left);
                 top = top - (arrowEleOffset.top - tipEleOffset.top);
                 switch (arrowPosition) {
@@ -1358,7 +1352,7 @@ define("components/tip/0.0.2/tip-debug", [ "$-debug", "base/createClass/1.0.2/cr
                     break;
 
                   default:                }
-                widgetEle.css({
+                tipEle.css({
                     left: left,
                     top: top
                 });
@@ -1369,180 +1363,34 @@ define("components/tip/0.0.2/tip-debug", [ "$-debug", "base/createClass/1.0.2/cr
             }
         }
     });
-    // 引入样式
-    require("./css/tipStyle-debug.css");
     return Tip;
 });
-
-/**
- * @Author      : 陈海云
- * @Date        : 2014-06-26
- * @SuperClass  : Tip（components/tip/0.0.2/tip）
- * @Memo        : 提供一个具有多功能气泡形状提示功能的组件，对Tip（components/tip/0.0.2/tip）类进行了扩展
- * 
- * @param: 
- *      conf——实例化时初始配置对象，可配置属性在其父类Tip的基础上又增加了一下两项：
- *          {
- *              trigger     : 唤出tip的DOM节点；
- *              triggerType : 唤出tip节点的事件类型，默认为hover，即：鼠标移到trigger上时，显
- *                            示tip，移出时隐藏tip；当前支持三种事件类型：hover、click（单击
- *                            trigger时唤出tip）、focus（trigger获取焦点是唤出tip）；
- *          }
- * 
- * @Methods:
- *      bindUI:
- *          描述: 重写了基类 Widget 的方法，绑定一些事件；
- *          参数: 无
- *          返回值: 当前对象
- * 
- *      show:
- *          描述: 根据trigger的位置以及arrowPosition来显示tip，重写了父类的此方法；
- *          参数: 无；
- *          返回值: 当前对象
- * 
- *      relocation:
- *          描述: 根据trigger的位置以及arrowPosition重新定位tip的位置；
- *          参数: 无；
- *          返回值: 当前对象
- * 
- *      computePosition:
- *          描述: 根据trigger的位置以及arrowPosition计算出tip的位置；
- *          参数: 无；
- *          返回值: 当前对象
- * 
- *      temporaryShow:
- *          描述: 根据设置的时间，临时显示tip，过了设置的时间长度，tip自动隐藏；
- *          参数: 
- *              time——临时显示的时间；数值；单位：毫秒；
- * 
- *          返回值: 当前对象
- * 
- *      setArrowPosition:
- *          描述: 设置tip的箭头位置，该位置是以trigger为参考；
- *          参数: 
- *              arrowPosition——箭头的时钟方向值；以trigger为参考，例如：参数值
- *                             为6，tip会显示在trigger的正下方，此时，如果以 
- *                             tip 组件根节点为参考的话，tip 箭头方向应为12，
- *                             该方法会自动计算；
- * 
- *          返回值: 当前对象
- * 
- *          部分方法继承自父类，请参考父类
- * 
- * 
- * @Events: 无；
- * 
- */
-define("components/toolTip/0.0.3/toolTip-debug", [ "$-debug", "base/createClass/1.0.2/createClass-debug", "components/tip/0.0.2/tip-debug" ], function(require) {
-    var $ = require("$-debug"), createClass = require("base/createClass/1.0.2/createClass-debug"), Tip = require("components/tip/0.0.2/tip-debug");
-    var TRIGGER_TYPE = [ "hover", "click", "focus" ];
+;define("components/toolTip/0.0.1/toolTip-debug", [ "$-debug", "base/createClass/1.0.1/createClass-debug", "components/tip/0.0.1/tip-debug" ], function(require) {
+    var $ = require("$-debug"), createClass = require("base/createClass/1.0.1/createClass-debug"), Tip = require("components/tip/0.0.1/tip-debug");
     var ToolTip = createClass({
-        superClass: Tip,
         init: function(conf) {
             var that = this;
-            conf = $.extend({}, conf);
-            if (conf.trigger) {
-                conf.trigger = $(conf.trigger).eq(0);
+            var tipObj = new Tip();
+            conf = $.extend({
+                trigger: $(conf.trigger).eq(0)
+            }, conf);
+            that.setAttr(conf).setAttr("tipObj", tipObj);
+            if (conf.tipText) {
+                that.setTipText(conf.tipText);
             }
-            if (indexOf.call(TRIGGER_TYPE, conf.triggerType) === -1) {
-                conf.triggerType = TRIGGER_TYPE[0];
+            if (conf.theme) {
+                that.setTheme(conf.theme);
             }
-            that.setAttr(conf);
+            if (conf.arrowPosition) {
+                that.setArrowPosition(conf.arrowPosition);
+            }
         },
         methods: {
-            bindUI: function() {
-                var that = this, widgetEle = that.getAttr("widgetEle"), trigger = that.getAttr("trigger"), triggerType = that.getAttr("triggerType");
-                var $win = $(window);
-                // 窗口大小变化是，则根据trigger的位置重新定位tip的位置
-                function resize() {
-                    if (widgetEle.css("display") !== "none") {
-                        that.relocation();
-                    }
-                }
-                that.superClass.prototype.bindUI.apply(that);
-                if (trigger) {
-                    $win.on("resize", resize);
-                    that.on("destroy", function() {
-                        $win.off("resize", resize);
-                    });
-                    if (triggerType === "hover") {
-                        var showFlag = false;
-                        trigger.hover(function() {
-                            showFlag = true;
-                            that.show();
-                        }, function() {
-                            showFlag = false;
-                            window.setTimeout(function() {
-                                if (!showFlag) {
-                                    that.hide();
-                                }
-                            }, 100);
-                        });
-                        widgetEle.hover(function() {
-                            showFlag = true;
-                            that.show();
-                        }, function() {
-                            showFlag = false;
-                            window.setTimeout(function() {
-                                if (!showFlag) {
-                                    that.hide();
-                                }
-                            }, 100);
-                        });
-                    } else if (triggerType === "click") {
-                        widgetEle.on("click", function() {
-                            return false;
-                        });
-                        // 点击文档中的其他（除trigger的）地方时，隐藏tip
-                        $(document.body).on("click", function(ev) {
-                            if (ev.srcElement !== trigger[0]) {
-                                that.hide();
-                            }
-                        });
-                        trigger.on("click", function() {
-                            that.show();
-                        });
-                    } else if (triggerType === "focus") {
-                        widgetEle.on("mousedown", function() {
-                            return false;
-                        });
-                        trigger.on("focus", function() {
-                            that.show();
-                        });
-                        trigger.on("blur", function() {
-                            that.hide();
-                        });
-                    }
-                }
-            },
-            // 方法：根据设置的箭头方向重新定位后显示tip（覆盖父类的show方法）
             show: function() {
-                var that = this, trigger = that.getAttr("trigger");
-                if (trigger) {
-                    that.relocation();
-                }
-                that.getAttr("widgetEle").show();
-                that.on("show");
-                return that;
-            },
-            // 方法：根据设置的箭头方向重新定位后tip
-            relocation: function() {
-                var that = this, thePosition = that.computePosition();
-                that.position(thePosition.left, thePosition.top);
-                return that;
-            },
-            // 方法：根据设置的箭头方向计算出tip的位置
-            computePosition: function() {
-                var that = this, trigger = that.getAttr("trigger"), offset = trigger.offset(), triggerWidth = trigger.outerWidth(), triggerHeight = trigger.outerHeight(), arrowPosition = that.getAttr("triggerArrowPosition"), // 箭头和trigger直接的距离
-                space = 5, left, top;
+                var that = this, tipObj = that.getAttr("tipObj"), trigger = that.getAttr("trigger"), offset = trigger.offset(), triggerWidth = trigger.outerWidth(), triggerHeight = trigger.outerHeight(), arrowPosition = that.getAttr("arrowPosition"), space = 5, left, top;
                 left = offset.left;
                 top = offset.top;
                 switch (arrowPosition) {
-                  case 1:
-                    top = top - space;
-                    left = left + triggerWidth * .66;
-                    break;
-
                   case 2:
                     top = top + triggerHeight * .33;
                     left = left + triggerWidth + space;
@@ -1588,6 +1436,11 @@ define("components/toolTip/0.0.3/toolTip-debug", [ "$-debug", "base/createClass/
                     left = left - space;
                     break;
 
+                  case 1:
+                    top = top - space;
+                    left = left + triggerWidth * .66;
+                    break;
+
                   case 11:
                     top = top - space;
                     left = left + triggerWidth * .33;
@@ -1599,12 +1452,9 @@ define("components/toolTip/0.0.3/toolTip-debug", [ "$-debug", "base/createClass/
                     break;
 
                   default:                }
-                return {
-                    left: left,
-                    top: top
-                };
+                tipObj.setPosition(left, top).show();
+                return that;
             },
-            // 方法：临时显示tip，根据设置的time长时间段临时显示tip
             temporaryShow: function(time) {
                 var that = this, temporaryTimer = that.getAttr("temporaryTimer");
                 if (temporaryTimer) {
@@ -1617,39 +1467,87 @@ define("components/toolTip/0.0.3/toolTip-debug", [ "$-debug", "base/createClass/
                 that.show();
                 return that;
             },
-            /*
-             * 方法：设置箭头的方向，以trigger为参考对象设置箭头钟表方向，如：trigger
-             * 的12点钟的方向，tip对应的方向则为6点钟（覆盖父类的show方法）
-             */
+            hide: function() {
+                var that = this, tipObj = that.getAttr("tipObj");
+                tipObj.hide();
+                return that;
+            },
             setArrowPosition: function(arrowPosition) {
-                var that = this, widgetEle = that.getAttr("widgetEle"), trigger = that.getAttr("trigger"), arrowMapping = [ 5, 10, 9, 8, 1, 12, 11, 4, 3, 2, 7, 6 ], tipArrowPosition = arrowPosition;
-                if (trigger) {
-                    // 如果设置了trigger，则进行此映射
-                    tipArrowPosition = arrowMapping[arrowPosition - 1];
-                }
-                that.setAttr("triggerArrowPosition", arrowPosition);
-                that.superClass.prototype.setArrowPosition.call(that, tipArrowPosition);
-                if (trigger && widgetEle.css("display") !== "none") {
-                    that.relocation();
-                }
+                var that = this, tipObj = that.getAttr("tipObj"), tipArrowPosition;
+                that.setAttr("arrowPosition", arrowPosition);
+                switch (arrowPosition) {
+                  case 1:
+                    tipArrowPosition = 5;
+                    break;
+
+                  case 2:
+                    tipArrowPosition = 10;
+                    break;
+
+                  case 3:
+                    tipArrowPosition = 9;
+                    break;
+
+                  case 4:
+                    tipArrowPosition = 8;
+                    break;
+
+                  case 5:
+                    tipArrowPosition = 1;
+                    break;
+
+                  case 6:
+                    tipArrowPosition = 12;
+                    break;
+
+                  case 7:
+                    tipArrowPosition = 11;
+                    break;
+
+                  case 8:
+                    tipArrowPosition = 4;
+                    break;
+
+                  case 9:
+                    tipArrowPosition = 3;
+                    break;
+
+                  case 10:
+                    tipArrowPosition = 2;
+                    break;
+
+                  case 11:
+                    tipArrowPosition = 7;
+                    break;
+
+                  case 12:
+                    tipArrowPosition = 6;
+                    break;
+
+                  default:                }
+                tipObj.setArrowPosition(tipArrowPosition);
+                return that;
+            },
+            setTheme: function(theme) {
+                var that = this, tipObj = that.getAttr("tipObj");
+                tipObj.setTheme(theme);
+                return that;
+            },
+            setTipText: function(tipText) {
+                var that = this, tipObj = that.getAttr("tipObj");
+                tipObj.setTipText(tipText);
+                return that;
+            },
+            setPosition: function(left, top) {
+                var that = this, tipObj = that.getAttr("tipObj");
+                tipObj.setPosition(left, top);
                 return that;
             }
         }
     });
-    var indexOf = Array.prototype.indexOf || function(ele) {
-        var arr = this, reuslt = -1;
-        for (var i = 0, l = arr.length; i < l; i++) {
-            if (arr[i] === ele) {
-                result = i;
-                break;
-            }
-        }
-        return result;
-    };
     return ToolTip;
 });
-
-/**
+;/**
  * @Author：陈海云
  * @Date：2014-5-15
  * @SuperClass：SubPub(继承订阅-发布模式的实现，以实现事件处理的功能)
@@ -1736,8 +1634,7 @@ define("components/vScroll/0.0.1/vScroll-debug", [ "$-debug", "base/createClass/
     });
     return Vscroll;
 });
-
-/**
+;/**
  * @Author      : 陈海云
  * @Date        : 2014-06-23
  * @SuperClass  : PubSub

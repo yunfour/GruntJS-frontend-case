@@ -98,7 +98,7 @@ define(function(require) {
                     }
                 }
                 
-                that.superClass.prototype.bindUI.apply(that);
+                that._superClass.prototype.bindUI.apply(that);
                 
                 if(trigger) {
                     
@@ -350,7 +350,7 @@ define(function(require) {
                 }
                 
                 that.setAttr('triggerArrowPosition', arrowPosition);
-                that.superClass.prototype.setArrowPosition.call(that, tipArrowPosition);
+                that._superClass.prototype.setArrowPosition.call(that, tipArrowPosition);
                 
                 if(trigger && widgetEle.css('display') !== 'none') {
                     that.relocation();

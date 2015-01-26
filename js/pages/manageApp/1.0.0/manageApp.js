@@ -1,15 +1,2 @@
-define("pages/manageApp/1.0.0/manageApp", [ "$" ], function(require) {
-    var $ = require("$");
-    var appLst = $("#J-appLst");
-    // 单击“推广信息栏”的时候显示/隐藏进度条
-    appLst.delegate("div.app-spread-info", "click", function() {
-        var rateSwitchBtn = $(this), stateIco = rateSwitchBtn.find("i.com-ico"), rate = rateSwitchBtn.closest("li.app-lst-itm").find("div.app-rate");
-        if (stateIco.hasClass("up-ico")) {
-            rate.hide();
-            stateIco.removeClass().addClass("com-ico down-ico");
-        } else {
-            rate.show();
-            stateIco.removeClass().addClass("com-ico up-ico");
-        }
-    });
-});
+/*! gruntTest 2015-01-26 */
+define("pages/manageApp/1.0.0/manageApp",["$"],function(a){var b=a("$"),c=b("#J-appLst");c.delegate("div.app-spread-info","click",function(){var a=b(this),c=a.find("i.com-ico"),d=a.closest("li.app-lst-itm").find("div.app-rate");c.hasClass("up-ico")?(d.hide(),c.removeClass().addClass("com-ico down-ico")):(d.show(),c.removeClass().addClass("com-ico up-ico"))})});

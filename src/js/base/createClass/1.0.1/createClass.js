@@ -88,9 +88,9 @@ define(function (require, exports, module) {
             subClass.prototype = properties.superClass.prototype;
             Constructor.prototype = new subClass();
             
-            Constructor.prototype.superClass = properties.superClass;
+            Constructor.prototype._superClass = properties.superClass;
         } else {
-            Constructor.prototype.superClass = Object;
+            Constructor.prototype._superClass = Object;
         }
         
         // 缓存构造函数的原型对象

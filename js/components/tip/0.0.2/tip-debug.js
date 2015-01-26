@@ -45,7 +45,7 @@
  *             设置成100，而此时的效果则是：箭头的顶端坐标正好在(100, 100)的位置；
  *          参数: 
  *              left——箭头水平坐标；
- *              top——箭头垂直坐标
+ *              top ——箭头垂直坐标
  * 
  *          返回值: 当前对象
  * 
@@ -55,7 +55,7 @@
  * @Events: 无；
  * 
  */
-define("components/tip/0.0.2/tip-debug", [ "$-debug", "base/createClass/1.0.2/createClass-debug", "components/layer/0.0.1/layer-debug" ], function(require) {
+define("components/tip/0.0.2/tip-debug", [ "$-debug", "base/createClass/1.0.2/createClass-debug", "components/layer/0.0.1/layer-debug", "./css/tipStyle-debug.css" ], function(require) {
     var $ = require("$-debug"), createClass = require("base/createClass/1.0.2/createClass-debug"), Layer = require("components/layer/0.0.1/layer-debug");
     var template = [ '<div class="sea-tip2-content"></div>', '<i class="sea-tip2-pointer sea-tip2-pointer-11">◆</i>' ].join("");
     var Tip = createClass({

@@ -71,8 +71,7 @@ define("common/addTestDeviceDialog/0.0.1/addTestDeviceDialog-debug", [ "$-debug"
     }
     return addTestDeviceDialog;
 });
-
-define("common/dialog/0.0.1/dialog-debug", [ "$-debug", "base/createClass/1.0.2/createClass-debug", "components/widget/0.0.1/widget-debug", "components/dialog/1.0.1/dialog-debug" ], function(require) {
+;define("common/dialog/0.0.1/dialog-debug", [ "$-debug", "base/createClass/1.0.2/createClass-debug", "components/widget/0.0.1/widget-debug", "components/dialog/1.0.1/dialog-debug" ], function(require) {
     var $ = require("$-debug"), createClass = require("base/createClass/1.0.2/createClass-debug"), Widget = require("components/widget/0.0.1/widget-debug"), Dialog = require("components/dialog/1.0.1/dialog-debug");
     var template = [ '<div class="com-dialog">', '<h4 class="com-dialog-title"></h4>', '<div class="com-dialog-bd"></div>', '<a class="com-ico com-ico-close com-dialog-close" href="javascript:;" title="点击关闭窗口"></a>', "</div>" ].join("");
     var ComDialog = createClass({
@@ -186,8 +185,7 @@ define("common/dialog/0.0.1/dialog-debug", [ "$-debug", "base/createClass/1.0.2/
     ComDialog.confirm = confirmDialog;
     return ComDialog;
 });
-
-define("common/selectProvince/0.0.1/selectProvince-debug", [ "$-debug", "base/createClass/1.0.1/createClass-debug", "base/pubSub/1.0.0/pubSub-debug", "components/toolTip/0.0.1/toolTip-debug" ], function(require) {
+;define("common/selectProvince/0.0.1/selectProvince-debug", [ "$-debug", "base/createClass/1.0.1/createClass-debug", "base/pubSub/1.0.0/pubSub-debug", "components/toolTip/0.0.1/toolTip-debug" ], function(require) {
     var $ = require("$-debug"), createClass = require("base/createClass/1.0.1/createClass-debug"), PubSub = require("base/pubSub/1.0.0/pubSub-debug"), ToolTip = require("components/toolTip/0.0.1/toolTip-debug");
     var template = [ '<form class="com-form" style="width:400px;padding:20px">', '<div class="com-form-item" style="padding-left:80px">', '<label class="com-label com-checkbox-group" style="width:70px;color:#56c1ff;text-align:left;top:2px;cursor:pointer;"><input type="checkbox" name="area" value="华东"> 华东</label>', '<div class="com-checkbox-group">', '<label><input type="checkbox" name="province" value="山东"> 山东</label>', '<label><input type="checkbox" name="province" value="江苏"> 江苏</label>', '<label><input type="checkbox" name="province" value="安徽"> 安徽</label>', '<label><input type="checkbox" name="province" value="浙江"> 浙江</label>', '<label><input type="checkbox" name="province" value="福建"> 福建</label>', '<label><input type="checkbox" name="province" value="上海"> 上海</label>', '<label><input type="checkbox" name="province" value="广东"> 广东</label>', "</div>", "</div>", '<div class="com-form-item" style="padding-left:80px">', '<label class="com-label com-checkbox-group" style="width:70px;color:#56c1ff;text-align:left;top:2px;cursor:pointer;"><input type="checkbox" name="area" value="华南"> 华南</label>', '<div class="com-checkbox-group">', '<label><input type="checkbox" name="province" value="广西"> 广西</label>', '<label><input type="checkbox" name="province" value="海南"> 海南</label>', '<label><input type="checkbox" name="province" value="湖北"> 湖北</label>', '<label><input type="checkbox" name="province" value="湖南"> 湖南</label>', '<label><input type="checkbox" name="province" value="河南"> 河南</label>', '<label><input type="checkbox" name="province" value="江西"> 江西</label>', '<label><input type="checkbox" name="province" value="北京"> 北京</label>', '<label><input type="checkbox" name="province" value="天津"> 天津</label>', "</div>", "</div>", "</form>", '<a class="com-ico com-ico-16 com-ico-wrong" href="javascript:;" style="font-family:Dotum;right:10px;top:10px;font-weight:bold">x</a>' ].join("");
     var ProvinceTip = createClass({
@@ -247,8 +245,7 @@ define("common/selectProvince/0.0.1/selectProvince-debug", [ "$-debug", "base/cr
     });
     return ProvinceTip;
 });
-
-define("common/setAccountAuthDialog/0.0.1/setAccountAuthDialog-debug", [ "components/dialog/1.0.0/dialog-debug", "$-debug" ], function(require) {
+;define("common/setAccountAuthDialog/0.0.1/setAccountAuthDialog-debug", [ "components/dialog/1.0.0/dialog-debug", "$-debug" ], function(require) {
     var Dialog = require("components/dialog/1.0.0/dialog-debug"), $ = require("$-debug");
     var editAccountAuthDialog = function(managerId, callback) {
         var dialogContentEle = $([ '<form style="padding:20px 40px;">', "<fieldset>", "<label>选择管理级别</label>", '<div class="controls">', "<select>", '<option value="0">超级管理员</option>', '<option value="1">系统管理员</option>', '<option value="2">普通管理员</option>', "</select>", "</div>", '<div class="controls" style="padding: 10px 0 0;">', '<input type="button" class="btn" value=" 确  定 " />', "</div>", "</fieldset>", "<form>" ].join(""));
@@ -268,7 +265,6 @@ define("common/setAccountAuthDialog/0.0.1/setAccountAuthDialog-debug", [ "compon
                 }
             }, "JSON");
         };
-        console.log(dialog);
         confirmBtn.click(function() {
             setAuth(managerId, authLst.val());
             dialog.hide();
@@ -277,8 +273,7 @@ define("common/setAccountAuthDialog/0.0.1/setAccountAuthDialog-debug", [ "compon
     };
     return editAccountAuthDialog;
 });
-
-define("common/setFilter/0.0.1/setFilter-debug", [ "$-debug" ], function(require) {
+;define("common/setFilter/0.0.1/setFilter-debug", [ "$-debug" ], function(require) {
     var $ = require("$-debug");
     function setFilter(filterData, filterPanel, pagerPanel) {
         var fields = filterPanel.find("input,textarea,select"), filterBtn = filterPanel.find("a.J-filterBtn"), fieldSet = {}, filterUrl = filterPanel.attr("data-filter-url");
@@ -363,8 +358,7 @@ define("common/setFilter/0.0.1/setFilter-debug", [ "$-debug" ], function(require
     }
     return setFilter;
 });
-
-define("common/showInputErr/0.0.1/showInputErr-debug", [ "$-debug" ], function(require) {
+;define("common/showInputErr/0.0.1/showInputErr-debug", [ "$-debug" ], function(require) {
     var $ = require("$-debug");
     var showInputErr = function(field, isShow, errTxt) {
         var panel = field.closest("div.controls"), errEle = panel.find("span.com-form-err"), tipEle = panel.find("span.com-form-tip");
@@ -382,8 +376,7 @@ define("common/showInputErr/0.0.1/showInputErr-debug", [ "$-debug" ], function(r
     };
     return showInputErr;
 });
-
-define("common/tools/0.0.1/tools-debug", [ "$-debug" ], function(require) {
+;define("common/tools/0.0.1/tools-debug", [ "$-debug" ], function(require) {
     var $ = require("$-debug");
     // 常用的工具和函数
     var tools = {};
@@ -439,8 +432,7 @@ define("common/tools/0.0.1/tools-debug", [ "$-debug" ], function(require) {
     };
     return tools;
 });
-
-define("common/validateForm/0.0.1/validateForm-debug", [ "$-debug" ], function(require) {
+;define("common/validateForm/0.0.1/validateForm-debug", [ "$-debug" ], function(require) {
     var $ = require("$-debug");
     // 显示字段提示
     var showExplain = function(theField, isShow, type, explainTxt) {

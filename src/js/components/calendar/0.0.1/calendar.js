@@ -134,8 +134,8 @@ define(function(require) {
             '<h6 class="sea-calendar-title">',
                 '<a class="J-operate pre-year" href="javascript:;" title="上一年">&lt;&lt;</a>',
                 '<a class="J-operate pre-month" href="javascript:;" title="上一月">&lt;</a>',
-                '<a class="month" href="javascript:;"></a>',
                 '<a class="year" href="javascript:;"></a>',
+                '<a class="month" href="javascript:;"></a>',
                 '<a class="J-operate next-month" href="javascript:;" title="下一月">&gt;</a>',
                 '<a class="J-operate next-year" href="javascript:;" title="下一年">&gt;&gt;</a>',
             '</h6>',
@@ -442,7 +442,7 @@ define(function(require) {
                 
                 theDate = parseDate(theDate);
                 
-                renderCalendar.apply(that, [theDate]);
+                renderCalendar.call(that, theDate);
                 that.setAttr('selectedDate', theDate);
                 
                 return that;
@@ -455,7 +455,7 @@ define(function(require) {
                     widgetEle = that.getAttr('widgetEle');
                 
                 if(trigger) {
-                    positionByTrigger.apply(that);
+                    positionByTrigger.call(that);
                 }
                 
                 widgetEle.show();
@@ -501,7 +501,7 @@ define(function(require) {
                     selectedDate = that.getAttr('selectedDate');
                 
                 that.setAttr('range', range);
-                renderCalendar.apply(that, [selectedDate]);
+                renderCalendar.call(that, selectedDate);
                 
                 return that;
             },
@@ -552,7 +552,7 @@ define(function(require) {
                 trigger.off();
                 
                 // 调用父类的销毁方法
-                that.superClass.prototype.destroy.call(that);
+                that._superClass.prototype.destroy.call(that);
                 
                 return that;
             }
@@ -751,21 +751,17 @@ define(function(require) {
             if(!isInRange(parseDate(dateVal))) {
                 
                 dayItmClass = 'disabled';
-                
             } else if(i === day) {
                 
                 dayItmClass = 'active';
-                
             } else if(i === todayDay) {
                 
                 dayItmClass = 'today';
-                
             }
             
             dayItemHtml = dayItemHtml.replace('{dayItmClass}', dayItmClass);
             
             daylstHtml.push(dayItemHtml);
-            
         }
         
         daylstHtml = daylstHtml.join('');

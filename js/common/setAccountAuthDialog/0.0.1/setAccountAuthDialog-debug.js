@@ -18,7 +18,6 @@ define("common/setAccountAuthDialog/0.0.1/setAccountAuthDialog-debug", [ "compon
                 }
             }, "JSON");
         };
-        console.log(dialog);
         confirmBtn.click(function() {
             setAuth(managerId, authLst.val());
             dialog.hide();

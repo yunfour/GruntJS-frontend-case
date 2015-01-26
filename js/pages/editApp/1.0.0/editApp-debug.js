@@ -3,8 +3,7 @@ define("pages/editApp/1.0.0/editApp-debug", [ "$-debug", "./uploadAppIco-debug",
     require("./uploadAppIco-debug");
     require("./setFrm-debug");
 });
-
-define("pages/editApp/1.0.0/setFrm-debug", [ "$-debug", "common/validateForm/0.0.1/validateForm-debug" ], function(require) {
+;define("pages/editApp/1.0.0/setFrm-debug", [ "$-debug", "common/validateForm/0.0.1/validateForm-debug" ], function(require) {
     var $ = require("$-debug");
     var validateFrm = require("common/validateForm/0.0.1/validateForm-debug");
     var theFrm = $("#J-submitAppFrm"), imgUrl = $("#imgUrl"), appName = $("#appName"), kitName = $("#kitName"), appType = $("#appType"), submitBtn = theFrm.find("input[type=submit]");
@@ -80,8 +79,7 @@ define("pages/editApp/1.0.0/setFrm-debug", [ "$-debug", "common/validateForm/0.0
         return false;
     });
 });
-
-define("pages/editApp/1.0.0/uploadAppIco-debug", [ "$-debug", "gallery/upload/1.1.1/upload-debug", "components/tip/0.0.1/tip-debug" ], function(require) {
+;define("pages/editApp/1.0.0/uploadAppIco-debug", [ "$-debug", "gallery/upload/1.1.1/upload-debug", "components/tip/0.0.1/tip-debug" ], function(require) {
     var $ = require("$-debug"), Upload = require("gallery/upload/1.1.1/upload-debug");
     var Tip = require("components/tip/0.0.1/tip-debug");
     var uploadIcoBtn = $("#J-uploadIcoBtn"), selectIcoBtn = $("#J-selectIcoBtn"), uploadExplain = $("#J-uploadExplain");
